@@ -871,8 +871,13 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
           <label>Read Time</label><input type="text" id="aRead" placeholder="e.g. 5 min read">
           <label>Article Body * (use ## for headings, > for quotes, blank line between paragraphs)</label>
           <textarea id="aBody" rows="10" placeholder="Write your article here..."></textarea>
-          <label>Image URL (optional — upload to imgbb.com, use Direct Link)</label>
-          <input type="url" id="aImage" placeholder="https://i.ibb.co/...">
+          <label>Cover Image (optional — choose a photo from your device)</label>
+          <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+            <input type="file" id="aImageFile" accept="image/*" onchange="previewUpload(this,'aImagePreview')" style="flex:1;background:rgba(255,255,255,0.07);border:1.5px dashed rgba(245,166,35,0.4);color:rgba(255,255,255,0.7);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;">
+            <span id="aImageUploadStatus" style="font-size:0.78rem;color:var(--gold);"></span>
+          </div>
+          <img id="aImagePreview" src="" alt="" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-top:0.5rem;border:2px solid var(--gold);">
+          <input type="hidden" id="aImage">
           <label>Schedule Publication (optional — leave blank to publish immediately)</label>
           <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
             <input type="date" id="aPublishDate" style="flex:1;min-width:140px;">
@@ -897,8 +902,13 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
         <label>Location</label><input type="text" id="evLocation" placeholder="e.g. Lagos, Nigeria or Online">
         <label>Event Date</label><input type="date" id="evDate">
         <label>Event Time (WAT)</label><input type="time" id="evTime">
-        <label>Event Photos (upload each to imgbb.com, paste Direct Links separated by commas)</label>
-        <textarea id="evImage" rows="3" placeholder="https://i.ibb.co/photo1.jpg, https://i.ibb.co/photo2.jpg, https://i.ibb.co/photo3.jpg"></textarea>
+        <label>Event Photos (choose up to 5 photos from your device)</label>
+        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+          <input type="file" id="evImageFile" accept="image/*" multiple onchange="previewMultiUpload(this,'evImagePreviews')" style="flex:1;background:rgba(255,255,255,0.07);border:1.5px dashed rgba(245,166,35,0.4);color:rgba(255,255,255,0.7);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;">
+          <span id="evImageUploadStatus" style="font-size:0.78rem;color:var(--gold);"></span>
+        </div>
+        <div id="evImagePreviews" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem;"></div>
+        <input type="hidden" id="evImage">
         <div style="display:flex;gap:0.75rem;margin-top:1rem;flex-wrap:wrap;">
           <button class="btn btn-gold" id="evSubmitBtn" onclick="saveEvent()">Add Event</button>
           <button class="admin-cancel" onclick="clearEventForm()">Clear</button>
@@ -914,8 +924,13 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
         <input type="hidden" id="galleryEditId">
         <label>Photo Title (optional)</label><input type="text" id="galTitle" placeholder="e.g. Outreach in Lagos">
         <label>Category (optional)</label><input type="text" id="galCategory" placeholder="e.g. Outreach, Seminar, Team">
-        <label>Photo URLs * (upload each to imgbb.com, paste Direct Links separated by commas)</label>
-        <textarea id="galImage" rows="3" placeholder="https://i.ibb.co/photo1.jpg, https://i.ibb.co/photo2.jpg, https://i.ibb.co/photo3.jpg"></textarea>
+        <label>Photos * (choose up to 10 photos from your device at once)</label>
+        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+          <input type="file" id="galImageFile" accept="image/*" multiple onchange="previewMultiUpload(this,'galImagePreviews')" style="flex:1;background:rgba(255,255,255,0.07);border:1.5px dashed rgba(245,166,35,0.4);color:rgba(255,255,255,0.7);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;">
+          <span id="galImageUploadStatus" style="font-size:0.78rem;color:var(--gold);"></span>
+        </div>
+        <div id="galImagePreviews" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem;"></div>
+        <input type="hidden" id="galImage">
         <div style="display:flex;gap:0.75rem;margin-top:1rem;flex-wrap:wrap;">
           <button class="btn btn-gold" id="galSubmitBtn" onclick="saveGalleryPhoto()">Add Photo</button>
           <button class="admin-cancel" onclick="clearGalleryForm()">Clear</button>
@@ -945,7 +960,13 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
         <label>Full Name *</label><input type="text" id="tmName" placeholder="e.g. Chioma Okafor">
         <label>Role in the NGO *</label><input type="text" id="tmRole" placeholder="e.g. Outreach Coordinator">
         <label>Personal Statement (optional)</label><input type="text" id="tmStatement" placeholder="e.g. I volunteer because every child deserves a chance">
-        <label>Photo URL (upload to imgbb.com, use Direct Link)</label><input type="url" id="tmPhoto" placeholder="https://i.ibb.co/...">
+        <label>Photo (choose from your device)</label>
+        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+          <input type="file" id="tmPhotoFile" accept="image/*" onchange="previewUpload(this,'tmPhotoPreview')" style="flex:1;background:rgba(255,255,255,0.07);border:1.5px dashed rgba(245,166,35,0.4);color:rgba(255,255,255,0.7);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;">
+          <span id="tmPhotoUploadStatus" style="font-size:0.78rem;color:var(--gold);"></span>
+        </div>
+        <img id="tmPhotoPreview" src="" alt="" style="display:none;width:80px;height:80px;object-fit:cover;border-radius:10px;margin-top:0.5rem;border:2px solid var(--gold);">
+        <input type="hidden" id="tmPhoto">
         <input type="hidden" id="tmEditId" value="">
         <button class="btn btn-gold" id="tmSubmitBtn" onclick="addTeamMember()" style="margin-top:1rem;">Add Team Member</button>
         <p id="teamMsg" style="display:none;color:var(--gold);font-size:0.82rem;margin-top:0.5rem;"></p>
@@ -1090,6 +1111,92 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 const SUPABASE_URL = 'https://aigrzovgqpuluaqvjyca.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpZ3J6b3ZncXB1bHVhcXZqeWNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1MzUyNDYsImV4cCI6MjEwNjExMTI0Nn0.SECChUdspkZkae--RbL0wcO_E33FOhaq9KQpAOfGyY8';
 const ADMIN_PASSWORD = 'ElRoi2025';
+
+// ── SUPABASE STORAGE UPLOAD ───────────────────────────────────────
+async function uploadToSupabase(file, folder) {
+  const compressedFile = await new Promise((resolve) => {
+    const img = new Image();
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      img.onload = () => {
+        const MAX = 1200;
+        let { width, height } = img;
+        if (width > MAX || height > MAX) {
+          const ratio = Math.min(MAX / width, MAX / height);
+          width = Math.round(width * ratio);
+          height = Math.round(height * ratio);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        canvas.toBlob(
+          (blob) => resolve(new File([blob], file.name, { type: 'image/jpeg' })),
+          'image/jpeg', 0.82
+        );
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+  const fileName = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}.jpg`;
+  const res = await fetch(`${SUPABASE_URL}/storage/v1/object/media/${fileName}`, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'image/jpeg',
+      'x-upsert': 'true'
+    },
+    body: compressedFile
+  });
+  if (!res.ok) { console.error('Upload failed:', res.status); return null; }
+  return `${SUPABASE_URL}/storage/v1/object/public/media/${fileName}`;
+}
+
+function previewUpload(input, previewId) {
+  const file = input.files[0];
+  if (!file) return;
+  const preview = document.getElementById(previewId);
+  if (preview) { preview.src = URL.createObjectURL(file); preview.style.display = 'block'; }
+}
+
+function previewMultiUpload(input, previewContainerId) {
+  const files = Array.from(input.files);
+  if (!files.length) return;
+  const container = document.getElementById(previewContainerId);
+  if (container) {
+    container.innerHTML = files.map(f =>
+      `<img src="${URL.createObjectURL(f)}" style="width:70px;height:70px;object-fit:cover;border-radius:6px;border:2px solid var(--gold);">`
+    ).join('');
+  }
+}
+
+async function uploadSingleField(fileInputId, statusId) {
+  const input = document.getElementById(fileInputId);
+  const statusEl = document.getElementById(statusId);
+  if (!input || !input.files[0]) return null;
+  if (statusEl) statusEl.textContent = 'Uploading…';
+  const folder = fileInputId === 'aImageFile' ? 'articles' : fileInputId === 'tmPhotoFile' ? 'team' : 'images';
+  const url = await uploadToSupabase(input.files[0], folder);
+  if (statusEl) statusEl.textContent = url ? '✓ Uploaded' : '✗ Upload failed';
+  return url;
+}
+
+async function uploadMultiField(fileInputId, statusId) {
+  const input = document.getElementById(fileInputId);
+  const statusEl = document.getElementById(statusId);
+  if (!input || !input.files.length) return null;
+  const files = Array.from(input.files);
+  if (statusEl) statusEl.textContent = `Uploading ${files.length} photo(s)…`;
+  const folder = fileInputId === 'evImageFile' ? 'events' : 'gallery';
+  const urls = [];
+  for (const file of files) {
+    const url = await uploadToSupabase(file, folder);
+    if (url) urls.push(url);
+  }
+  if (statusEl) statusEl.textContent = urls.length ? `✓ ${urls.length} uploaded` : '✗ Upload failed';
+  return urls.length ? urls.join(', ') : null;
+}
 
 async function supabaseFetch(path, options = {}) {
   try {
@@ -1692,8 +1799,9 @@ async function saveArticle() {
   const excerpt = document.getElementById('aExcerpt').value.trim();
   const read = document.getElementById('aRead').value.trim() || '5 min read';
   const rawBody = document.getElementById('aBody').value.trim();
-  const image = document.getElementById('aImage').value.trim();
   if (!title || !excerpt || !rawBody) { alert('Please fill in Title, Excerpt and Article Body.'); return; }
+  const uploadedImage = await uploadSingleField('aImageFile', 'aImageUploadStatus');
+  const image = uploadedImage || document.getElementById('aImage').value.trim();
   const editId = document.getElementById('editId').value;
   const publishDate = document.getElementById('aPublishDate').value;
   const publishTime = document.getElementById('aPublishTime').value;
@@ -1783,9 +1891,10 @@ async function addTeamMember() {
   const name = document.getElementById('tmName').value.trim();
   const role = document.getElementById('tmRole').value.trim();
   const statement = document.getElementById('tmStatement').value.trim();
-  const photo = document.getElementById('tmPhoto').value.trim();
   const editId = document.getElementById('tmEditId').value;
   if (!name || !role) { alert('Please enter name and role.'); return; }
+  const uploadedPhoto = await uploadSingleField('tmPhotoFile', 'tmPhotoUploadStatus');
+  const photo = uploadedPhoto || document.getElementById('tmPhoto').value.trim();
   if (editId) {
     await supabaseFetch(`team_members?id=eq.${editId}`, {
       method: 'PATCH', prefer: 'return=minimal',
@@ -1809,6 +1918,9 @@ async function addTeamMember() {
   document.getElementById('tmRole').value = '';
   document.getElementById('tmStatement').value = '';
   document.getElementById('tmPhoto').value = '';
+  const tmf = document.getElementById('tmPhotoFile'); if(tmf) tmf.value = '';
+  const tmp = document.getElementById('tmPhotoPreview'); if(tmp) { tmp.src=''; tmp.style.display='none'; }
+  const tms = document.getElementById('tmPhotoUploadStatus'); if(tms) tms.textContent = '';
   await renderAdminTeamList();
   await renderTeam();
 }
@@ -1897,9 +2009,10 @@ async function saveEvent() {
   const location = document.getElementById('evLocation').value.trim();
   const date = document.getElementById('evDate').value;
   const time = document.getElementById('evTime').value;
-  const image = document.getElementById('evImage').value.trim();
   const editId = document.getElementById('eventEditId').value;
   if (!title) { alert('Please enter an event title.'); return; }
+  const uploadedEvImage = await uploadMultiField('evImageFile', 'evImageUploadStatus');
+  const image = uploadedEvImage || document.getElementById('evImage').value.trim();
   if (editId) {
     await supabaseFetch(`events?id=eq.${editId}`, {
       method: 'PATCH', prefer: 'return=minimal',
@@ -1920,9 +2033,11 @@ async function saveEvent() {
 }
 
 function clearEventForm() {
-  ['evTitle','evDesc','evLocation','evDate','evTime','evImage'].forEach(id => document.getElementById(id).value = '');
+  ['evTitle','evDesc','evLocation','evDate','evTime','evImage','evImageFile'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
   document.getElementById('eventEditId').value = '';
   document.getElementById('evSubmitBtn').textContent = 'Add Event';
+  const ep = document.getElementById('evImagePreviews'); if(ep) ep.innerHTML = '';
+  const es = document.getElementById('evImageUploadStatus'); if(es) es.textContent = '';
 }
 
 async function renderAdminEvents() {
@@ -1965,18 +2080,17 @@ async function deleteEvent(id) {
 async function saveGalleryPhoto() {
   const title = document.getElementById('galTitle').value.trim();
   const category = document.getElementById('galCategory').value.trim();
-  const imageRaw = document.getElementById('galImage').value.trim();
   const editId = document.getElementById('galleryEditId').value;
-  if (!imageRaw) { alert('Please enter at least one photo URL.'); return; }
+  const uploadedGalImages = await uploadMultiField('galImageFile', 'galImageUploadStatus');
+  const imageRaw = uploadedGalImages || document.getElementById('galImage').value.trim();
+  if (!imageRaw) { alert('Please select at least one photo.'); return; }
   if (editId) {
-    // Edit mode — update single entry
     const image = imageRaw.split(',')[0].trim();
     await supabaseFetch(`gallery?id=eq.${editId}`, {
       method: 'PATCH', prefer: 'return=minimal',
       body: JSON.stringify({title:title||null, category:category||null, image})
     });
   } else {
-    // Add mode — create one entry per URL
     const urls = imageRaw.split(',').map(u => u.trim()).filter(Boolean);
     for (const image of urls) {
       await supabaseFetch('gallery', {
@@ -1994,9 +2108,11 @@ async function saveGalleryPhoto() {
 }
 
 function clearGalleryForm() {
-  ['galTitle','galCategory','galImage'].forEach(id => document.getElementById(id).value = '');
+  ['galTitle','galCategory','galImage','galImageFile'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
   document.getElementById('galleryEditId').value = '';
   document.getElementById('galSubmitBtn').textContent = 'Add Photo';
+  const gp = document.getElementById('galImagePreviews'); if(gp) gp.innerHTML = '';
+  const gs = document.getElementById('galImageUploadStatus'); if(gs) gs.textContent = '';
 }
 
 async function renderAdminGallery() {
