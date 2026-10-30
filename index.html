@@ -394,6 +394,13 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
   .hero-cta{flex-direction:column;align-items:center}
   .hero-cta .btn{width:100%;max-width:280px;justify-content:center}
 }
+.ic{width:1em;height:1em;vertical-align:-0.14em;flex-shrink:0;display:inline-block}
+.value-icon .ic{width:2rem;height:2rem;color:var(--gold)}
+.join-role-icon .ic{width:1.6rem;height:1.6rem;color:var(--gold)}
+.founder-fact .fi .ic{color:var(--gold)}
+.ni,.ei,.empty-icon{color:var(--gold)}
+.team-grid{grid-template-columns:repeat(auto-fit,minmax(220px,280px))!important;justify-content:center}
+.team-card img{width:100%;height:auto!important;aspect-ratio:1/1;object-fit:cover;object-position:center 20%}
 </style>
 </head>
 <body>
@@ -403,7 +410,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 <!-- NAV -->
 <nav>
   <a class="nav-brand" href="#" onclick="showPage('home');return false;">
-    <img src="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png" alt="El-Roi HopeBridge Logo">
+    <img src="https://aigrzovgqpuluaqvjyca.supabase.co/storage/v1/object/public/media/site/logo.png" data-fb="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png" onerror="if(this.dataset.fb){var f=this.dataset.fb;this.dataset.fb='';this.src=f;}else{this.style.visibility='hidden';}" alt="El-Roi HopeBridge Logo">
     <div class="nav-brand-text">
       <span class="nav-brand-name"><span>El-Roi</span> HopeBridge</span>
       <span class="nav-brand-tag">...in your distress, God sees you.</span>
@@ -428,7 +435,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
         <li><a href="#" onclick="showPage('gallery');return false;" id="nav-gallery">Gallery</a></li>
       </ul>
     </li>
-    <li><button class="btn-donate-nav" onclick="openDonate()">💛 Donate</button></li>
+    <li><button class="btn-donate-nav" onclick="openDonate()"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Donate</button></li>
   </ul>
   <div class="nav-toggle" id="navToggle"><span></span><span></span><span></span></div>
 </nav>
@@ -439,14 +446,14 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
   <!-- HERO -->
   <section class="hero">
     <div class="hero-pattern"></div>
-    <img src="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png" alt="El-Roi HopeBridge" class="hero-logo">
+    <img src="https://aigrzovgqpuluaqvjyca.supabase.co/storage/v1/object/public/media/site/logo.png" data-fb="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png" onerror="if(this.dataset.fb){var f=this.dataset.fb;this.dataset.fb='';this.src=f;}else{this.style.visibility='hidden';}" alt="El-Roi HopeBridge" class="hero-logo">
     <div class="hero-badge">Child &amp; Youth Development NGO · Nigeria</div>
     <h1>Every Child Deserves to Be<br><span>Seen, Heard &amp; Empowered</span></h1>
     <p>We restore hope and direction to young people aged 15–20 whose lives are suppressed by family, cultural, or societal pressure.</p>
     <p class="hero-verse">"...in your distress, God sees you."</p>
     <div class="hero-cta">
       <button class="btn btn-gold" onclick="showPage('articles')">Read Our Articles</button>
-      <button class="btn btn-outline" onclick="openDonate()">💛 Support Our Work</button>
+      <button class="btn btn-outline" onclick="openDonate()"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Support Our Work</button>
     </div>
     <div class="hero-scroll"><div class="hero-scroll-line"></div>Scroll</div>
   </section>
@@ -478,7 +485,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
           <span>Goal: ₦<strong id="goalTarget">0</strong></span>
         </div>
       </div>
-      <div class="mt-4"><button class="btn btn-gold" onclick="openDonate()">💛 Donate Now</button></div>
+      <div class="mt-4"><button class="btn btn-gold" onclick="openDonate()"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Donate Now</button></div>
     </div>
   </section>
 
@@ -576,7 +583,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
           <p>That is what we exist to do. Not to fix everything. But to make sure no young person has to feel that no one is coming. Because someone is coming.</p>
         </div>
         <div class="ngo-story-visual">
-          <img src="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png" class="ngo-logo" alt="El-Roi HopeBridge">
+          <img src="https://aigrzovgqpuluaqvjyca.supabase.co/storage/v1/object/public/media/site/logo.png" data-fb="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png" onerror="if(this.dataset.fb){var f=this.dataset.fb;this.dataset.fb='';this.src=f;}else{this.style.visibility='hidden';}" class="ngo-logo" alt="El-Roi HopeBridge">
           <blockquote>"I started El-Roi HopeBridge so that no child feels unseen, unheard, or unguided again."</blockquote>
           <cite>— Adekunle Temitope, Founder</cite>
         </div>
@@ -636,11 +643,11 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
       <p class="section-label">What We Stand For</p>
       <h2 class="section-title" style="color:white;">Our Core Values</h2>
       <div class="values-grid">
-        <div class="value-card"><div class="value-icon">👁️</div><h4>Visibility</h4><p>Every child deserves to be seen — not overlooked by the pressures of family, culture, or poverty.</p></div>
-        <div class="value-card"><div class="value-icon">🕊️</div><h4>Faith</h4><p>We are rooted in the belief that God sees every child — and we act as an extension of that care.</p></div>
-        <div class="value-card"><div class="value-icon">🤝</div><h4>Community</h4><p>No child should navigate life alone. We build communities of support around every young person.</p></div>
-        <div class="value-card"><div class="value-icon">🌱</div><h4>Growth</h4><p>We believe every child carries potential that, when nurtured, can change families and communities.</p></div>
-        <div class="value-card"><div class="value-icon">🔥</div><h4>Purpose</h4><p>We exist to turn pain into purpose — to transform personal struggle into a bridge for others.</p></div>
+        <div class="value-card"><div class="value-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><h4>Visibility</h4><p>Every child deserves to be seen — not overlooked by the pressures of family, culture, or poverty.</p></div>
+        <div class="value-card"><div class="value-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2h4v6h6v4h-6v10h-4V12H4V8h6z"/></svg></div><h4>Faith</h4><p>We are rooted in the belief that God sees every child — and we act as an extension of that care.</p></div>
+        <div class="value-card"><div class="value-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h4>Community</h4><p>No child should navigate life alone. We build communities of support around every young person.</p></div>
+        <div class="value-card"><div class="value-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><h4>Growth</h4><p>We believe every child carries potential that, when nurtured, can change families and communities.</p></div>
+        <div class="value-card"><div class="value-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><h4>Purpose</h4><p>We exist to turn pain into purpose — to transform personal struggle into a bridge for others.</p></div>
       </div>
     </div>
   </section>
@@ -652,7 +659,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
   <section class="founder-section" style="padding-top:5rem;">
     <div class="founder-inner">
       <div class="founder-img-wrap">
-        <img src="https://i.ibb.co/0jtmmvLj/IMG-0005.jpg" alt="Adekunle Temitope" class="founder-img">
+        <img src="https://aigrzovgqpuluaqvjyca.supabase.co/storage/v1/object/public/media/site/founder.jpg" data-fb="https://i.ibb.co/0jtmmvLj/IMG-0005.jpg" onerror="if(this.dataset.fb){var f=this.dataset.fb;this.dataset.fb='';this.src=f;}else{this.style.visibility='hidden';}" alt="Adekunle Temitope" class="founder-img">
         <div class="founder-quote-badge">"Born a stammerer. God is still using my voice."</div>
       </div>
       <div class="founder-content">
@@ -663,8 +670,8 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
         <p>In December 2025, I decided to turn that pain into purpose. I told myself: other children should not have to go through this. That was how El-Roi HopeBridge started. <em>El-Roi</em> means "The God Who Sees Me" — because even when no one else sees you, God does.</p>
         <p>Our mission is to ensure every teenager knows what they want to do with their life; that children are mentally fit to be in school; and that every vulnerable child who deserves an education gets one.</p>
         <div class="founder-facts">
-          <div class="founder-fact"><span class="fi">✝️</span><span>A Christian who loves God deeply — everything I do flows from that love.</span></div>
-          <div class="founder-fact"><span class="fi">🕊️</span><span>Born a stammerer. God is still using my voice to give others a voice.</span></div>
+          <div class="founder-fact"><span class="fi"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2h4v6h6v4h-6v10h-4V12H4V8h6z"/></svg></span><span>A Christian who loves God deeply — everything I do flows from that love.</span></div>
+          <div class="founder-fact"><span class="fi"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></svg></span><span>Born a stammerer. God is still using my voice to give others a voice.</span></div>
         </div>
       </div>
     </div>
@@ -677,7 +684,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
       <p class="section-body">Every volunteer at El-Roi HopeBridge is here because they believe every child deserves to be seen, heard and guided.</p>
       <div class="team-grid" id="teamGrid"></div>
       <div id="teamEmpty" style="text-align:center;padding:3rem;color:var(--grey);">
-        <div style="font-size:2.5rem;margin-bottom:1rem;">🌱</div>
+        <div style="font-size:2.5rem;margin-bottom:1rem;"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
         <p>Our team is growing. Check back soon — and if you feel called to join us, we would love to hear from you.</p>
       </div>
     </div>
@@ -689,10 +696,10 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
       <h2 style="font-family:'Playfair Display',serif;color:var(--gold);font-size:2rem;margin-bottom:1rem;">Join Our Team</h2>
       <p style="color:rgba(255,255,255,0.6);font-size:0.93rem;line-height:1.8;max-width:520px;margin:0 auto 2rem;">You don't need a title or a certificate. You need a heart for young people. If you believe every child deserves to be seen and guided, we want to hear from you.</p>
       <div class="join-roles">
-        <div class="join-role"><div class="join-role-icon">🤝</div><div class="join-role-name">Outreach &amp; Community</div></div>
-        <div class="join-role"><div class="join-role-icon">📱</div><div class="join-role-name">Social Media &amp; Content</div></div>
-        <div class="join-role"><div class="join-role-icon">💬</div><div class="join-role-name">Counselling &amp; Mentoring</div></div>
-        <div class="join-role"><div class="join-role-icon">📚</div><div class="join-role-name">Education &amp; Training</div></div>
+        <div class="join-role"><div class="join-role-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="join-role-name">Outreach &amp; Community</div></div>
+        <div class="join-role"><div class="join-role-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div><div class="join-role-name">Social Media &amp; Content</div></div>
+        <div class="join-role"><div class="join-role-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></svg></div><div class="join-role-name">Counselling &amp; Mentoring</div></div>
+        <div class="join-role"><div class="join-role-icon"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div class="join-role-name">Education &amp; Training</div></div>
       </div>
       <a href="https://forms.gle/NP7WwvHHUZL4A1q57" target="_blank" class="btn btn-gold" style="font-size:0.95rem;padding:14px 40px;">Express Your Interest →</a>
       <p style="color:rgba(255,255,255,0.25);font-size:0.75rem;margin-top:1rem;">Takes less than 2 minutes.</p>
@@ -712,7 +719,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
       <div class="prayer-form">
         <input type="text" id="prayerName" placeholder="Your name (or leave as Anonymous)">
         <textarea id="prayerText" rows="3" placeholder="Write your prayer or encouragement here..."></textarea>
-        <button class="btn btn-gold" onclick="submitPrayer()" style="width:100%;">Post to the Wall 🙏</button>
+        <button class="btn btn-gold" onclick="submitPrayer()" style="width:100%;">Post to the Wall </button>
         <p id="prayerConfirm" style="display:none;color:var(--gold);font-size:0.85rem;margin-top:0.75rem;"></p>
       </div>
       <div class="prayer-wall" id="prayerWallGrid"></div>
@@ -760,7 +767,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
       <h2 class="section-title">What People Are Saying</h2>
       <div id="testimonialsContainer">
         <div class="testimonials-empty">
-          <div class="ei">🌱</div>
+          <div class="ei"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
           <p>We are just getting started. As young people, families and supporters share their stories with us, their words will appear here.<br><br>Be the first — send us your story at <strong>elroihopebridge@gmail.com</strong></p>
         </div>
       </div>
@@ -803,10 +810,10 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
           <div style="margin-top:1.5rem;">
             <div class="contact-info-label" style="margin-bottom:0.75rem;">Follow Us</div>
             <div class="social-links" style="justify-content:flex-start;margin-top:0;">
-              <a href="https://www.instagram.com/elroihopebridge" target="_blank" class="social-link social-ig">📷 Instagram</a>
-              <a href="https://www.facebook.com/elroihopebridge" target="_blank" class="social-link social-fb">👍 Facebook</a>
-              <a href="https://www.x.com/elroihopebridge" target="_blank" class="social-link social-x">✕ X</a>
-              <a href="https://wa.me/2348166127632" target="_blank" class="social-link social-wa">💬 WhatsApp</a>
+              <a href="https://www.instagram.com/elroihopebridge" target="_blank" class="social-link social-ig"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg> Instagram</a>
+              <a href="https://www.facebook.com/elroihopebridge" target="_blank" class="social-link social-fb"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> Facebook</a>
+              <a href="https://www.x.com/elroihopebridge" target="_blank" class="social-link social-x"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> X</a>
+              <a href="https://wa.me/2348166127632" target="_blank" class="social-link social-wa"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp</a>
             </div>
           </div>
           <div class="newsletter-box">
@@ -839,7 +846,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
   <div id="admin-dashboard" style="display:none;">
     <div class="admin-wrap">
       <div class="admin-header">
-        <h2>📋 Admin Dashboard</h2>
+        <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Admin Dashboard</h2>
         <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
           <button class="admin-cancel" onclick="showPage('home')">← View Site</button>
           <button class="admin-cancel" onclick="adminSignOut()">Sign Out</button>
@@ -848,7 +855,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 
       <!-- ARTICLES -->
       <div class="admin-form">
-        <h3>📝 Articles</h3>
+        <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg> Articles</h3>
         <p>Create, edit and delete articles. They appear on the Articles page instantly.</p>
         <div style="display:flex;justify-content:flex-end;margin-bottom:0.5rem;">
           <button class="btn btn-gold" onclick="showNewArticleForm()" style="font-size:0.82rem;padding:8px 18px;">+ New Article</button>
@@ -872,10 +879,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
           <label>Article Body * (use ## for headings, > for quotes, blank line between paragraphs)</label>
           <textarea id="aBody" rows="10" placeholder="Write your article here..."></textarea>
           <label>Cover Image (optional — choose a photo from your device)</label>
-          <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
-            <input type="file" id="aImageFile" accept="image/*" onchange="previewUpload(this,'aImagePreview')" style="flex:1;background:rgba(255,255,255,0.07);border:1.5px dashed rgba(245,166,35,0.4);color:rgba(255,255,255,0.7);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;">
-            <span id="aImageUploadStatus" style="font-size:0.78rem;color:var(--gold);"></span>
-          </div>
+          <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;"><input type="file" id="aImageFile" accept="image/*" onchange="previewUpload(this,'aImagePreview')" style="flex:1;background:rgba(255,255,255,0.07);border:1.5px dashed rgba(245,166,35,0.4);color:rgba(255,255,255,0.7);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;"><span id="aImageUploadStatus" style="font-size:0.78rem;color:var(--gold);"></span></div>
           <img id="aImagePreview" src="" alt="" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-top:0.5rem;border:2px solid var(--gold);">
           <input type="hidden" id="aImage">
           <label>Schedule Publication (optional — leave blank to publish immediately)</label>
@@ -892,9 +896,21 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
         </div>
       </div>
 
+      <!-- SITE IMAGES -->
+      <div class="admin-form">
+        <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> Site Images</h3>
+        <p>Replace the logo and founder photo straight from your phone. Use a PNG for the logo so it stays transparent.</p>
+        <label>Logo (PNG)</label>
+        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;"><input type="file" id="siteLogoFile" accept="image/png,image/webp,image/*" style="flex:1;background:rgba(255,255,255,0.07);border:1.5px dashed rgba(245,166,35,0.4);color:rgba(255,255,255,0.7);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;"><button class="btn btn-gold" onclick="uploadSiteImage('logo')" style="padding:10px 18px;">Upload Logo</button></div>
+        <p id="siteLogoStatus" style="color:var(--gold);font-size:0.8rem;margin-top:0.4rem;"></p>
+        <label>Founder Photo</label>
+        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;"><input type="file" id="siteFounderFile" accept="image/*" style="flex:1;background:rgba(255,255,255,0.07);border:1.5px dashed rgba(245,166,35,0.4);color:rgba(255,255,255,0.7);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;"><button class="btn btn-gold" onclick="uploadSiteImage('founder')" style="padding:10px 18px;">Upload Photo</button></div>
+        <p id="siteFounderStatus" style="color:var(--gold);font-size:0.8rem;margin-top:0.4rem;"></p>
+      </div>
+
       <!-- EVENTS MANAGEMENT -->
       <div class="admin-form">
-        <h3>📅 Events</h3>
+        <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Events</h3>
         <p>Add and manage upcoming events. They appear on the Events page.</p>
         <input type="hidden" id="eventEditId">
         <label>Event Title *</label><input type="text" id="evTitle" placeholder="e.g. Career Clarity Seminar">
@@ -902,11 +918,8 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
         <label>Location</label><input type="text" id="evLocation" placeholder="e.g. Lagos, Nigeria or Online">
         <label>Event Date</label><input type="date" id="evDate">
         <label>Event Time (WAT)</label><input type="time" id="evTime">
-        <label>Event Photos (choose up to 5 photos from your device)</label>
-        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
-          <input type="file" id="evImageFile" accept="image/*" multiple onchange="previewMultiUpload(this,'evImagePreviews')" style="flex:1;background:rgba(255,255,255,0.07);border:1.5px dashed rgba(245,166,35,0.4);color:rgba(255,255,255,0.7);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;">
-          <span id="evImageUploadStatus" style="font-size:0.78rem;color:var(--gold);"></span>
-        </div>
+        <label>Event Photos (choose up to 5 from your device)</label>
+        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;"><input type="file" id="evImageFile" accept="image/*" multiple onchange="previewMultiUpload(this,'evImagePreviews')" style="flex:1;background:rgba(255,255,255,0.07);border:1.5px dashed rgba(245,166,35,0.4);color:rgba(255,255,255,0.7);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;"><span id="evImageUploadStatus" style="font-size:0.78rem;color:var(--gold);"></span></div>
         <div id="evImagePreviews" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem;"></div>
         <input type="hidden" id="evImage">
         <div style="display:flex;gap:0.75rem;margin-top:1rem;flex-wrap:wrap;">
@@ -919,16 +932,13 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 
       <!-- GALLERY MANAGEMENT -->
       <div class="admin-form">
-        <h3>📷 Photo Gallery</h3>
+        <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> Photo Gallery</h3>
         <p>Add photos here. They appear in the Gallery page.</p>
         <input type="hidden" id="galleryEditId">
         <label>Photo Title (optional)</label><input type="text" id="galTitle" placeholder="e.g. Outreach in Lagos">
         <label>Category (optional)</label><input type="text" id="galCategory" placeholder="e.g. Outreach, Seminar, Team">
-        <label>Photos * (choose up to 10 photos from your device at once)</label>
-        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
-          <input type="file" id="galImageFile" accept="image/*" multiple onchange="previewMultiUpload(this,'galImagePreviews')" style="flex:1;background:rgba(255,255,255,0.07);border:1.5px dashed rgba(245,166,35,0.4);color:rgba(255,255,255,0.7);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;">
-          <span id="galImageUploadStatus" style="font-size:0.78rem;color:var(--gold);"></span>
-        </div>
+        <label>Photos * (choose up to 10 from your device)</label>
+        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;"><input type="file" id="galImageFile" accept="image/*" multiple onchange="previewMultiUpload(this,'galImagePreviews')" style="flex:1;background:rgba(255,255,255,0.07);border:1.5px dashed rgba(245,166,35,0.4);color:rgba(255,255,255,0.7);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;"><span id="galImageUploadStatus" style="font-size:0.78rem;color:var(--gold);"></span></div>
         <div id="galImagePreviews" style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem;"></div>
         <input type="hidden" id="galImage">
         <div style="display:flex;gap:0.75rem;margin-top:1rem;flex-wrap:wrap;">
@@ -941,30 +951,27 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 
       <!-- MENTORSHIP REQUESTS -->
       <div class="admin-form">
-        <h3>🤝 Mentorship Requests</h3>
+        <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Mentorship Requests</h3>
         <p>View requests from young people seeking mentorship.</p>
         <div id="adminMentorList"><p style="color:rgba(255,255,255,0.3);font-size:0.8rem;">Loading...</p></div>
       </div>
 
       <!-- STORY SUBMISSIONS -->
       <div class="admin-form">
-        <h3>📖 Story Submissions</h3>
+        <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Story Submissions</h3>
         <p>Stories submitted by visitors for possible publication.</p>
         <div id="adminStoryList"><p style="color:rgba(255,255,255,0.3);font-size:0.8rem;">Loading...</p></div>
       </div>
 
       <!-- TEAM MEMBERS -->
       <div class="admin-form">
-        <h3>👥 Team Members</h3>
+        <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Team Members</h3>
         <p>Add volunteers here. They appear on the Our Team page.</p>
         <label>Full Name *</label><input type="text" id="tmName" placeholder="e.g. Chioma Okafor">
         <label>Role in the NGO *</label><input type="text" id="tmRole" placeholder="e.g. Outreach Coordinator">
         <label>Personal Statement (optional)</label><input type="text" id="tmStatement" placeholder="e.g. I volunteer because every child deserves a chance">
         <label>Photo (choose from your device)</label>
-        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
-          <input type="file" id="tmPhotoFile" accept="image/*" onchange="previewUpload(this,'tmPhotoPreview')" style="flex:1;background:rgba(255,255,255,0.07);border:1.5px dashed rgba(245,166,35,0.4);color:rgba(255,255,255,0.7);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;">
-          <span id="tmPhotoUploadStatus" style="font-size:0.78rem;color:var(--gold);"></span>
-        </div>
+        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;"><input type="file" id="tmPhotoFile" accept="image/*" onchange="previewUpload(this,'tmPhotoPreview')" style="flex:1;background:rgba(255,255,255,0.07);border:1.5px dashed rgba(245,166,35,0.4);color:rgba(255,255,255,0.7);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;"><span id="tmPhotoUploadStatus" style="font-size:0.78rem;color:var(--gold);"></span></div>
         <img id="tmPhotoPreview" src="" alt="" style="display:none;width:80px;height:80px;object-fit:cover;border-radius:10px;margin-top:0.5rem;border:2px solid var(--gold);">
         <input type="hidden" id="tmPhoto">
         <input type="hidden" id="tmEditId" value="">
@@ -975,7 +982,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 
       <!-- IMPACT NUMBERS -->
       <div class="admin-form">
-        <h3>📊 Impact Numbers</h3>
+        <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg> Impact Numbers</h3>
         <p>Update these as your NGO grows. They show on the homepage.</p>
         <label>Young People Reached</label><input type="number" id="impPeople" placeholder="e.g. 127">
         <label>Programmes Running</label><input type="number" id="impProgrammes" placeholder="e.g. 3">
@@ -986,7 +993,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 
       <!-- DONATION GOAL -->
       <div class="admin-form">
-        <h3>💛 Donation Goal</h3>
+        <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Donation Goal</h3>
         <p>Set your fundraising goal. The progress bar updates on the homepage.</p>
         <label>Goal Description</label><input type="text" id="goalDescInput" placeholder="e.g. Help us reach 500 young people this year">
         <label>Target Amount (₦)</label><input type="number" id="goalTargetInput" placeholder="e.g. 500000">
@@ -997,7 +1004,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 
       <!-- TESTIMONIALS -->
       <div class="admin-form">
-        <h3>🌟 Testimonials</h3>
+        <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Testimonials</h3>
         <p>Add supporter testimonies here. They appear on the Community page.</p>
         <label>Person's Name</label><input type="text" id="tName" placeholder="e.g. Chioma Okafor">
         <label>Their Role / Description (optional)</label><input type="text" id="tRole" placeholder="e.g. Young person, Lagos">
@@ -1018,7 +1025,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 <div id="donate-modal">
   <div class="donate-card">
     <button class="donate-close" onclick="closeDonate()">✕</button>
-    <h3>💛 Support El-Roi HopeBridge</h3>
+    <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Support El-Roi HopeBridge</h3>
     <p class="sub">Every contribution helps us reach one more child.</p>
     <div class="donate-detail">
       <div class="dl">Bank</div>
@@ -1032,7 +1039,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
       <div class="dl">Account Number</div>
       <div class="dv account" id="acctNum">8166127632</div>
     </div>
-    <button class="btn btn-gold" onclick="copyAccount()" id="copyBtn" style="width:100%;margin-top:0.5rem;">📋 Copy Account Number</button>
+    <button class="btn btn-gold" onclick="copyAccount()" id="copyBtn" style="width:100%;margin-top:0.5rem;"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Account Number</button>
     <p style="font-size:0.75rem;color:var(--grey);margin-top:1rem;">After sending, please WhatsApp us at 08166127632 so we can thank you personally.</p>
   </div>
 </div>
@@ -1045,7 +1052,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
       <h2 class="section-title">Upcoming Events</h2>
       <p class="section-body" style="margin-bottom:2rem;">Join us at our programmes, seminars and outreaches. Every event is a step toward changing a young life.</p>
       <div class="events-grid" id="eventsGrid">
-        <div class="no-events"><div class="ni">📅</div><p>No upcoming events yet. Check back soon.</p></div>
+        <div class="no-events"><div class="ni"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><p>No upcoming events yet. Check back soon.</p></div>
       </div>
     </div>
   </section>
@@ -1061,7 +1068,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
       <div class="cat-gallery-filters" id="galleryFilters"></div>
       <div class="gallery-grid" id="galleryGrid">
         <div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--grey);">
-          <div style="font-size:3rem;margin-bottom:1rem;">📷</div>
+          <div style="font-size:3rem;margin-bottom:1rem;"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
           <p>No photos yet. Check back soon.</p>
         </div>
       </div>
@@ -1085,7 +1092,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 
 <!-- FOOTER -->
 <footer>
-  <img src="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png" alt="El-Roi HopeBridge" class="footer-logo">
+  <img src="https://aigrzovgqpuluaqvjyca.supabase.co/storage/v1/object/public/media/site/logo.png" data-fb="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png" onerror="if(this.dataset.fb){var f=this.dataset.fb;this.dataset.fb='';this.src=f;}else{this.style.visibility='hidden';}" alt="El-Roi HopeBridge" class="footer-logo">
   <div class="footer-name">El-Roi HopeBridge</div>
   <div class="footer-tag">...in your distress, God sees you.</div>
   <div class="footer-links">
@@ -1112,92 +1119,69 @@ const SUPABASE_URL = 'https://aigrzovgqpuluaqvjyca.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpZ3J6b3ZncXB1bHVhcXZqeWNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1MzUyNDYsImV4cCI6MjEwNjExMTI0Nn0.SECChUdspkZkae--RbL0wcO_E33FOhaq9KQpAOfGyY8';
 const ADMIN_PASSWORD = 'ElRoi2025';
 
-// ── SUPABASE STORAGE UPLOAD ───────────────────────────────────────
-async function uploadToSupabase(file, folder) {
-  const compressedFile = await new Promise((resolve) => {
-    const img = new Image();
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      img.onload = () => {
-        const MAX = 1200;
-        let { width, height } = img;
-        if (width > MAX || height > MAX) {
-          const ratio = Math.min(MAX / width, MAX / height);
-          width = Math.round(width * ratio);
-          height = Math.round(height * ratio);
-        }
-        const canvas = document.createElement('canvas');
-        canvas.width = width; canvas.height = height;
-        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-        canvas.toBlob(
-          (blob) => resolve(new File([blob], file.name, { type: 'image/jpeg' })),
-          'image/jpeg', 0.82
-        );
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-  const fileName = `${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}.jpg`;
-  const res = await fetch(`${SUPABASE_URL}/storage/v1/object/media/${fileName}`, {
-    method: 'POST',
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
-      'Content-Type': 'image/jpeg',
-      'x-upsert': 'true'
-    },
-    body: compressedFile
-  });
-  if (!res.ok) { console.error('Upload failed:', res.status); return null; }
-  return `${SUPABASE_URL}/storage/v1/object/public/media/${fileName}`;
+function loadImage(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),i=new Image();i.onload=()=>{URL.revokeObjectURL(u);res(i)};i.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('decode failed'))};i.src=u;});}
+async function compressImage(file){
+  try{
+    const img=await loadImage(file),MAX=1200,r=Math.min(1,MAX/Math.max(img.naturalWidth,img.naturalHeight));
+    const c=document.createElement('canvas');c.width=Math.round(img.naturalWidth*r);c.height=Math.round(img.naturalHeight*r);
+    c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+    const b=await new Promise(x=>c.toBlob(x,'image/jpeg',0.82));
+    return b||file;
+  }catch(e){console.warn('Compression skipped:',e);return file;}
 }
-
-function previewUpload(input, previewId) {
-  const file = input.files[0];
-  if (!file) return;
-  const preview = document.getElementById(previewId);
-  if (preview) { preview.src = URL.createObjectURL(file); preview.style.display = 'block'; }
+async function uploadToSupabase(file,folder){
+  const body=await compressImage(file),ext=body.type==='image/png'?'png':'jpg';
+  const name=`${folder}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+  try{
+    const res=await fetch(`${SUPABASE_URL}/storage/v1/object/media/${name}`,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':body.type||'image/jpeg'},body});
+    if(!res.ok){window._lastUploadError=`${res.status} ${(await res.text().catch(()=>'')).slice(0,150)}`;console.error('Upload failed:',window._lastUploadError);return null;}
+    return `${SUPABASE_URL}/storage/v1/object/public/media/${name}`;
+  }catch(e){window._lastUploadError=String(e);return null;}
 }
-
-function previewMultiUpload(input, previewContainerId) {
-  const files = Array.from(input.files);
-  if (!files.length) return;
-  const container = document.getElementById(previewContainerId);
-  if (container) {
-    container.innerHTML = files.map(f =>
-      `<img src="${URL.createObjectURL(f)}" style="width:70px;height:70px;object-fit:cover;border-radius:6px;border:2px solid var(--gold);">`
-    ).join('');
-  }
-}
-
-async function uploadSingleField(fileInputId, statusId) {
-  const input = document.getElementById(fileInputId);
-  const statusEl = document.getElementById(statusId);
-  if (!input || !input.files[0]) return null;
-  if (statusEl) statusEl.textContent = 'Uploading…';
-  const folder = fileInputId === 'aImageFile' ? 'articles' : fileInputId === 'tmPhotoFile' ? 'team' : 'images';
-  const url = await uploadToSupabase(input.files[0], folder);
-  if (statusEl) statusEl.textContent = url ? '✓ Uploaded' : '✗ Upload failed';
+function previewUpload(input,id){const f=input.files[0],p=document.getElementById(id);if(f&&p){p.src=URL.createObjectURL(f);p.style.display='block';}}
+function previewMultiUpload(input,id){const c=document.getElementById(id);if(c)c.innerHTML=Array.from(input.files).map(f=>`<img src="${URL.createObjectURL(f)}" style="width:70px;height:70px;object-fit:cover;border-radius:6px;border:2px solid var(--gold);">`).join('');}
+function resetUploadUI(fid,pid,sid){const f=document.getElementById(fid);if(f)f.value='';const p=document.getElementById(pid);if(p){if(p.tagName==='IMG'){p.src='';p.style.display='none';}else p.innerHTML='';}const s=document.getElementById(sid);if(s)s.textContent='';}
+// returns '' = no file chosen, null = upload failed, otherwise URL(s)
+async function uploadSingleField(fid,sid){
+  const f=document.getElementById(fid)?.files[0],st=document.getElementById(sid);
+  if(!f)return '';
+  if(st)st.textContent='Uploading…';
+  const url=await uploadToSupabase(f,'images');
+  if(st)st.textContent=url?'✓ Uploaded':'✗ Failed: '+(window._lastUploadError||'');
   return url;
 }
-
-async function uploadMultiField(fileInputId, statusId) {
-  const input = document.getElementById(fileInputId);
-  const statusEl = document.getElementById(statusId);
-  if (!input || !input.files.length) return null;
-  const files = Array.from(input.files);
-  if (statusEl) statusEl.textContent = `Uploading ${files.length} photo(s)…`;
-  const folder = fileInputId === 'evImageFile' ? 'events' : 'gallery';
-  const urls = [];
-  for (const file of files) {
-    const url = await uploadToSupabase(file, folder);
-    if (url) urls.push(url);
+async function uploadMultiField(fid,sid){
+  const files=Array.from(document.getElementById(fid)?.files||[]),st=document.getElementById(sid);
+  if(!files.length)return '';
+  const urls=[];
+  for(let i=0;i<files.length;i++){
+    if(st)st.textContent=`Uploading ${i+1} of ${files.length}…`;
+    const u=await uploadToSupabase(files[i],'images');
+    if(!u){if(st)st.textContent='✗ Failed: '+(window._lastUploadError||'');return null;}
+    urls.push(u);
   }
-  if (statusEl) statusEl.textContent = urls.length ? `✓ ${urls.length} uploaded` : '✗ Upload failed';
-  return urls.length ? urls.join(', ') : null;
+  if(st)st.textContent=`✓ ${urls.length} uploaded`;
+  return urls.join(', ');
 }
-
+// write that reports whether any row was really changed (RLS blocks silently otherwise)
+async function sbWrite(path,method,body){
+  try{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/${path}`,{method,headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=representation'},body:body?JSON.stringify(body):undefined});
+    if(!res.ok)return null;
+    return await res.json();
+  }catch(e){return null;}
+}
+async function uploadSiteImage(kind){
+  const logo=kind==='logo',f=document.getElementById(logo?'siteLogoFile':'siteFounderFile').files[0],st=document.getElementById(logo?'siteLogoStatus':'siteFounderStatus');
+  if(!f){alert('Choose a photo first.');return;}
+  st.textContent='Uploading…';
+  let body=f,type=f.type||'image/png';
+  if(!logo){body=await compressImage(f);type=body.type||'image/jpeg';}   // logo is sent untouched so transparency survives
+  try{
+    const res=await fetch(`${SUPABASE_URL}/storage/v1/object/media/site/${logo?'logo.png':'founder.jpg'}`,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':type,'x-upsert':'true','cache-control':'max-age=60'},body});
+    st.textContent=res.ok?'✓ Saved. Refresh the site in a minute to see it.':'✗ Failed: '+res.status+' '+(await res.text().catch(()=>'')).slice(0,120);
+  }catch(e){st.textContent='✗ Failed: '+e;}
+}
 async function supabaseFetch(path, options = {}) {
   try {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
@@ -1284,7 +1268,7 @@ async function renderArticles() {
   const featured = arts[arts.length - 1];
   const featuredEl = document.getElementById('featuredArticle');
   if (featured && featuredEl) {
-    featuredEl.innerHTML = `<div class="featured-article" onclick="openArticle(${featured.id})"><div class="featured-label">⭐ Featured Article</div><h3>${featured.title}</h3><p>${featured.excerpt}</p><span class="read-more">Read article →</span></div>`;
+    featuredEl.innerHTML = `<div class="featured-article" onclick="openArticle(${featured.id})"><div class="featured-label"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Featured Article</div><h3>${featured.title}</h3><p>${featured.excerpt}</p><span class="read-more">Read article →</span></div>`;
   }
   const categories = ['All', ...new Set(arts.map(a => a.category))];
   const filtersEl = document.getElementById('catFilters');
@@ -1307,7 +1291,7 @@ function loadHomeLatest() {
   const el = document.getElementById('homeLatestArticle');
   if (!el || !articles || articles.length === 0) return;
   const latest = articles[articles.length - 1];
-  el.innerHTML = `<div class="featured-article" onclick="openArticleFromHome(${latest.id})"><div class="featured-label">⭐ Latest Article</div><h3>${latest.title}</h3><p>${latest.excerpt}</p><span class="read-more">Read article →</span></div>`;
+  el.innerHTML = `<div class="featured-article" onclick="openArticleFromHome(${latest.id})"><div class="featured-label"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Latest Article</div><h3>${latest.title}</h3><p>${latest.excerpt}</p><span class="read-more">Read article →</span></div>`;
 }
 
 function openArticleFromHome(id) {
@@ -1342,7 +1326,7 @@ function openArticle(id) {
     <a href="https://www.facebook.com/sharer/sharer.php?u=${url}" target="_blank" class="share-btn share-fb"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> Facebook</a>
     <a href="https://twitter.com/intent/tweet?text=${text}&url=${url}" target="_blank" class="share-btn share-tw"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> X</a>
     <a href="https://t.me/share/url?url=${url}&text=${text}" target="_blank" class="share-btn share-tg"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg> Telegram</a>
-    <button onclick="copyLink('${articleUrl}')" class="share-btn share-copy">🔗 Copy Link</button>`;
+    <button onclick="copyLink('${articleUrl}')" class="share-btn share-copy"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Copy Link</button>`;
   window.history.pushState({articleId: a.id}, '', `#article-${a.id}`);
   const imgEl = document.getElementById('article-hero-img');
   if (imgEl) { imgEl.src = a.image || ''; imgEl.style.display = a.image ? 'block' : 'none'; }
@@ -1442,7 +1426,7 @@ function closeDonate() {
 function copyAccount() {
   navigator.clipboard.writeText('8166127632').then(() => {
     const btn = document.getElementById('copyBtn');
-    if (btn) { btn.textContent = '✓ Copied!'; setTimeout(() => { btn.textContent = '📋 Copy Account Number'; }, 2000); }
+    if (btn) { btn.textContent = '✓ Copied!'; setTimeout(() => { btn.textContent = 'Copy Account Number'; }, 2000); }
   }).catch(() => alert('Account number: 8166127632 (PalmPay)'));
 }
 document.getElementById('donate-modal').addEventListener('click', function(e) { if (e.target === this) closeDonate(); });
@@ -1480,7 +1464,7 @@ async function loadTestimonials() {
   if (!container) return;
   const data = await supabaseFetch('testimonials?order=created_at.asc') || [];
   if (data.length === 0) {
-    container.innerHTML = '<div class="testimonials-empty"><div class="ei">🌱</div><p>We are just getting started. As young people, families and supporters share their stories, their words will appear here.<br><br>Be the first — send us your story at <strong>elroihopebridge@gmail.com</strong></p></div>';
+    container.innerHTML = '<div class="testimonials-empty"><div class="ei"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><p>We are just getting started. As young people, families and supporters share their stories, their words will appear here.<br><br>Be the first — send us your story at <strong>elroihopebridge@gmail.com</strong></p></div>';
     return;
   }
   container.innerHTML = `<div class="testimonials-grid">${data.map(t => `<div class="testimonial-card"><p>"${t.quote}"</p><div class="t-name">${t.name}</div><div class="t-role">${t.role||''}</div></div>`).join('')}</div>`;
@@ -1506,7 +1490,7 @@ async function submitPrayer() {
   document.getElementById('prayerText').value = '';
   document.getElementById('prayerName').value = '';
   const conf = document.getElementById('prayerConfirm');
-  conf.textContent = '✓ Your words have been posted. Thank you 🙏';
+  conf.textContent = '✓ Your words have been posted. Thank you ';
   conf.style.display = 'block';
   setTimeout(() => { conf.style.display = 'none'; }, 3000);
   await loadPrayers();
@@ -1651,7 +1635,7 @@ async function renderTeam() {
   }
   grid.style.display = 'grid';
   if (empty) empty.style.display = 'none';
-  grid.innerHTML = members.map(m => `<div class="team-card">${m.photo ? `<img src="${m.photo}" alt="${m.name}">` : '<div style="width:100%;height:220px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:3rem;">🕊️</div>'}<div class="team-card-body"><h4>${m.name}</h4><div class="team-role">${m.role}</div>${m.statement ? `<p>"${m.statement}"</p>` : ''}</div></div>`).join('');
+  grid.innerHTML = members.map(m => `<div class="team-card">${m.photo ? `<img src="${m.photo}" alt="${m.name}">` : '<div style="width:100%;height:220px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:3rem;"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>'}<div class="team-card-body"><h4>${m.name}</h4><div class="team-role">${m.role}</div>${m.statement ? `<p>"${m.statement}"</p>` : ''}</div></div>`).join('');
 }
 
 // ── ADMIN ─────────────────────────────────────────────────────────
@@ -1721,7 +1705,7 @@ async function renderAdminList() {
   if (!list) return;
   const arts = await getArticles();
   if (arts.length === 0) { list.innerHTML = '<div class="admin-empty">No articles yet.</div>'; return; }
-  list.innerHTML = arts.map(a => `<div class="admin-article-item"><div class="admin-article-item-info"><h4>${a.title}</h4><span class="cat-pill">${a.category}</span><span>${a.date} · ${a.read}</span></div><div class="admin-actions"><button class="admin-edit-btn" onclick="editArticle(${a.id})">✏️ Edit</button><button class="admin-delete-btn" onclick="deleteArticle(${a.id})">🗑 Delete</button></div></div>`).join('');
+  list.innerHTML = arts.map(a => `<div class="admin-article-item"><div class="admin-article-item-info"><h4>${a.title}</h4><span class="cat-pill">${a.category}</span><span>${a.date} · ${a.read}</span></div><div class="admin-actions"><button class="admin-edit-btn" onclick="editArticle(${a.id})"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Edit</button><button class="admin-delete-btn" onclick="deleteArticle(${a.id})"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg> Delete</button></div></div>`).join('');
 }
 
 function showNewArticleForm() {
@@ -1733,21 +1717,13 @@ function showNewArticleForm() {
   document.getElementById('aRead').value = '5 min read';
   document.getElementById('aBody').value = `## Opening (replace this heading or delete it)
 
-Write your opening paragraph here. Set the scene, raise the question, or speak directly to the reader. Keep it personal and grounded.
+Write your opening paragraph here. Set the scene, raise the question, or speak directly to the reader.
 
 ## Section Two Heading
 
-Write your second section here. Use plain paragraphs separated by a blank line.
+Write your second section here. Separate paragraphs with a blank line. Use **bold text** for emphasis and _italic text_ for softer emphasis.
 
-You can use **bold text** for emphasis and _italic text_ for softer emphasis.
-
-> This is a pull quote or blockquote. Use it for a key statement, scripture, or a line you want to stand out.
-
-## Section Three Heading
-
-Continue the article here. Each section should flow naturally into the next.
-
-**Key point in bold.** Then expand on it in the paragraph that follows.
+> This is a pull quote. Use it for a key statement or scripture.
 
 ## Closing Thought
 
@@ -1755,6 +1731,7 @@ End with something the reader can hold onto — a challenge, an encouragement, o
 
 _— Adekunle Temitope, Founder, El-Roi HopeBridge_`;
   document.getElementById('aImage').value = '';
+  resetUploadUI('aImageFile','aImagePreview','aImageUploadStatus');
   document.getElementById('aPublishDate').value = '';
   document.getElementById('aPublishTime').value = '';
   document.getElementById('formMsg').style.display = 'none';
@@ -1787,7 +1764,6 @@ function bodyToHTML(raw) {
     p = p.trim(); if (!p) return '';
     if (p.startsWith('## ')) return `<h2>${p.slice(3)}</h2>`;
     if (p.startsWith('> ')) return `<blockquote>${p.slice(2)}</blockquote>`;
-    // A paragraph wrapped entirely in _..._ is the author/signature line — render gold bold italic
     if (/^_[^_]+_$/.test(p)) return `<p style="font-style:italic;color:#F5A623;font-weight:600;">${p.slice(1,-1)}</p>`;
     return `<p>${p.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/_(.*?)_/g,'<em>$1</em>').replace(/\n/g,'<br>')}</p>`;
   }).join('\n');
@@ -1799,10 +1775,12 @@ async function saveArticle() {
   const excerpt = document.getElementById('aExcerpt').value.trim();
   const read = document.getElementById('aRead').value.trim() || '5 min read';
   const rawBody = document.getElementById('aBody').value.trim();
+  let image = document.getElementById('aImage').value.trim();
   if (!title || !excerpt || !rawBody) { alert('Please fill in Title, Excerpt and Article Body.'); return; }
-  const uploadedImage = await uploadSingleField('aImageFile', 'aImageUploadStatus');
-  const image = uploadedImage || document.getElementById('aImage').value.trim();
   const editId = document.getElementById('editId').value;
+  const up = await uploadSingleField('aImageFile','aImageUploadStatus');
+  if (up === null) { alert('Photo upload failed, so nothing was saved. ' + (window._lastUploadError||'')); return; }
+  if (up) image = up;
   const publishDate = document.getElementById('aPublishDate').value;
   const publishTime = document.getElementById('aPublishTime').value;
   const isScheduled = !!publishDate;
@@ -1842,6 +1820,28 @@ async function deleteArticle(id) {
   await renderAdminList();
 }
 
+async function addTeamMember() {
+  const name = document.getElementById('tmName').value.trim();
+  const role = document.getElementById('tmRole').value.trim();
+  const statement = document.getElementById('tmStatement').value.trim();
+  let photo = document.getElementById('tmPhoto').value.trim();
+  if (!name || !role) { alert('Please enter name and role.'); return; }
+  const up = await uploadSingleField('tmPhotoFile','tmPhotoUploadStatus');
+  if (up === null) { alert('Photo upload failed, so nothing was saved. ' + (window._lastUploadError||'')); return; }
+  if (up) photo = up;
+  await supabaseFetch('team_members', { method:'POST', prefer:'return=minimal', body: JSON.stringify({name, role, statement:statement||null, photo:photo||null}) });
+  document.getElementById('tmName').value = '';
+  document.getElementById('tmRole').value = '';
+  document.getElementById('tmStatement').value = '';
+  document.getElementById('tmPhoto').value = '';
+  resetUploadUI('tmPhotoFile','tmPhotoPreview','tmPhotoUploadStatus');
+  await renderAdminTeamList();
+  const msg = document.getElementById('teamMsg');
+  msg.textContent = `✓ ${name} added!`;
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 2000);
+}
+
 async function renderAdminTeamList() {
   const el = document.getElementById('adminTeamList');
   if (!el) return;
@@ -1850,16 +1850,14 @@ async function renderAdminTeamList() {
     el.innerHTML = '<p style="color:rgba(255,255,255,0.3);font-size:0.8rem;">No team members yet.</p>';
     return;
   }
+  // Store members globally for edit access
   window._teamMembers = members;
-  el.innerHTML = members.map((m) => {
-    const safeId = m.id || '';
-    if (!safeId) console.warn('Team member missing id:', m);
-    return `
+  el.innerHTML = members.map((m, i) => `
     <div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:1rem;margin-bottom:0.75rem;">
       <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
         ${m.photo
           ? `<img src="${m.photo}" style="width:80px;height:80px;border-radius:10px;object-fit:cover;object-position:top;border:2px solid var(--gold);flex-shrink:0;">`
-          : `<div style="width:80px;height:80px;border-radius:10px;background:rgba(245,166,35,0.15);display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0;">🕊️</div>`}
+          : `<div style="width:80px;height:80px;border-radius:10px;background:rgba(245,166,35,0.15);display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0;"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>`}
         <div style="flex:1;min-width:120px;">
           <div style="color:white;font-size:0.92rem;font-weight:700;margin-bottom:0.2rem;">${m.name}</div>
           <div style="color:var(--gold);font-size:0.78rem;margin-bottom:0.4rem;">${m.role}</div>
@@ -1867,17 +1865,15 @@ async function renderAdminTeamList() {
         </div>
       </div>
       <div style="display:flex;gap:0.5rem;margin-top:0.75rem;">
-        <button class="admin-edit-btn" onclick="editTeamMemberById('${safeId}')">✏️ Edit</button>
-        <button class="admin-delete-btn" onclick="deleteTeamMember('${safeId}')">🗑 Remove</button>
+        <button class="admin-edit-btn" onclick="editTeamMemberByIndex(${i})"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Edit</button>
+        <button class="admin-delete-btn" onclick="deleteTeamMember('${m.id}')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg> Remove</button>
       </div>
-    </div>`;
-  }).join('');
+    </div>`).join('');
 }
 
-function editTeamMemberById(id) {
-  const members = window._teamMembers || [];
-  const m = members.find(x => String(x.id) === String(id));
-  if (!m) { console.error('Could not find team member with id:', id); return; }
+function editTeamMemberByIndex(i) {
+  const m = window._teamMembers[i];
+  if (!m) return;
   document.getElementById('tmName').value = m.name || '';
   document.getElementById('tmRole').value = m.role || '';
   document.getElementById('tmStatement').value = m.statement || '';
@@ -1887,19 +1883,27 @@ function editTeamMemberById(id) {
   document.getElementById('tmName').scrollIntoView({behavior:'smooth'});
 }
 
+function editTeamMember(id, name, role, statement, photo) {
+  document.getElementById('tmName').value = name;
+  document.getElementById('tmRole').value = role;
+  document.getElementById('tmStatement').value = statement;
+  document.getElementById('tmPhoto').value = photo;
+  document.getElementById('tmEditId').value = id;
+  const btn = document.querySelector('#tmSubmitBtn');
+  if (btn) { btn.textContent = 'Update Team Member'; }
+  document.getElementById('tmName').scrollIntoView({behavior:'smooth'});
+}
+
 async function addTeamMember() {
   const name = document.getElementById('tmName').value.trim();
   const role = document.getElementById('tmRole').value.trim();
   const statement = document.getElementById('tmStatement').value.trim();
+  const photo = document.getElementById('tmPhoto').value.trim();
   const editId = document.getElementById('tmEditId').value;
   if (!name || !role) { alert('Please enter name and role.'); return; }
-  const uploadedPhoto = await uploadSingleField('tmPhotoFile', 'tmPhotoUploadStatus');
-  const photo = uploadedPhoto || document.getElementById('tmPhoto').value.trim();
   if (editId) {
-    await supabaseFetch(`team_members?id=eq.${editId}`, {
-      method: 'PATCH', prefer: 'return=minimal',
-      body: JSON.stringify({name, role, statement:statement||null, photo:photo||null})
-    });
+    const upd = await sbWrite(`team_members?id=eq.${editId}`, 'PATCH', {name, role, statement:statement||null, photo:photo||null});
+    if (!upd || upd.length === 0) { alert('Update blocked by database permissions. Run the permissions SQL, then try again.'); return; }
     document.getElementById('tmEditId').value = '';
     const btn = document.querySelector('#tmSubmitBtn');
     if (btn) btn.textContent = 'Add Team Member';
@@ -1918,29 +1922,15 @@ async function addTeamMember() {
   document.getElementById('tmRole').value = '';
   document.getElementById('tmStatement').value = '';
   document.getElementById('tmPhoto').value = '';
-  const tmf = document.getElementById('tmPhotoFile'); if(tmf) tmf.value = '';
-  const tmp = document.getElementById('tmPhotoPreview'); if(tmp) { tmp.src=''; tmp.style.display='none'; }
-  const tms = document.getElementById('tmPhotoUploadStatus'); if(tms) tms.textContent = '';
   await renderAdminTeamList();
   await renderTeam();
 }
 
 async function deleteTeamMember(id) {
-  if (!id) { alert('Cannot delete: member ID is missing. Please refresh and try again.'); return; }
+  if (!id) { alert('Missing member ID. Refresh and try again.'); return; }
   if (!confirm('Remove this team member?')) return;
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/team_members?id=eq.${id}`, {
-    method: 'DELETE',
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': `Bearer ${SUPABASE_KEY}`,
-      'Prefer': 'return=minimal'
-    }
-  });
-  if (!res.ok) {
-    console.error('Delete failed — status:', res.status, 'id used:', id);
-    alert('Could not remove team member. Check the browser console for details.');
-    return;
-  }
+  const rows = await sbWrite(`team_members?id=eq.${id}`, 'DELETE');
+  if (!rows || rows.length === 0) { alert('Not removed: the database blocked the delete. Run the permissions SQL, then try again.'); return; }
   await renderAdminTeamList();
   await renderTeam();
 }
@@ -1985,7 +1975,7 @@ async function renderAdminTestimonials() {
   if (!el) return;
   const data = await supabaseFetch('testimonials?order=created_at.asc') || [];
   if (data.length === 0) { el.innerHTML = '<p style="color:rgba(255,255,255,0.3);font-size:0.8rem;">No testimonials yet.</p>'; return; }
-  el.innerHTML = data.map(t => `<div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:0.8rem 1rem;margin-bottom:0.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;"><div><div style="color:white;font-size:0.85rem;font-weight:600;">${t.name} <span style="color:var(--gold);font-size:0.75rem;">${t.role||''}</span></div><div style="color:rgba(255,255,255,0.4);font-size:0.78rem;margin-top:0.2rem;">"${t.quote.substring(0,60)}..."</div></div><button class="admin-delete-btn" onclick="deleteTestimonial('${t.id}')">🗑</button></div>`).join('');
+  el.innerHTML = data.map(t => `<div style="background:rgba(255,255,255,0.04);border-radius:6px;padding:0.8rem 1rem;margin-bottom:0.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;"><div><div style="color:white;font-size:0.85rem;font-weight:600;">${t.name} <span style="color:var(--gold);font-size:0.75rem;">${t.role||''}</span></div><div style="color:rgba(255,255,255,0.4);font-size:0.78rem;margin-top:0.2rem;">"${t.quote.substring(0,60)}..."</div></div><button class="admin-delete-btn" onclick="deleteTestimonial('${t.id}')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg></button></div>`).join('');
 }
 
 async function deleteTestimonial(id) {
@@ -2009,10 +1999,12 @@ async function saveEvent() {
   const location = document.getElementById('evLocation').value.trim();
   const date = document.getElementById('evDate').value;
   const time = document.getElementById('evTime').value;
+  let image = document.getElementById('evImage').value.trim();
   const editId = document.getElementById('eventEditId').value;
   if (!title) { alert('Please enter an event title.'); return; }
-  const uploadedEvImage = await uploadMultiField('evImageFile', 'evImageUploadStatus');
-  const image = uploadedEvImage || document.getElementById('evImage').value.trim();
+  const up = await uploadMultiField('evImageFile','evImageUploadStatus');
+  if (up === null) { alert('Photo upload failed, so nothing was saved. ' + (window._lastUploadError||'')); return; }
+  if (up) image = up;
   if (editId) {
     await supabaseFetch(`events?id=eq.${editId}`, {
       method: 'PATCH', prefer: 'return=minimal',
@@ -2033,11 +2025,10 @@ async function saveEvent() {
 }
 
 function clearEventForm() {
-  ['evTitle','evDesc','evLocation','evDate','evTime','evImage','evImageFile'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  ['evTitle','evDesc','evLocation','evDate','evTime','evImage'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('eventEditId').value = '';
   document.getElementById('evSubmitBtn').textContent = 'Add Event';
-  const ep = document.getElementById('evImagePreviews'); if(ep) ep.innerHTML = '';
-  const es = document.getElementById('evImageUploadStatus'); if(es) es.textContent = '';
+  resetUploadUI('evImageFile','evImagePreviews','evImageUploadStatus');
 }
 
 async function renderAdminEvents() {
@@ -2050,8 +2041,8 @@ async function renderAdminEvents() {
       <div style="color:white;font-weight:600;font-size:0.88rem;margin-bottom:0.25rem;">${e.title}</div>
       <div style="color:var(--gold);font-size:0.75rem;margin-bottom:0.5rem;">${e.event_date||''} ${e.event_time||''} ${e.location ? '· ' + e.location : ''}</div>
       <div style="display:flex;gap:0.5rem;">
-        <button class="admin-edit-btn" onclick="editEvent('${e.id}')">✏️ Edit</button>
-        <button class="admin-delete-btn" onclick="deleteEvent('${e.id}')">🗑 Delete</button>
+        <button class="admin-edit-btn" onclick="editEvent('${e.id}')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Edit</button>
+        <button class="admin-delete-btn" onclick="deleteEvent('${e.id}')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg> Delete</button>
       </div>
     </div>`).join('');
 }
@@ -2080,17 +2071,21 @@ async function deleteEvent(id) {
 async function saveGalleryPhoto() {
   const title = document.getElementById('galTitle').value.trim();
   const category = document.getElementById('galCategory').value.trim();
+  let imageRaw = document.getElementById('galImage').value.trim();
   const editId = document.getElementById('galleryEditId').value;
-  const uploadedGalImages = await uploadMultiField('galImageFile', 'galImageUploadStatus');
-  const imageRaw = uploadedGalImages || document.getElementById('galImage').value.trim();
-  if (!imageRaw) { alert('Please select at least one photo.'); return; }
+  const up = await uploadMultiField('galImageFile','galImageUploadStatus');
+  if (up === null) { alert('Photo upload failed, so nothing was saved. ' + (window._lastUploadError||'')); return; }
+  if (up) imageRaw = up;
+  if (!imageRaw) { alert('Please choose at least one photo.'); return; }
   if (editId) {
+    // Edit mode — update single entry
     const image = imageRaw.split(',')[0].trim();
     await supabaseFetch(`gallery?id=eq.${editId}`, {
       method: 'PATCH', prefer: 'return=minimal',
       body: JSON.stringify({title:title||null, category:category||null, image})
     });
   } else {
+    // Add mode — create one entry per URL
     const urls = imageRaw.split(',').map(u => u.trim()).filter(Boolean);
     for (const image of urls) {
       await supabaseFetch('gallery', {
@@ -2108,11 +2103,10 @@ async function saveGalleryPhoto() {
 }
 
 function clearGalleryForm() {
-  ['galTitle','galCategory','galImage','galImageFile'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  ['galTitle','galCategory','galImage'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('galleryEditId').value = '';
   document.getElementById('galSubmitBtn').textContent = 'Add Photo';
-  const gp = document.getElementById('galImagePreviews'); if(gp) gp.innerHTML = '';
-  const gs = document.getElementById('galImageUploadStatus'); if(gs) gs.textContent = '';
+  resetUploadUI('galImageFile','galImagePreviews','galImageUploadStatus');
 }
 
 async function renderAdminGallery() {
@@ -2124,8 +2118,8 @@ async function renderAdminGallery() {
     <div style="position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1;">
       <img src="${g.image}" style="width:100%;height:100%;object-fit:cover;">
       <div style="position:absolute;inset:0;background:rgba(0,0,0,0.5);opacity:0;transition:opacity 0.2s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.4rem;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0">
-        <button class="admin-edit-btn" style="font-size:0.68rem;padding:4px 8px;" onclick="editGalleryPhoto('${g.id}')">✏️</button>
-        <button class="admin-delete-btn" style="font-size:0.68rem;padding:4px 8px;" onclick="deleteGalleryPhoto('${g.id}')">🗑</button>
+        <button class="admin-edit-btn" style="font-size:0.68rem;padding:4px 8px;" onclick="editGalleryPhoto('${g.id}')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button>
+        <button class="admin-delete-btn" style="font-size:0.68rem;padding:4px 8px;" onclick="deleteGalleryPhoto('${g.id}')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg></button>
       </div>
     </div>`).join('');
 }
@@ -2158,7 +2152,7 @@ async function loadAdminMentorship() {
       <div class="s-name">${m.name} ${m.age ? '(Age ' + m.age + ')' : ''}</div>
       <div class="s-meta">${m.email||''} ${m.phone ? '· ' + m.phone : ''} · ${new Date(m.created_at).toLocaleDateString('en-NG')}</div>
       <div class="s-text">${m.challenge}</div>
-      <button class="admin-delete-btn" style="margin-top:0.5rem;font-size:0.75rem;" onclick="deleteMentorRequest('${m.id}')">🗑 Delete</button>
+      <button class="admin-delete-btn" style="margin-top:0.5rem;font-size:0.75rem;" onclick="deleteMentorRequest('${m.id}')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg> Delete</button>
     </div>`).join('');
 }
 
@@ -2179,7 +2173,7 @@ async function loadAdminStories() {
       <div class="s-name">${s.name}</div>
       <div class="s-meta">${s.email||'No email'} · ${new Date(s.created_at).toLocaleDateString('en-NG')}</div>
       <div class="s-text">${s.story.substring(0,200)}${s.story.length > 200 ? '...' : ''}</div>
-      <button class="admin-delete-btn" style="margin-top:0.5rem;font-size:0.75rem;" onclick="deleteStory('${s.id}')">🗑 Delete</button>
+      <button class="admin-delete-btn" style="margin-top:0.5rem;font-size:0.75rem;" onclick="deleteStory('${s.id}')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg> Delete</button>
     </div>`).join('');
 }
 
@@ -2234,7 +2228,7 @@ async function loadEvents() {
   grid.innerHTML = '<p style="color:var(--grey);text-align:center;padding:2rem;">Loading events…</p>';
   const data = await supabaseFetch('events?order=event_date.asc') || [];
   if (data.length === 0) {
-    grid.innerHTML = '<div class="no-events"><div class="ni">📅</div><p>No upcoming events yet. Check back soon.</p></div>';
+    grid.innerHTML = '<div class="no-events"><div class="ni"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><p>No upcoming events yet. Check back soon.</p></div>';
     return;
   }
   grid.innerHTML = data.map(e => {
@@ -2264,7 +2258,7 @@ async function loadGallery() {
   grid.innerHTML = '<p style="text-align:center;padding:2rem;color:var(--grey);">Loading gallery…</p>';
   const data = await supabaseFetch('gallery?order=created_at.desc') || [];
   if (data.length === 0) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--grey);"><div style="font-size:3rem;margin-bottom:1rem;">📷</div><p>No photos yet. Check back soon.</p></div>';
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--grey);"><div style="font-size:3rem;margin-bottom:1rem;"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><p>No photos yet. Check back soon.</p></div>';
     if (filtersEl) filtersEl.innerHTML = '';
     return;
   }
