@@ -401,6 +401,11 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 .ni,.ei,.empty-icon{color:var(--gold)}
 .team-grid{grid-template-columns:repeat(auto-fit,minmax(220px,280px))!important;justify-content:center}
 .team-card img{width:100%;height:auto!important;aspect-ratio:1/1;object-fit:cover;object-position:center 20%}
+.approach{margin-top:1.1rem;padding-top:1rem;border-top:1px solid #F3F4F6}
+.approach h4{font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem}
+.approach ul{list-style:none}
+.approach li{font-size:0.82rem;color:var(--grey);line-height:1.6;padding-left:1.1rem;position:relative;margin-bottom:0.4rem}
+.approach li::before{content:'';position:absolute;left:0;top:0.6em;width:6px;height:6px;border-radius:50%;background:var(--gold)}
 </style>
 </head>
 <body>
@@ -499,6 +504,17 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
     </div>
   </section>
 
+  <!-- FOCUS AREAS (HOME) -->
+  <section class="section section-light">
+    <div class="section-inner text-center">
+      <p class="section-label">What We Do</p>
+      <h2 class="section-title" style="margin:0 auto 1rem;">Our Five Focus Areas</h2>
+      <p class="section-body" style="margin:0 auto;">Every child deserves to be seen, heard and given a real chance. Here is where we put our energy.</p>
+      <div class="focus-grid" style="text-align:left;"><div class="focus-card"><div class="focus-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><h3>Career Clarity</h3><p>Every teenager should leave secondary school knowing what they want to do with their life.</p></div><div class="focus-card"><div class="focus-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><h3>Mental Health in Schools</h3><p>Safe spaces where children can speak up before pressure becomes a crisis.</p></div><div class="focus-card"><div class="focus-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3>Children in Education</h3><p>Getting children who belong in school back into the classroom.</p></div><div class="focus-card"><div class="focus-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><h3>Parenting Advocacy</h3><p>Helping parents listen as well as guide.</p></div><div class="focus-card"><div class="focus-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h3>Unlocking Potential</h3><p>Practical skills, support and confidence for every child.</p></div></div>
+      <div class="mt-4"><button class="btn btn-gold" onclick="showPage('about');setTimeout(function(){var e=document.getElementById('focus-areas');if(e)e.scrollIntoView({behavior:'smooth'});},300)">See How We Tackle Each Area</button></div>
+    </div>
+  </section>
+
   <!-- LATEST ARTICLE TEASER -->
   <section class="section">
     <div class="section-inner">
@@ -592,7 +608,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
   </section>
 
   <!-- FOCUS AREAS -->
-  <section class="section section-light">
+  <section class="section section-light" id="focus-areas">
     <div class="section-inner">
       <p class="section-label">What We Do</p>
       <h2 class="section-title">Our Five Focus Areas</h2>
@@ -604,6 +620,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
           </div>
           <h3>Post-Secondary Career Clarity</h3>
           <p>After secondary school, every teenager should know what they want to do with their life — with or without parental guidance. We provide the tools, conversations, and direction to make that possible.</p>
+          <div class="approach"><h4>How we tackle it</h4><ul><li>Open honest career conversations so every teenager understands their strengths, options and next steps.</li><li>Match young people with mentors through the Request a Mentor form, with or without parental guidance.</li><li>Build employability skills for those who want to be employed.</li></ul></div>
         </div>
         <div class="focus-card">
           <div class="focus-icon">
@@ -611,6 +628,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
           </div>
           <h3>Mental Health in Schools</h3>
           <p>Children must be mentally fit to actually be in school. We advocate for safe spaces in schools where students can speak about pressure, neglect, trauma — and find support before it's too late.</p>
+          <div class="approach"><h4>How we tackle it</h4><ul><li>Create safe spaces in schools where students can speak openly about pressure, neglect and trauma.</li><li>Share honest, practical guidance through our articles and community.</li><li>Point young people toward qualified professional help when they need it.</li></ul></div>
         </div>
         <div class="focus-card">
           <div class="focus-icon">
@@ -618,6 +636,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
           </div>
           <h3>Vulnerable Children in Education</h3>
           <p>Every child who deserves to be in school should be in school. We work to bring children back to education — partnering with organisations to ensure no child is left out hawking or doing nothing meaningful.</p>
+          <div class="approach"><h4>How we tackle it</h4><ul><li>Partner with organisations to bring children back to school instead of hawking or sitting idle.</li><li>Speak up for children whose circumstances have pushed them out of the classroom.</li><li>Support families so that children who belong in school stay in school.</li></ul></div>
         </div>
         <div class="focus-card">
           <div class="focus-icon">
@@ -625,6 +644,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
           </div>
           <h3>Parenting Advocacy</h3>
           <p>We organise seminars to enlighten parents and guardians — helping them understand that a child's wellbeing goes beyond exam results. Asking: "What do you want? How can life become better for you?"</p>
+          <div class="approach"><h4>How we tackle it</h4><ul><li>Organise seminars where parents and guardians learn that listening matters as much as exam results.</li><li>Encourage questions like "What do you want?" and "How can life become better for you?"</li><li>Use articles and community conversations to keep the message in front of families.</li></ul></div>
         </div>
         <div class="focus-card">
           <div class="focus-icon">
@@ -632,6 +652,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
           </div>
           <h3>Unlocking Potential</h3>
           <p>Creating safe spaces where children can step out of fear, open up, and discover the best in themselves — through practical skills, business capital, and employability programmes.</p>
+          <div class="approach"><h4>How we tackle it</h4><ul><li>Provide safe spaces where children can step out of fear and discover the best in themselves.</li><li>Work with government and private organisations on practical hand skills.</li><li>Pursue business capital and sponsorship for young people who want to start a business.</li></ul></div>
         </div>
       </div>
     </div>
@@ -846,7 +867,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
   <div id="admin-dashboard" style="display:none;">
     <div class="admin-wrap">
       <div class="admin-header">
-        <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Admin Dashboard</h2>
+        <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Admin Dashboard <small style="font-size:0.6rem;font-weight:600;color:rgba(255,255,255,0.45);letter-spacing:0.08em;vertical-align:middle;">BUILD 7 · 1 NOV</small></h2>
         <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
           <button class="admin-cancel" onclick="showPage('home')">← View Site</button>
           <button class="admin-cancel" onclick="adminSignOut()">Sign Out</button>
@@ -1824,22 +1845,29 @@ async function addTeamMember() {
   const name = document.getElementById('tmName').value.trim();
   const role = document.getElementById('tmRole').value.trim();
   const statement = document.getElementById('tmStatement').value.trim();
+  const editId = document.getElementById('tmEditId').value;
   let photo = document.getElementById('tmPhoto').value.trim();
   if (!name || !role) { alert('Please enter name and role.'); return; }
   const up = await uploadSingleField('tmPhotoFile','tmPhotoUploadStatus');
   if (up === null) { alert('Photo upload failed, so nothing was saved. ' + (window._lastUploadError||'')); return; }
   if (up) photo = up;
-  await supabaseFetch('team_members', { method:'POST', prefer:'return=minimal', body: JSON.stringify({name, role, statement:statement||null, photo:photo||null}) });
-  document.getElementById('tmName').value = '';
-  document.getElementById('tmRole').value = '';
-  document.getElementById('tmStatement').value = '';
-  document.getElementById('tmPhoto').value = '';
+  const row = {name, role, statement:statement||null, photo:photo||null};
+  if (editId) {
+    const upd = await sbWrite(`team_members?id=eq.${editId}`, 'PATCH', row);
+    if (!upd || upd.length === 0) { alert('Update blocked by database permissions. Run the permissions SQL, then try again.'); return; }
+  } else {
+    const ins = await sbWrite('team_members', 'POST', row);
+    if (!ins || ins.length === 0) { alert('Could not add this team member. Please try again.'); return; }
+  }
+  ['tmName','tmRole','tmStatement','tmPhoto','tmEditId'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('tmSubmitBtn').textContent = 'Add Team Member';
   resetUploadUI('tmPhotoFile','tmPhotoPreview','tmPhotoUploadStatus');
   await renderAdminTeamList();
+  await renderTeam();
   const msg = document.getElementById('teamMsg');
-  msg.textContent = `✓ ${name} added!`;
+  msg.textContent = editId ? `✓ ${name} updated!` : `✓ ${name} added!`;
   msg.style.display = 'block';
-  setTimeout(() => msg.style.display = 'none', 2000);
+  setTimeout(() => msg.style.display = 'none', 2500);
 }
 
 async function renderAdminTeamList() {
@@ -1879,6 +1907,7 @@ function editTeamMemberByIndex(i) {
   document.getElementById('tmStatement').value = m.statement || '';
   document.getElementById('tmPhoto').value = m.photo || '';
   document.getElementById('tmEditId').value = m.id;
+  const pv = document.getElementById('tmPhotoPreview'); if (pv && m.photo) { pv.src = m.photo; pv.style.display = 'block'; }
   document.getElementById('tmSubmitBtn').textContent = 'Update Team Member';
   document.getElementById('tmName').scrollIntoView({behavior:'smooth'});
 }
