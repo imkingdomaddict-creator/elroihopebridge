@@ -5,20 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>El-Roi HopeBridge — Every Child Deserves to Be Seen</title>
 <meta name="description" content="El-Roi HopeBridge is a Nigerian NGO restoring hope and direction to young people aged 15–20 through career clarity, mental health support, and education access.">
-<!-- Open Graph — controls how link appears on WhatsApp, Facebook, Telegram etc -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="El-Roi HopeBridge">
-<meta property="og:title" content="El-Roi HopeBridge — Every Child Deserves to Be Seen, Heard & Empowered">
-<meta property="og:description" content="A faith-based Nigerian NGO restoring hope and direction to young people aged 15–20 through career clarity, mental health support, and education access.">
-<meta property="og:image" content="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:url" content="https://elroihopebridgengo.com.ng">
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="El-Roi HopeBridge — Every Child Deserves to Be Seen, Heard & Empowered">
-<meta name="twitter:description" content="A faith-based Nigerian NGO restoring hope and direction to young people aged 15–20 through career clarity, mental health support, and education access.">
-<meta name="twitter:image" content="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png">
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-N6T12J22FV"></script>
 <script>
@@ -397,6 +383,25 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 .submission-card .s-name{color:white;font-weight:600;font-size:0.88rem}
 .submission-card .s-meta{color:rgba(255,255,255,0.4);font-size:0.75rem;margin:0.2rem 0 0.5rem}
 .submission-card .s-text{color:rgba(255,255,255,0.65);font-size:0.82rem;line-height:1.6}
+
+/* ── DAILY QUOTE MODAL ── */
+#daily-quote-modal{display:none;position:fixed;inset:0;z-index:997;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1.5rem}
+#daily-quote-modal.open{display:flex}
+.dq-card{background:var(--navy);border-radius:16px;padding:2.5rem 2rem;max-width:420px;width:100%;text-align:center;position:relative;border:1px solid rgba(245,166,35,0.25);box-shadow:0 20px 60px rgba(0,0,0,0.5);animation:dqFadeIn 0.4s ease}
+@keyframes dqFadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.dq-logo{width:52px;height:52px;object-fit:contain;margin:0 auto 1.25rem;mix-blend-mode:lighten;filter:brightness(1.1)}
+.dq-label{font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,166,35,0.6);margin-bottom:1rem}
+.dq-quote{font-family:'Playfair Display',serif;font-size:1.2rem;color:white;line-height:1.7;margin-bottom:0.75rem;font-style:italic}
+.dq-quote::before{content:'\201C';color:var(--gold);font-size:2rem;line-height:0;vertical-align:-0.5rem;margin-right:0.2rem}
+.dq-quote::after{content:'\201D';color:var(--gold);font-size:2rem;line-height:0;vertical-align:-0.5rem;margin-left:0.2rem}
+.dq-author{font-size:0.78rem;color:rgba(245,166,35,0.8);font-weight:600;margin-bottom:1.75rem}
+.dq-actions{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap}
+.dq-share-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:8px 14px;border-radius:8px;font-size:0.75rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all 0.2s;text-decoration:none}
+.dq-share-wa{background:#25D366;color:white}
+.dq-share-ig{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:white}
+.dq-close{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.12);padding:8px 20px;border-radius:8px;font-size:0.78rem;cursor:pointer;font-family:inherit;transition:all 0.2s}
+.dq-close:hover{background:rgba(255,255,255,0.12);color:white}
+.dq-day{font-size:0.72rem;color:rgba(255,255,255,0.25);margin-top:1.25rem}
 
 /* ── UTILS ── */
 .text-center{text-align:center}
@@ -1040,6 +1045,22 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
         <p id="goalMsg" style="display:none;color:var(--gold);font-size:0.82rem;margin-top:0.5rem;"></p>
       </div>
 
+      <!-- DAILY QUOTES -->
+      <div class="admin-form">
+        <h3>💬 Daily Quotes</h3>
+        <p>Add quotes here. One is shown daily to every visitor as a popup. Rotates automatically — no repeat until all are shown.</p>
+        <label>Quote Text *</label>
+        <textarea id="dqInput" rows="3" placeholder="e.g. You are not invisible. God sees you — and so do we."></textarea>
+        <label>Author / Attribution (optional)</label>
+        <input type="text" id="dqAuthorInput" placeholder="e.g. Adekunle Temitope, Founder — or leave blank">
+        <div style="display:flex;gap:0.75rem;margin-top:1rem;flex-wrap:wrap;">
+          <button class="btn btn-gold" onclick="addDailyQuote()">Add Quote</button>
+          <button class="admin-cancel" onclick="clearQuoteForm()">Clear</button>
+        </div>
+        <p id="dqMsg" style="display:none;color:var(--gold);font-size:0.82rem;margin-top:0.5rem;"></p>
+        <div id="adminQuoteList" style="margin-top:1rem;"></div>
+      </div>
+
       <!-- TESTIMONIALS -->
       <div class="admin-form">
         <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Testimonials</h3>
@@ -1126,6 +1147,25 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
   <button class="gallery-lightbox-close" onclick="closeLightbox()">✕</button>
   <img id="lightboxImg" src="" alt="">
   <div class="gallery-lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<!-- DAILY QUOTE MODAL -->
+<div id="daily-quote-modal">
+  <div class="dq-card">
+    <img src="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png" alt="El-Roi HopeBridge" class="dq-logo">
+    <div class="dq-label">Today's Word of Hope</div>
+    <div class="dq-quote" id="dqText">Loading…</div>
+    <div class="dq-author" id="dqAuthor"></div>
+    <div class="dq-actions">
+      <a id="dqShareWa" href="#" target="_blank" class="dq-share-btn dq-share-wa">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.117 1.528 5.845L0 24l6.335-1.505A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+        Share on WhatsApp
+      </a>
+      <button onclick="copyQuote()" class="dq-share-btn dq-share-ig">📋 Copy for Instagram</button>
+      <button onclick="closeDailyQuote()" class="dq-close">Continue to Site →</button>
+    </div>
+    <div class="dq-day" id="dqDay"></div>
+  </div>
 </div>
 
 <!-- FOOTER -->
@@ -1340,7 +1380,7 @@ async function renderArticles() {
   if (grid) {
     grid.innerHTML = filtered.length === 0
       ? '<p style="color:var(--grey);text-align:center;padding:2rem;grid-column:1/-1;">No articles in this category yet.</p>'
-      : filtered.map(a => `<div class="article-card" onclick="openArticle(${a.id})">${a.image ? `<img src="${a.image}" alt="${a.title}" style="width:100%;height:180px;object-fit:cover;">` : ''}<div class="article-card-body"><div class="article-cat">${a.category}</div><h3>${a.title}</h3><p>${a.excerpt}</p><div class="article-meta"><span>${a.date}</span><span>${a.read}</span></div><span class="read-more">Read article →</span></div></div>`).join('');
+      : filtered.map(a => `<div class="article-card" onclick="openArticle(${a.id})">${a.image ? `<img src="${a.image}" alt="${a.title}" style="width:100%;height:180px;object-fit:cover;">` : ''}<div class="article-card-body"><div class="article-cat">${a.category}</div><h3>${a.title}</h3><p>${a.excerpt}</p><div class="article-meta"><span>📅 ${a.date}</span><span>⏱ ${a.read}</span></div><span class="read-more">Read article →</span></div></div>`).join('');
   }
   updateImpactNumbers();
 }
@@ -1374,7 +1414,7 @@ function openArticle(id) {
   view.classList.add('active');
   document.getElementById('article-title').textContent = a.title;
   document.getElementById('article-badge').textContent = a.category;
-  document.getElementById('article-date').textContent = a.date;
+  document.getElementById('article-date').textContent = a.date ? '📅 ' + a.date : '';
   document.getElementById('article-read').textContent = a.read;
   document.getElementById('article-body').innerHTML = a.body;
   const baseUrl = window.location.href.split('#')[0];
@@ -1749,6 +1789,7 @@ async function showDashboard() {
   await renderAdminGallery();
   await loadAdminMentorship();
   await loadAdminStories();
+  await renderAdminQuotes();
 }
 
 function adminSignOut() {
@@ -1848,9 +1889,9 @@ async function saveArticle() {
   if (publishDate) {
     publishedAt = publishDate + 'T' + (publishTime || '00:00') + ':00+01:00'; // WAT offset
   }
-  const now = publishDate
-    ? new Date(publishedAt).toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'})
-    : new Date().toLocaleDateString('en-NG',{month:'long',year:'numeric'});
+  const nowDate = publishDate ? new Date(publishedAt) : new Date();
+  const now = nowDate.toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'}) +
+    ' · ' + nowDate.toLocaleTimeString('en-NG',{hour:'2-digit',minute:'2-digit',hour12:true}) + ' WAT';
   const body = bodyToHTML(rawBody);
   const btn = document.querySelector('#articleForm .btn-gold');
   if (btn) { btn.textContent = 'Saving…'; btn.disabled = true; }
@@ -1880,7 +1921,34 @@ async function deleteArticle(id) {
   await renderAdminList();
 }
 
-// addTeamMember defined below — single authoritative version
+async function addTeamMember() {
+  const name = document.getElementById('tmName').value.trim();
+  const role = document.getElementById('tmRole').value.trim();
+  const statement = document.getElementById('tmStatement').value.trim();
+  const editId = document.getElementById('tmEditId').value;
+  let photo = document.getElementById('tmPhoto').value.trim();
+  if (!name || !role) { alert('Please enter name and role.'); return; }
+  const up = await uploadSingleField('tmPhotoFile','tmPhotoUploadStatus');
+  if (up === null) { alert('Photo upload failed, so nothing was saved. ' + (window._lastUploadError||'')); return; }
+  if (up) photo = up;
+  const row = {name, role, statement:statement||null, photo:photo||null};
+  if (editId) {
+    const upd = await sbWrite(`team_members?id=eq.${editId}`, 'PATCH', row);
+    if (!upd || upd.length === 0) { alert('Update blocked by database permissions. Run the permissions SQL, then try again.'); return; }
+  } else {
+    const ins = await sbWrite('team_members', 'POST', row);
+    if (!ins || ins.length === 0) { alert('Could not add this team member. Please try again.'); return; }
+  }
+  ['tmName','tmRole','tmStatement','tmPhoto','tmEditId'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('tmSubmitBtn').textContent = 'Add Team Member';
+  resetUploadUI('tmPhotoFile','tmPhotoPreview','tmPhotoUploadStatus');
+  await renderAdminTeamList();
+  await renderTeam();
+  const msg = document.getElementById('teamMsg');
+  msg.textContent = editId ? `✓ ${name} updated!` : `✓ ${name} added!`;
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 2500);
+}
 
 async function renderAdminTeamList() {
   const el = document.getElementById('adminTeamList');
@@ -1939,41 +2007,32 @@ async function addTeamMember() {
   const name = document.getElementById('tmName').value.trim();
   const role = document.getElementById('tmRole').value.trim();
   const statement = document.getElementById('tmStatement').value.trim();
+  const photo = document.getElementById('tmPhoto').value.trim();
   const editId = document.getElementById('tmEditId').value;
   if (!name || !role) { alert('Please enter name and role.'); return; }
-  // Upload new photo if one was selected — if upload fails, warn but still allow save with existing photo
-  let photo = document.getElementById('tmPhoto').value.trim();
-  const up = await uploadSingleField('tmPhotoFile', 'tmPhotoUploadStatus');
-  if (up === null) {
-    // Upload was attempted but failed — warn and stop so user knows
-    alert('Photo upload failed. Please check your internet connection and try again, or remove the photo selection to save without changing the photo.\n\n' + (window._lastUploadError || ''));
-    return;
-  }
-  if (up) photo = up; // new photo uploaded successfully — use it
-  // If up === '' — no file was selected — keep existing photo value unchanged
-  const row = { name, role, statement: statement || null, photo: photo || null };
-  const btn = document.getElementById('tmSubmitBtn');
-  if (btn) { btn.textContent = 'Saving…'; btn.disabled = true; }
   if (editId) {
-    await supabaseFetch(`team_members?id=eq.${editId}`, {
-      method: 'PATCH', prefer: 'return=minimal',
-      body: JSON.stringify(row)
-    });
+    const upd = await sbWrite(`team_members?id=eq.${editId}`, 'PATCH', {name, role, statement:statement||null, photo:photo||null});
+    if (!upd || upd.length === 0) { alert('Update blocked by database permissions. Run the permissions SQL, then try again.'); return; }
+    document.getElementById('tmEditId').value = '';
+    const btn = document.querySelector('#tmSubmitBtn');
+    if (btn) btn.textContent = 'Add Team Member';
+    const msg = document.getElementById('teamMsg');
+    msg.textContent = `✓ ${name} updated!`;
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 2000);
   } else {
-    await supabaseFetch('team_members', {
-      method: 'POST', prefer: 'return=minimal',
-      body: JSON.stringify(row)
-    });
+    await supabaseFetch('team_members', { method:'POST', prefer:'return=minimal', body: JSON.stringify({name, role, statement:statement||null, photo:photo||null}) });
+    const msg = document.getElementById('teamMsg');
+    msg.textContent = `✓ ${name} added!`;
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 2000);
   }
-  if (btn) { btn.textContent = 'Add Team Member'; btn.disabled = false; }
-  ['tmName','tmRole','tmStatement','tmPhoto','tmEditId'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
-  resetUploadUI('tmPhotoFile','tmPhotoPreview','tmPhotoUploadStatus');
+  document.getElementById('tmName').value = '';
+  document.getElementById('tmRole').value = '';
+  document.getElementById('tmStatement').value = '';
+  document.getElementById('tmPhoto').value = '';
   await renderAdminTeamList();
   await renderTeam();
-  const msg = document.getElementById('teamMsg');
-  msg.textContent = editId ? `✓ ${name} updated!` : `✓ ${name} added!`;
-  msg.style.display = 'block';
-  setTimeout(() => msg.style.display = 'none', 2500);
 }
 
 async function deleteTeamMember(id) {
@@ -2436,6 +2495,113 @@ window.addEventListener('popstate', () => {
     if (id) { showPage('articles'); setTimeout(() => openArticle(id), 500); }
   }
 })();
+
+// ── DAILY QUOTE ───────────────────────────────────────────────────
+const FALLBACK_QUOTES = [
+  { quote: 'You are not invisible. God sees you — and so do we.', author: 'El-Roi HopeBridge' },
+  { quote: 'Your life is not a mistake simply because it does not look exactly as your family imagined.', author: 'El-Roi HopeBridge' },
+  { quote: 'A quiet child is not always a content child. Sometimes, silence is the only protection they know.', author: 'El-Roi HopeBridge' },
+  { quote: 'You were born into a family, but you are also becoming a person with a voice, a purpose, and a future.', author: 'El-Roi HopeBridge' },
+  { quote: 'Respect does not require you to lose your identity.', author: 'El-Roi HopeBridge' },
+  { quote: 'You deserve to grow without losing yourself.', author: 'El-Roi HopeBridge' },
+  { quote: 'Every child deserves to be seen, heard and empowered.', author: 'El-Roi HopeBridge' },
+];
+
+async function initDailyQuote() {
+  // Only show once per day per visitor
+  const today = new Date().toISOString().slice(0, 10);
+  const seen = localStorage.getItem('dq_seen');
+  if (seen === today) return;
+  // Wait 4 seconds before showing
+  setTimeout(async () => {
+    try {
+      let quotes = await supabaseFetch('daily_quotes?order=created_at.asc') || [];
+      if (!quotes.length) quotes = FALLBACK_QUOTES;
+      // Pick quote based on day number so all visitors see the same quote today
+      const dayIndex = Math.floor(Date.now() / 86400000);
+      const q = quotes[dayIndex % quotes.length];
+      document.getElementById('dqText').textContent = q.quote || q.text || '';
+      document.getElementById('dqAuthor').textContent = q.author || '';
+      const today2 = new Date().toLocaleDateString('en-NG',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+      document.getElementById('dqDay').textContent = today2;
+      // WhatsApp share
+      const shareText = encodeURIComponent(`"${q.quote || q.text}"\n\n— ${q.author || 'El-Roi HopeBridge'}\n\nVisit: https://elroihopebridgengo.com.ng`);
+      document.getElementById('dqShareWa').href = `https://wa.me/?text=${shareText}`;
+      document.getElementById('daily-quote-modal').classList.add('open');
+    } catch(e) {
+      console.log('Daily quote error:', e);
+    }
+  }, 4000);
+}
+
+function closeDailyQuote() {
+  document.getElementById('daily-quote-modal').classList.remove('open');
+  const today = new Date().toISOString().slice(0, 10);
+  localStorage.setItem('dq_seen', today);
+}
+
+function copyQuote() {
+  const text = document.getElementById('dqText').textContent;
+  const author = document.getElementById('dqAuthor').textContent;
+  const full = `"${text}"\n\n— ${author || 'El-Roi HopeBridge'}\n\nwww.elroihopebridgengo.com.ng`;
+  navigator.clipboard.writeText(full)
+    .then(() => { alert('Quote copied! Paste it into your Instagram caption.'); })
+    .catch(() => { prompt('Copy this:', full); });
+}
+
+// Close on backdrop click
+document.getElementById('daily-quote-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeDailyQuote();
+});
+
+// ── DAILY QUOTES ADMIN ────────────────────────────────────────────
+async function addDailyQuote() {
+  const quote = document.getElementById('dqInput').value.trim();
+  const author = document.getElementById('dqAuthorInput').value.trim();
+  if (!quote) { alert('Please enter a quote.'); return; }
+  await supabaseFetch('daily_quotes', {
+    method: 'POST', prefer: 'return=minimal',
+    body: JSON.stringify({ quote, author: author || 'El-Roi HopeBridge' })
+  });
+  clearQuoteForm();
+  await renderAdminQuotes();
+  const msg = document.getElementById('dqMsg');
+  msg.textContent = '✓ Quote added!';
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 2000);
+}
+
+function clearQuoteForm() {
+  document.getElementById('dqInput').value = '';
+  document.getElementById('dqAuthorInput').value = '';
+}
+
+async function renderAdminQuotes() {
+  const el = document.getElementById('adminQuoteList');
+  if (!el) return;
+  const data = await supabaseFetch('daily_quotes?order=created_at.asc') || [];
+  if (data.length === 0) {
+    el.innerHTML = '<p style="color:rgba(255,255,255,0.3);font-size:0.8rem;">No quotes yet. Add some above — fallback quotes are shown until you do.</p>';
+    return;
+  }
+  el.innerHTML = data.map((q, i) => `
+    <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:1rem 1.25rem;margin-bottom:0.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;">
+      <div>
+        <div style="color:white;font-size:0.85rem;font-style:italic;margin-bottom:0.3rem;">"${q.quote}"</div>
+        <div style="color:var(--gold);font-size:0.75rem;">— ${q.author || ''}</div>
+      </div>
+      <button class="admin-delete-btn" style="flex-shrink:0;" onclick="deleteDailyQuote('${q.id}')">🗑</button>
+    </div>`).join('');
+}
+
+async function deleteDailyQuote(id) {
+  if (!confirm('Delete this quote?')) return;
+  await supabaseFetch(`daily_quotes?id=eq.${id}`, { method: 'DELETE', prefer: 'return=minimal' });
+  await renderAdminQuotes();
+}
+
+// Start daily quote on page load
+initDailyQuote();
 </script>
 </body>
 </html>
