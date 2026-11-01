@@ -867,7 +867,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
   <div id="admin-dashboard" style="display:none;">
     <div class="admin-wrap">
       <div class="admin-header">
-        <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Admin Dashboard <small style="font-size:0.6rem;font-weight:600;color:rgba(255,255,255,0.45);letter-spacing:0.08em;vertical-align:middle;">BUILD 7 · 1 NOV</small></h2>
+        <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Admin Dashboard <small style="font-size:0.6rem;font-weight:600;color:rgba(255,255,255,0.45);letter-spacing:0.08em;vertical-align:middle;">BUILD 8 · 1 NOV</small></h2>
         <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
           <button class="admin-cancel" onclick="showPage('home')">← View Site</button>
           <button class="admin-cancel" onclick="adminSignOut()">Sign Out</button>
@@ -927,6 +927,9 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
         <label>Founder Photo</label>
         <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;"><input type="file" id="siteFounderFile" accept="image/*" style="flex:1;background:rgba(255,255,255,0.07);border:1.5px dashed rgba(245,166,35,0.4);color:rgba(255,255,255,0.7);padding:10px;border-radius:8px;font-size:0.82rem;cursor:pointer;"><button class="btn btn-gold" onclick="uploadSiteImage('founder')" style="padding:10px 18px;">Upload Photo</button></div>
         <p id="siteFounderStatus" style="color:var(--gold);font-size:0.8rem;margin-top:0.4rem;"></p>
+        <label>System Check</label>
+        <button class="btn btn-gold" onclick="runSystemCheck()" style="padding:10px 18px;">Run System Check</button>
+        <div id="sysCheckOut" style="margin-top:0.6rem;font-size:0.82rem;line-height:1.8;color:rgba(255,255,255,0.75);"></div>
       </div>
 
       <!-- EVENTS MANAGEMENT -->
@@ -1202,6 +1205,28 @@ async function uploadSiteImage(kind){
     const res=await fetch(`${SUPABASE_URL}/storage/v1/object/media/site/${logo?'logo.png':'founder.jpg'}`,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':type,'x-upsert':'true','cache-control':'max-age=60'},body});
     st.textContent=res.ok?'✓ Saved. Refresh the site in a minute to see it.':'✗ Failed: '+res.status+' '+(await res.text().catch(()=>'')).slice(0,120);
   }catch(e){st.textContent='✗ Failed: '+e;}
+}
+async function runSystemCheck(){
+  const out=document.getElementById('sysCheckOut'),L=[];
+  const add=(ok,t)=>{L.push((ok?'✓ ':'✗ ')+t);out.innerHTML=L.join('<br>');};
+  out.textContent='Checking…';
+  try{
+    const png=Uint8Array.from(atob('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=='),c=>c.charCodeAt(0));
+    const name=`check/${Date.now()}.png`;
+    const up=await fetch(`${SUPABASE_URL}/storage/v1/object/media/${name}`,{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'image/png'},body:png});
+    if(up.ok){
+      add(true,'Photo upload is allowed');
+      const g=await fetch(`${SUPABASE_URL}/storage/v1/object/public/media/${name}`);
+      add(g.ok,g.ok?'Uploaded photos can be viewed publicly':'Photos are NOT public (bucket is private, code '+g.status+'). Set the media bucket to Public');
+    }else{
+      add(false,'Photo upload is BLOCKED ('+up.status+': '+(await up.text().catch(()=>'')).slice(0,90)+'). Run the storage permissions SQL');
+    }
+    const rows=await supabaseFetch('team_members?select=id,photo&limit=1');
+    if(rows&&rows[0]){
+      const u=await sbWrite(`team_members?id=eq.${rows[0].id}`,'PATCH',{photo:rows[0].photo});
+      add(!!(u&&u.length),(u&&u.length)?'Editing team members is allowed':'Editing team members is BLOCKED. Run the team permissions SQL');
+    }else add(true,'No team members to test editing on');
+  }catch(e){add(false,'Check could not finish: '+e);}
 }
 async function supabaseFetch(path, options = {}) {
   try {
