@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>El-Roi HopeBridge — Every Child Deserves to Be Seen</title>
 <meta name="description" content="El-Roi HopeBridge is a Nigerian NGO restoring hope and direction to young people aged 15–20 through career clarity, mental health support, and education access.">
+<!-- Open Graph — controls how link appears on WhatsApp, Facebook, Telegram etc -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="El-Roi HopeBridge">
+<meta property="og:title" content="El-Roi HopeBridge — Every Child Deserves to Be Seen, Heard & Empowered">
+<meta property="og:description" content="A faith-based Nigerian NGO restoring hope and direction to young people aged 15–20 through career clarity, mental health support, and education access.">
+<meta property="og:image" content="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://elroihopebridgengo.com.ng">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="El-Roi HopeBridge — Every Child Deserves to Be Seen, Heard & Empowered">
+<meta name="twitter:description" content="A faith-based Nigerian NGO restoring hope and direction to young people aged 15–20 through career clarity, mental health support, and education access.">
+<meta name="twitter:image" content="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png">
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-N6T12J22FV"></script>
 <script>
@@ -1866,34 +1880,7 @@ async function deleteArticle(id) {
   await renderAdminList();
 }
 
-async function addTeamMember() {
-  const name = document.getElementById('tmName').value.trim();
-  const role = document.getElementById('tmRole').value.trim();
-  const statement = document.getElementById('tmStatement').value.trim();
-  const editId = document.getElementById('tmEditId').value;
-  let photo = document.getElementById('tmPhoto').value.trim();
-  if (!name || !role) { alert('Please enter name and role.'); return; }
-  const up = await uploadSingleField('tmPhotoFile','tmPhotoUploadStatus');
-  if (up === null) { alert('Photo upload failed, so nothing was saved. ' + (window._lastUploadError||'')); return; }
-  if (up) photo = up;
-  const row = {name, role, statement:statement||null, photo:photo||null};
-  if (editId) {
-    const upd = await sbWrite(`team_members?id=eq.${editId}`, 'PATCH', row);
-    if (!upd || upd.length === 0) { alert('Update blocked by database permissions. Run the permissions SQL, then try again.'); return; }
-  } else {
-    const ins = await sbWrite('team_members', 'POST', row);
-    if (!ins || ins.length === 0) { alert('Could not add this team member. Please try again.'); return; }
-  }
-  ['tmName','tmRole','tmStatement','tmPhoto','tmEditId'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('tmSubmitBtn').textContent = 'Add Team Member';
-  resetUploadUI('tmPhotoFile','tmPhotoPreview','tmPhotoUploadStatus');
-  await renderAdminTeamList();
-  await renderTeam();
-  const msg = document.getElementById('teamMsg');
-  msg.textContent = editId ? `✓ ${name} updated!` : `✓ ${name} added!`;
-  msg.style.display = 'block';
-  setTimeout(() => msg.style.display = 'none', 2500);
-}
+// addTeamMember defined below — single authoritative version
 
 async function renderAdminTeamList() {
   const el = document.getElementById('adminTeamList');
@@ -1952,32 +1939,41 @@ async function addTeamMember() {
   const name = document.getElementById('tmName').value.trim();
   const role = document.getElementById('tmRole').value.trim();
   const statement = document.getElementById('tmStatement').value.trim();
-  const photo = document.getElementById('tmPhoto').value.trim();
   const editId = document.getElementById('tmEditId').value;
   if (!name || !role) { alert('Please enter name and role.'); return; }
-  if (editId) {
-    const upd = await sbWrite(`team_members?id=eq.${editId}`, 'PATCH', {name, role, statement:statement||null, photo:photo||null});
-    if (!upd || upd.length === 0) { alert('Update blocked by database permissions. Run the permissions SQL, then try again.'); return; }
-    document.getElementById('tmEditId').value = '';
-    const btn = document.querySelector('#tmSubmitBtn');
-    if (btn) btn.textContent = 'Add Team Member';
-    const msg = document.getElementById('teamMsg');
-    msg.textContent = `✓ ${name} updated!`;
-    msg.style.display = 'block';
-    setTimeout(() => msg.style.display = 'none', 2000);
-  } else {
-    await supabaseFetch('team_members', { method:'POST', prefer:'return=minimal', body: JSON.stringify({name, role, statement:statement||null, photo:photo||null}) });
-    const msg = document.getElementById('teamMsg');
-    msg.textContent = `✓ ${name} added!`;
-    msg.style.display = 'block';
-    setTimeout(() => msg.style.display = 'none', 2000);
+  // Upload new photo if one was selected — if upload fails, warn but still allow save with existing photo
+  let photo = document.getElementById('tmPhoto').value.trim();
+  const up = await uploadSingleField('tmPhotoFile', 'tmPhotoUploadStatus');
+  if (up === null) {
+    // Upload was attempted but failed — warn and stop so user knows
+    alert('Photo upload failed. Please check your internet connection and try again, or remove the photo selection to save without changing the photo.\n\n' + (window._lastUploadError || ''));
+    return;
   }
-  document.getElementById('tmName').value = '';
-  document.getElementById('tmRole').value = '';
-  document.getElementById('tmStatement').value = '';
-  document.getElementById('tmPhoto').value = '';
+  if (up) photo = up; // new photo uploaded successfully — use it
+  // If up === '' — no file was selected — keep existing photo value unchanged
+  const row = { name, role, statement: statement || null, photo: photo || null };
+  const btn = document.getElementById('tmSubmitBtn');
+  if (btn) { btn.textContent = 'Saving…'; btn.disabled = true; }
+  if (editId) {
+    await supabaseFetch(`team_members?id=eq.${editId}`, {
+      method: 'PATCH', prefer: 'return=minimal',
+      body: JSON.stringify(row)
+    });
+  } else {
+    await supabaseFetch('team_members', {
+      method: 'POST', prefer: 'return=minimal',
+      body: JSON.stringify(row)
+    });
+  }
+  if (btn) { btn.textContent = 'Add Team Member'; btn.disabled = false; }
+  ['tmName','tmRole','tmStatement','tmPhoto','tmEditId'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  resetUploadUI('tmPhotoFile','tmPhotoPreview','tmPhotoUploadStatus');
   await renderAdminTeamList();
   await renderTeam();
+  const msg = document.getElementById('teamMsg');
+  msg.textContent = editId ? `✓ ${name} updated!` : `✓ ${name} added!`;
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 2500);
 }
 
 async function deleteTeamMember(id) {
