@@ -385,23 +385,33 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 .submission-card .s-text{color:rgba(255,255,255,0.65);font-size:0.82rem;line-height:1.6}
 
 /* ── DAILY QUOTE MODAL ── */
-#daily-quote-modal{display:none;position:fixed;inset:0;z-index:997;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1.5rem}
+#daily-quote-modal{display:none;position:fixed;inset:0;z-index:997;background:rgba(0,0,0,0.82);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1.5rem}
 #daily-quote-modal.open{display:flex}
-.dq-card{background:var(--navy);border-radius:16px;padding:2.5rem 2rem;max-width:420px;width:100%;text-align:center;position:relative;border:1px solid rgba(245,166,35,0.25);box-shadow:0 20px 60px rgba(0,0,0,0.5);animation:dqFadeIn 0.4s ease}
+.dq-card{background:var(--navy);border-radius:16px;padding:2.5rem 2rem;max-width:440px;width:100%;text-align:center;position:relative;border:1px solid rgba(245,166,35,0.25);box-shadow:0 20px 60px rgba(0,0,0,0.5);animation:dqFadeIn 0.4s ease}
 @keyframes dqFadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .dq-logo{width:52px;height:52px;object-fit:contain;margin:0 auto 1.25rem;mix-blend-mode:lighten;filter:brightness(1.1)}
 .dq-label{font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,166,35,0.6);margin-bottom:1rem}
-.dq-quote{font-family:'Playfair Display',serif;font-size:1.2rem;color:white;line-height:1.7;margin-bottom:0.75rem;font-style:italic}
+.dq-quote{font-family:'Playfair Display',serif;font-size:1.15rem;color:white;line-height:1.75;margin-bottom:0.75rem;font-style:italic}
 .dq-quote::before{content:'\201C';color:var(--gold);font-size:2rem;line-height:0;vertical-align:-0.5rem;margin-right:0.2rem}
 .dq-quote::after{content:'\201D';color:var(--gold);font-size:2rem;line-height:0;vertical-align:-0.5rem;margin-left:0.2rem}
-.dq-author{font-size:0.78rem;color:rgba(245,166,35,0.8);font-weight:600;margin-bottom:1.75rem}
+.dq-author{font-size:0.78rem;color:rgba(245,166,35,0.8);font-weight:600;margin-bottom:1.25rem}
+.dq-canvas-wrap{margin:0 auto 1.25rem;display:none}
+#dqCanvas{border-radius:10px;max-width:100%;display:block}
 .dq-actions{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap}
 .dq-share-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:8px 14px;border-radius:8px;font-size:0.75rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all 0.2s;text-decoration:none}
 .dq-share-wa{background:#25D366;color:white}
 .dq-share-ig{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:white}
+.dq-generate{background:var(--gold);color:var(--navy);font-weight:700}
 .dq-close{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.12);padding:8px 20px;border-radius:8px;font-size:0.78rem;cursor:pointer;font-family:inherit;transition:all 0.2s}
 .dq-close:hover{background:rgba(255,255,255,0.12);color:white}
 .dq-day{font-size:0.72rem;color:rgba(255,255,255,0.25);margin-top:1.25rem}
+/* ── ADMIN QUOTE SCHEDULE ── */
+.quote-schedule-item{background:rgba(255,255,255,0.04);border-radius:8px;padding:0.9rem 1.1rem;margin-bottom:0.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;border-left:3px solid rgba(245,166,35,0.3)}
+.quote-schedule-item.today{border-left-color:var(--gold);background:rgba(245,166,35,0.07)}
+.qs-date{font-size:0.72rem;font-weight:700;color:var(--gold);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.06em}
+.qs-text{color:white;font-size:0.84rem;font-style:italic;margin-bottom:0.2rem}
+.qs-author{color:rgba(255,255,255,0.4);font-size:0.75rem}
+.qs-today-badge{background:var(--gold);color:var(--navy);font-size:0.65rem;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:0.4rem}
 
 /* ── UTILS ── */
 .text-center{text-align:center}
@@ -1152,16 +1162,22 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 <!-- DAILY QUOTE MODAL -->
 <div id="daily-quote-modal">
   <div class="dq-card">
-    <img src="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png" alt="El-Roi HopeBridge" class="dq-logo">
+    <img src="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png" alt="El-Roi HopeBridge" class="dq-logo" id="dqLogoImg">
     <div class="dq-label">Today's Word of Hope</div>
     <div class="dq-quote" id="dqText">Loading…</div>
     <div class="dq-author" id="dqAuthor"></div>
+    <!-- Canvas preview shown after generating image -->
+    <div class="dq-canvas-wrap" id="dqCanvasWrap">
+      <canvas id="dqCanvas" width="1080" height="1080" style="width:280px;height:280px;"></canvas>
+      <p style="color:rgba(255,255,255,0.35);font-size:0.72rem;margin-top:0.5rem;">Tap and hold the image above to save it</p>
+    </div>
     <div class="dq-actions">
-      <a id="dqShareWa" href="#" target="_blank" class="dq-share-btn dq-share-wa">
+      <button onclick="generateQuoteImage()" class="dq-share-btn dq-generate" id="dqGenerateBtn">🖼 Create Shareable Image</button>
+      <a id="dqDownload" href="#" download="elroi-quote.png" class="dq-share-btn dq-share-ig" style="display:none;">⬇️ Download Image</a>
+      <a id="dqShareWa" href="#" target="_blank" class="dq-share-btn dq-share-wa" style="display:none;">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.117 1.528 5.845L0 24l6.335-1.505A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
-        Share on WhatsApp
+        Share Text on WhatsApp
       </a>
-      <button onclick="copyQuote()" class="dq-share-btn dq-share-ig">📋 Copy for Instagram</button>
       <button onclick="closeDailyQuote()" class="dq-close">Continue to Site →</button>
     </div>
     <div class="dq-day" id="dqDay"></div>
@@ -2507,46 +2523,145 @@ const FALLBACK_QUOTES = [
   { quote: 'Every child deserves to be seen, heard and empowered.', author: 'El-Roi HopeBridge' },
 ];
 
+let _allQuotes = [];
+let _currentQuote = null;
+
 async function initDailyQuote() {
-  // Only show once per day per visitor
   const today = new Date().toISOString().slice(0, 10);
   const seen = localStorage.getItem('dq_seen');
   if (seen === today) return;
-  // Wait 4 seconds before showing
   setTimeout(async () => {
     try {
       let quotes = await supabaseFetch('daily_quotes?order=created_at.asc') || [];
       if (!quotes.length) quotes = FALLBACK_QUOTES;
-      // Pick quote based on day number so all visitors see the same quote today
+      _allQuotes = quotes;
       const dayIndex = Math.floor(Date.now() / 86400000);
       const q = quotes[dayIndex % quotes.length];
-      document.getElementById('dqText').textContent = q.quote || q.text || '';
-      document.getElementById('dqAuthor').textContent = q.author || '';
-      const today2 = new Date().toLocaleDateString('en-NG',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-      document.getElementById('dqDay').textContent = today2;
-      // WhatsApp share
-      const shareText = encodeURIComponent(`"${q.quote || q.text}"\n\n— ${q.author || 'El-Roi HopeBridge'}\n\nVisit: https://elroihopebridgengo.com.ng`);
+      _currentQuote = q;
+      document.getElementById('dqText').textContent = q.quote || '';
+      document.getElementById('dqAuthor').textContent = q.author ? '— ' + q.author : '';
+      const todayStr = new Date().toLocaleDateString('en-NG',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+      document.getElementById('dqDay').textContent = todayStr;
+      // WhatsApp text share (shown after image gen)
+      const shareText = encodeURIComponent(`"${q.quote}"\n\n— ${q.author || 'El-Roi HopeBridge'}\n\nwww.elroihopebridgengo.com.ng`);
       document.getElementById('dqShareWa').href = `https://wa.me/?text=${shareText}`;
+      // Reset image UI
+      document.getElementById('dqCanvasWrap').style.display = 'none';
+      document.getElementById('dqDownload').style.display = 'none';
+      document.getElementById('dqShareWa').style.display = 'none';
+      document.getElementById('dqGenerateBtn').style.display = 'inline-flex';
       document.getElementById('daily-quote-modal').classList.add('open');
-    } catch(e) {
-      console.log('Daily quote error:', e);
-    }
+    } catch(e) { console.log('Daily quote error:', e); }
   }, 4000);
 }
 
 function closeDailyQuote() {
   document.getElementById('daily-quote-modal').classList.remove('open');
-  const today = new Date().toISOString().slice(0, 10);
-  localStorage.setItem('dq_seen', today);
+  localStorage.setItem('dq_seen', new Date().toISOString().slice(0, 10));
 }
 
-function copyQuote() {
-  const text = document.getElementById('dqText').textContent;
-  const author = document.getElementById('dqAuthor').textContent;
-  const full = `"${text}"\n\n— ${author || 'El-Roi HopeBridge'}\n\nwww.elroihopebridgengo.com.ng`;
-  navigator.clipboard.writeText(full)
-    .then(() => { alert('Quote copied! Paste it into your Instagram caption.'); })
-    .catch(() => { prompt('Copy this:', full); });
+async function generateQuoteImage() {
+  const q = _currentQuote;
+  if (!q) return;
+  const btn = document.getElementById('dqGenerateBtn');
+  btn.textContent = 'Generating…';
+  btn.disabled = true;
+  const canvas = document.getElementById('dqCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = 1080, H = 1080;
+  canvas.width = W; canvas.height = H;
+
+  // Background gradient
+  const grad = ctx.createLinearGradient(0, 0, W, H);
+  grad.addColorStop(0, '#1B2A4A');
+  grad.addColorStop(1, '#0F1923');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Gold corner accents
+  ctx.strokeStyle = 'rgba(245,166,35,0.3)';
+  ctx.lineWidth = 3;
+  const m = 40, s = 80;
+  [[m,m,1,0],[m,m,0,1],[W-m,m,-1,0],[W-m,m,0,1],[m,H-m,1,0],[m,H-m,0,-1],[W-m,H-m,-1,0],[W-m,H-m,0,-1]].forEach(([x,y,dx,dy]) => {
+    ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x+dx*s,y+dy*s); ctx.stroke();
+  });
+
+  // Gold horizontal lines
+  ctx.strokeStyle = 'rgba(245,166,35,0.15)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(100, 200); ctx.lineTo(W-100, 200); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(100, H-200); ctx.lineTo(W-100, H-200); ctx.stroke();
+
+  // Load and draw logo
+  await new Promise((resolve) => {
+    const logo = new Image();
+    logo.crossOrigin = 'anonymous';
+    logo.onload = () => {
+      ctx.globalAlpha = 0.9;
+      const lSize = 110;
+      ctx.drawImage(logo, (W-lSize)/2, 120, lSize, lSize);
+      ctx.globalAlpha = 1;
+      resolve();
+    };
+    logo.onerror = resolve;
+    logo.src = 'https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png';
+  });
+
+  // Label
+  ctx.fillStyle = 'rgba(245,166,35,0.7)';
+  ctx.font = '700 28px Inter, Arial, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.letterSpacing = '3px';
+  ctx.fillText('TODAY\'S WORD OF HOPE', W/2, 285);
+
+  // Opening quote mark
+  ctx.fillStyle = '#F5A623';
+  ctx.font = '180px Georgia, serif';
+  ctx.globalAlpha = 0.25;
+  ctx.fillText('\u201C', 120, 460);
+  ctx.globalAlpha = 1;
+
+  // Quote text — word wrap
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = 'italic 600 52px Playfair Display, Georgia, serif';
+  ctx.textAlign = 'center';
+  const words = (q.quote || '').split(' ');
+  const lines = [];
+  let line = '';
+  const maxWidth = W - 200;
+  words.forEach(word => {
+    const test = line ? line + ' ' + word : word;
+    if (ctx.measureText(test).width > maxWidth && line) {
+      lines.push(line); line = word;
+    } else { line = test; }
+  });
+  if (line) lines.push(line);
+  const lineH = 72;
+  const totalH = lines.length * lineH;
+  const startY = (H - totalH) / 2 - 30;
+  lines.forEach((l, i) => {
+    ctx.fillText(l, W/2, startY + i * lineH);
+  });
+
+  // Author
+  if (q.author) {
+    ctx.fillStyle = '#F5A623';
+    ctx.font = '600 36px Inter, Arial, sans-serif';
+    ctx.fillText('— ' + q.author, W/2, startY + totalH + 60);
+  }
+
+  // Website
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.font = '500 28px Inter, Arial, sans-serif';
+  ctx.fillText('elroihopebridgengo.com.ng', W/2, H - 120);
+
+  // Show canvas and download button
+  document.getElementById('dqCanvasWrap').style.display = 'block';
+  const dataUrl = canvas.toDataURL('image/png');
+  document.getElementById('dqDownload').href = dataUrl;
+  document.getElementById('dqDownload').style.display = 'inline-flex';
+  document.getElementById('dqShareWa').style.display = 'inline-flex';
+  btn.style.display = 'none';
 }
 
 // Close on backdrop click
@@ -2579,23 +2694,45 @@ function clearQuoteForm() {
 async function renderAdminQuotes() {
   const el = document.getElementById('adminQuoteList');
   if (!el) return;
-  const data = await supabaseFetch('daily_quotes?order=created_at.asc') || [];
-  if (data.length === 0) {
-    el.innerHTML = '<p style="color:rgba(255,255,255,0.3);font-size:0.8rem;">No quotes yet. Add some above — fallback quotes are shown until you do.</p>';
-    return;
-  }
-  el.innerHTML = data.map((q, i) => `
-    <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:1rem 1.25rem;margin-bottom:0.5rem;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;">
-      <div>
-        <div style="color:white;font-size:0.85rem;font-style:italic;margin-bottom:0.3rem;">"${q.quote}"</div>
-        <div style="color:var(--gold);font-size:0.75rem;">— ${q.author || ''}</div>
-      </div>
-      <button class="admin-delete-btn" style="flex-shrink:0;" onclick="deleteDailyQuote('${q.id}')">🗑</button>
-    </div>`).join('');
+  // Merge saved + fallback
+  const saved = await supabaseFetch('daily_quotes?order=created_at.asc') || [];
+  const allQ = saved.length ? saved : FALLBACK_QUOTES;
+  const todayIndex = Math.floor(Date.now() / 86400000);
+  const todayQuote = allQ[todayIndex % allQ.length];
+
+  // Build schedule — show next 14 days
+  const scheduleHTML = (() => {
+    const rows = [];
+    for (let i = 0; i < 14; i++) {
+      const dayNum = todayIndex + i;
+      const q = allQ[dayNum % allQ.length];
+      const date = new Date();
+      date.setDate(date.getDate() + i);
+      const dateStr = date.toLocaleDateString('en-NG',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+      const isToday = i === 0;
+      rows.push(`
+        <div class="quote-schedule-item ${isToday ? 'today' : ''}">
+          <div style="flex:1;">
+            <div class="qs-date">${dateStr}${isToday ? '<span class="qs-today-badge">TODAY</span>' : ''}</div>
+            <div class="qs-text">"${q.quote}"</div>
+            <div class="qs-author">— ${q.author || 'El-Roi HopeBridge'}</div>
+          </div>
+          ${q.id ? `<button class="admin-delete-btn" style="flex-shrink:0;font-size:0.7rem;" onclick="deleteDailyQuote('${q.id}')">🗑</button>` : '<span style="font-size:0.68rem;color:rgba(255,255,255,0.2);flex-shrink:0;">Fallback</span>'}
+        </div>`);
+    }
+    return rows.join('');
+  })();
+
+  el.innerHTML = `
+    <p style="color:rgba(255,255,255,0.4);font-size:0.78rem;margin-bottom:0.75rem;">
+      ${allQ.length} quote(s) in rotation · Showing next 14 days
+    </p>
+    ${scheduleHTML}
+    ${!saved.length ? '<p style="color:rgba(255,255,255,0.25);font-size:0.75rem;margin-top:0.5rem;">Using built-in fallback quotes. Add your own above to replace them.</p>' : ''}`;
 }
 
 async function deleteDailyQuote(id) {
-  if (!confirm('Delete this quote?')) return;
+  if (!confirm('Delete this quote? The rotation will adjust automatically.')) return;
   await supabaseFetch(`daily_quotes?id=eq.${id}`, { method: 'DELETE', prefer: 'return=minimal' });
   await renderAdminQuotes();
 }
