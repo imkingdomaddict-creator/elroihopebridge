@@ -1074,7 +1074,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
       <!-- DAILY QUOTES -->
       <div class="admin-form">
         <h3>💬 Daily Quotes</h3>
-        <p>Add quotes here. One is shown daily to every visitor as a popup. Rotates automatically — no repeat until all are shown. When no saved quotes exist, the built-in fallback quotes (editable below) are used.</p>
+        <p>Add quotes here. One is shown daily to every visitor as a popup. Rotates automatically — no repeat until all are shown.</p>
         <label>Quote Text *</label>
         <textarea id="dqInput" rows="3" placeholder="e.g. You are not invisible. God sees you — and so do we."></textarea>
         <label>Author / Attribution (optional)</label>
@@ -1086,24 +1086,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
         <p id="dqMsg" style="display:none;color:var(--gold);font-size:0.82rem;margin-top:0.5rem;"></p>
         <div id="adminQuoteList" style="margin-top:1rem;"></div>
 
-        <!-- EDITABLE FALLBACK QUOTES -->
-        <div style="margin-top:2rem;border-top:1px solid rgba(245,166,35,0.15);padding-top:1.5rem;">
-          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
-            <div>
-              <div style="color:var(--gold);font-size:0.85rem;font-weight:700;margin-bottom:0.2rem;">📋 Built-in Fallback Quotes</div>
-              <div style="color:rgba(255,255,255,0.3);font-size:0.75rem;">These run when no saved quotes exist. Edit and click Save to update.</div>
-            </div>
-            <button class="admin-edit-btn" onclick="toggleFallbackEditor()" id="fallbackToggleBtn">Edit Fallbacks</button>
-          </div>
-          <div id="fallbackEditor" style="display:none;">
-            <div id="fallbackList"></div>
-            <div style="margin-top:1rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
-              <button class="btn btn-gold" style="font-size:0.8rem;padding:8px 18px;" onclick="addFallbackRow()">+ Add Row</button>
-              <button class="btn btn-gold" style="font-size:0.8rem;padding:8px 18px;background:var(--navy);color:var(--gold);border:1px solid var(--gold);" onclick="saveFallbackQuotes()">Save Changes</button>
-            </div>
-            <p id="fallbackMsg" style="display:none;color:var(--gold);font-size:0.82rem;margin-top:0.5rem;"></p>
-          </div>
-        </div>
+
       </div>
 
       <!-- TESTIMONIALS -->
@@ -2768,41 +2751,61 @@ function clearQuoteForm() {
 async function renderAdminQuotes() {
   const el = document.getElementById('adminQuoteList');
   if (!el) return;
-  // Merge saved + fallback
   const saved = await supabaseFetch('daily_quotes?order=created_at.asc') || [];
-  const allQ = saved.length ? saved : FALLBACK_QUOTES;
+  const usingFallback = !saved.length;
+  const allQ = usingFallback ? FALLBACK_QUOTES : saved;
   const todayIndex = Math.floor(Date.now() / 86400000);
-  const todayQuote = allQ[todayIndex % allQ.length];
 
   // Build schedule — show next 14 days
-  const scheduleHTML = (() => {
-    const rows = [];
-    for (let i = 0; i < 14; i++) {
-      const dayNum = todayIndex + i;
-      const q = allQ[dayNum % allQ.length];
-      const date = new Date();
-      date.setDate(date.getDate() + i);
-      const dateStr = date.toLocaleDateString('en-NG',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
-      const isToday = i === 0;
+  const rows = [];
+  for (let i = 0; i < 14; i++) {
+    const dayNum = todayIndex + i;
+    const qIndex = dayNum % allQ.length;
+    const q = allQ[qIndex];
+    const date = new Date();
+    date.setDate(date.getDate() + i);
+    const dateStr = date.toLocaleDateString('en-NG',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+    const isToday = i === 0;
+    const isFallback = usingFallback;
+
+    if (isFallback) {
+      // Fallback row: show date + quote + Edit button that expands inline form
+      rows.push(`
+        <div class="quote-schedule-item ${isToday ? 'today' : ''}" id="fbRow-${qIndex}">
+          <div style="flex:1;">
+            <div class="qs-date">${dateStr}${isToday ? '<span class="qs-today-badge">TODAY</span>' : ''}</div>
+            <div class="qs-text" id="fbText-${qIndex}">\u201C${escHtml(q.quote)}\u201D</div>
+            <div class="qs-author" id="fbAuthor-${qIndex}">— ${escHtml(q.author || 'El-Roi HopeBridge')}</div>
+            <div id="fbForm-${qIndex}" style="display:none;margin-top:0.75rem;">
+              <textarea rows="2" id="fbQInput-${qIndex}" style="width:100%;padding:8px 12px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(245,166,35,0.4);color:white;font-family:'Inter',sans-serif;font-size:0.82rem;border-radius:6px;outline:none;resize:vertical;margin-bottom:0.4rem;">${escHtml(q.quote)}</textarea>
+              <input type="text" id="fbAInput-${qIndex}" value="${escHtml(q.author||'El-Roi HopeBridge')}" style="width:100%;padding:7px 12px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(245,166,35,0.4);color:white;font-family:'Inter',sans-serif;font-size:0.78rem;border-radius:6px;outline:none;margin-bottom:0.5rem;">
+              <div style="display:flex;gap:0.5rem;">
+                <button class="admin-edit-btn" onclick="saveFallbackRow(${qIndex})" style="font-size:0.72rem;">✓ Save</button>
+                <button class="admin-cancel" onclick="cancelFallbackRow(${qIndex})" style="font-size:0.72rem;padding:5px 12px;">Cancel</button>
+              </div>
+            </div>
+          </div>
+          <button class="admin-edit-btn" id="fbEditBtn-${qIndex}" onclick="editFallbackRow(${qIndex})" style="flex-shrink:0;font-size:0.7rem;">✏ Edit</button>
+        </div>`);
+    } else {
       rows.push(`
         <div class="quote-schedule-item ${isToday ? 'today' : ''}">
           <div style="flex:1;">
             <div class="qs-date">${dateStr}${isToday ? '<span class="qs-today-badge">TODAY</span>' : ''}</div>
-            <div class="qs-text">"${q.quote}"</div>
-            <div class="qs-author">— ${q.author || 'El-Roi HopeBridge'}</div>
+            <div class="qs-text">\u201C${escHtml(q.quote)}\u201D</div>
+            <div class="qs-author">— ${escHtml(q.author || 'El-Roi HopeBridge')}</div>
           </div>
-          ${q.id ? `<button class="admin-delete-btn" style="flex-shrink:0;font-size:0.7rem;" onclick="deleteDailyQuote('${q.id}')">🗑</button>` : '<span style="font-size:0.68rem;color:rgba(255,255,255,0.2);flex-shrink:0;">Fallback</span>'}
+          ${q.id ? `<button class="admin-delete-btn" style="flex-shrink:0;font-size:0.7rem;" onclick="deleteDailyQuote('${q.id}')">🗑</button>` : ''}
         </div>`);
     }
-    return rows.join('');
-  })();
+  }
 
   el.innerHTML = `
     <p style="color:rgba(255,255,255,0.4);font-size:0.78rem;margin-bottom:0.75rem;">
       ${allQ.length} quote(s) in rotation · Showing next 14 days
+      ${usingFallback ? ' · <span style="color:rgba(245,166,35,0.6);">Using built-in fallbacks — click ✏ Edit on any row to change it</span>' : ''}
     </p>
-    ${scheduleHTML}
-    ${!saved.length ? '<p style="color:rgba(255,255,255,0.25);font-size:0.75rem;margin-top:0.5rem;">Using built-in fallback quotes. Add your own above to replace them.</p>' : ''}`;
+    ${rows.join('')}`;
 }
 
 async function deleteDailyQuote(id) {
@@ -2811,72 +2814,41 @@ async function deleteDailyQuote(id) {
   await renderAdminQuotes();
 }
 
-// ── FALLBACK QUOTES EDITOR ────────────────────────────────────────
-function toggleFallbackEditor() {
-  const ed = document.getElementById('fallbackEditor');
-  const btn = document.getElementById('fallbackToggleBtn');
-  if (ed.style.display === 'none') {
-    ed.style.display = 'block';
-    btn.textContent = 'Hide Editor';
-    renderFallbackList();
-  } else {
-    ed.style.display = 'none';
-    btn.textContent = 'Edit Fallbacks';
+// ── FALLBACK QUOTES INLINE EDIT ───────────────────────────────────
+function editFallbackRow(index) {
+  const form = document.getElementById('fbForm-' + index);
+  const btn  = document.getElementById('fbEditBtn-' + index);
+  if (!form) return;
+  form.style.display = 'block';
+  btn.style.display = 'none';
+  const ta = document.getElementById('fbQInput-' + index);
+  if (ta) ta.focus();
+}
+
+function cancelFallbackRow(index) {
+  const form = document.getElementById('fbForm-' + index);
+  const btn  = document.getElementById('fbEditBtn-' + index);
+  // Reset inputs to current FALLBACK_QUOTES value
+  const q = FALLBACK_QUOTES[index];
+  if (q) {
+    document.getElementById('fbQInput-' + index).value = q.quote;
+    document.getElementById('fbAInput-' + index).value = q.author || 'El-Roi HopeBridge';
   }
+  if (form) form.style.display = 'none';
+  if (btn)  btn.style.display = 'inline-flex';
 }
 
-function renderFallbackList() {
-  const list = document.getElementById('fallbackList');
-  list.innerHTML = FALLBACK_QUOTES.map((q, i) => `
-    <div class="fallback-row" data-index="${i}" style="display:flex;gap:0.5rem;margin-bottom:0.75rem;align-items:flex-start;">
-      <div style="flex:1;display:flex;flex-direction:column;gap:0.4rem;">
-        <textarea rows="2" class="fb-quote-input" placeholder="Quote text" style="width:100%;padding:8px 12px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.1);color:white;font-family:'Inter',sans-serif;font-size:0.82rem;border-radius:6px;outline:none;resize:vertical;">${escHtml(q.quote)}</textarea>
-        <input type="text" class="fb-author-input" placeholder="Author / Attribution" value="${escHtml(q.author||'')}" style="width:100%;padding:7px 12px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.1);color:white;font-family:'Inter',sans-serif;font-size:0.78rem;border-radius:6px;outline:none;">
-      </div>
-      <button onclick="removeFallbackRow(${i})" style="background:rgba(239,68,68,0.1);color:#F87171;border:1px solid rgba(239,68,68,0.2);padding:6px 10px;border-radius:6px;font-size:0.75rem;cursor:pointer;flex-shrink:0;margin-top:2px;">✕</button>
-    </div>`).join('');
-  document.querySelectorAll('.fb-quote-input, .fb-author-input').forEach(el => {
-    el.addEventListener('focus', function() { this.style.borderColor = 'var(--gold)'; });
-    el.addEventListener('blur', function() { this.style.borderColor = 'rgba(255,255,255,0.1)'; });
-  });
-}
-
-function addFallbackRow() {
-  FALLBACK_QUOTES.push({ quote: '', author: 'El-Roi HopeBridge' });
-  renderFallbackList();
-  // Scroll to the new row and focus it
-  const rows = document.querySelectorAll('.fallback-row');
-  if (rows.length) {
-    const last = rows[rows.length - 1];
-    last.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    const ta = last.querySelector('textarea');
-    if (ta) setTimeout(() => ta.focus(), 300);
-  }
-}
-
-function removeFallbackRow(index) {
-  if (FALLBACK_QUOTES.length <= 1) { alert('You must keep at least one fallback quote.'); return; }
-  FALLBACK_QUOTES.splice(index, 1);
-  renderFallbackList();
-}
-
-function saveFallbackQuotes() {
-  const rows = document.querySelectorAll('.fallback-row');
-  const updated = [];
-  rows.forEach(row => {
-    const quote = row.querySelector('.fb-quote-input').value.trim();
-    const author = row.querySelector('.fb-author-input').value.trim();
-    if (quote) updated.push({ quote, author: author || 'El-Roi HopeBridge' });
-  });
-  if (!updated.length) { alert('Please enter at least one quote.'); return; }
-  FALLBACK_QUOTES.length = 0;
-  updated.forEach(q => FALLBACK_QUOTES.push(q));
-  const msg = document.getElementById('fallbackMsg');
-  msg.textContent = `✓ ${updated.length} fallback quote${updated.length !== 1 ? 's' : ''} saved for this session!`;
-  msg.style.display = 'block';
-  setTimeout(() => msg.style.display = 'none', 3000);
-  renderFallbackList();
-  renderAdminQuotes();
+function saveFallbackRow(index) {
+  const newQuote  = (document.getElementById('fbQInput-' + index).value || '').trim();
+  const newAuthor = (document.getElementById('fbAInput-' + index).value || '').trim();
+  if (!newQuote) { alert('Quote text cannot be empty.'); return; }
+  FALLBACK_QUOTES[index] = { quote: newQuote, author: newAuthor || 'El-Roi HopeBridge' };
+  // Update the visible text in-place without a full re-render (avoids scroll jump)
+  const textEl   = document.getElementById('fbText-' + index);
+  const authorEl = document.getElementById('fbAuthor-' + index);
+  if (textEl)   textEl.textContent   = '\u201C' + newQuote + '\u201D';
+  if (authorEl) authorEl.textContent = '— ' + (newAuthor || 'El-Roi HopeBridge');
+  cancelFallbackRow(index);
 }
 
 function escHtml(str) {
