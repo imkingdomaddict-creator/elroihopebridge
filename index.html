@@ -1074,7 +1074,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
       <!-- DAILY QUOTES -->
       <div class="admin-form">
         <h3>💬 Daily Quotes</h3>
-        <p>Add quotes here. One is shown daily to every visitor as a popup. Rotates automatically — no repeat until all are shown.</p>
+        <p>Add quotes here. One is shown daily to every visitor as a popup. Rotates automatically — no repeat until all are shown. When no saved quotes exist, the built-in fallback quotes (editable below) are used.</p>
         <label>Quote Text *</label>
         <textarea id="dqInput" rows="3" placeholder="e.g. You are not invisible. God sees you — and so do we."></textarea>
         <label>Author / Attribution (optional)</label>
@@ -1085,6 +1085,25 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
         </div>
         <p id="dqMsg" style="display:none;color:var(--gold);font-size:0.82rem;margin-top:0.5rem;"></p>
         <div id="adminQuoteList" style="margin-top:1rem;"></div>
+
+        <!-- EDITABLE FALLBACK QUOTES -->
+        <div style="margin-top:2rem;border-top:1px solid rgba(245,166,35,0.15);padding-top:1.5rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
+            <div>
+              <div style="color:var(--gold);font-size:0.85rem;font-weight:700;margin-bottom:0.2rem;">📋 Built-in Fallback Quotes</div>
+              <div style="color:rgba(255,255,255,0.3);font-size:0.75rem;">These run when no saved quotes exist. Edit and click Save to update.</div>
+            </div>
+            <button class="admin-edit-btn" onclick="toggleFallbackEditor()" id="fallbackToggleBtn">Edit Fallbacks</button>
+          </div>
+          <div id="fallbackEditor" style="display:none;">
+            <div id="fallbackList"></div>
+            <div style="margin-top:1rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+              <button class="btn btn-gold" style="font-size:0.8rem;padding:8px 18px;" onclick="addFallbackRow()">+ Add Row</button>
+              <button class="btn btn-gold" style="font-size:0.8rem;padding:8px 18px;background:var(--navy);color:var(--gold);border:1px solid var(--gold);" onclick="saveFallbackQuotes()">Save Changes</button>
+            </div>
+            <p id="fallbackMsg" style="display:none;color:var(--gold);font-size:0.82rem;margin-top:0.5rem;"></p>
+          </div>
+        </div>
       </div>
 
       <!-- TESTIMONIALS -->
@@ -2531,12 +2550,19 @@ window.addEventListener('popstate', () => {
 // ── DAILY QUOTE ───────────────────────────────────────────────────
 const FALLBACK_QUOTES = [
   { quote: 'You are not invisible. God sees you — and so do we.', author: 'El-Roi HopeBridge' },
-  { quote: 'Your life is not a mistake simply because it does not look exactly as your family imagined.', author: 'El-Roi HopeBridge' },
-  { quote: 'A quiet child is not always a content child. Sometimes, silence is the only protection they know.', author: 'El-Roi HopeBridge' },
+  { quote: 'The path that confuses you today is still a path. Keep walking.', author: 'El-Roi HopeBridge' },
+  { quote: 'Potential is not loud. It is patient, steady, and waiting for one person to believe in it.', author: 'El-Roi HopeBridge' },
   { quote: 'You were born into a family, but you are also becoming a person with a voice, a purpose, and a future.', author: 'El-Roi HopeBridge' },
-  { quote: 'Respect does not require you to lose your identity.', author: 'El-Roi HopeBridge' },
-  { quote: 'You deserve to grow without losing yourself.', author: 'El-Roi HopeBridge' },
+  { quote: 'Healing is not weakness. Asking for help is not defeat. Both are courage in disguise.', author: 'El-Roi HopeBridge' },
+  { quote: 'No child should have to shrink themselves to fit into a space that was never big enough for who they truly are.', author: 'El-Roi HopeBridge' },
   { quote: 'Every child deserves to be seen, heard and empowered.', author: 'El-Roi HopeBridge' },
+  { quote: 'Your story is not over. The hardest chapters are often the ones that change everything.', author: 'El-Roi HopeBridge' },
+  { quote: 'A young person who knows their worth cannot easily be told they have none.', author: 'El-Roi HopeBridge' },
+  { quote: 'The dreams inside you are not random. They are clues about who you were made to become.', author: 'El-Roi HopeBridge' },
+  { quote: 'Respect does not require you to lose your identity.', author: 'El-Roi HopeBridge' },
+  { quote: 'Confusion about the future is not failure. It is the beginning of a very important question.', author: 'El-Roi HopeBridge' },
+  { quote: 'A quiet child is not always a content child. Sometimes, silence is the only protection they know.', author: 'El-Roi HopeBridge' },
+  { quote: 'El-Roi means the God who sees me — and He has never once looked away from you.', author: 'El-Roi HopeBridge' },
 ];
 
 let _allQuotes = [];
@@ -2608,19 +2634,37 @@ async function generateQuoteImage() {
   ctx.beginPath(); ctx.moveTo(100, 200); ctx.lineTo(W-100, 200); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(100, H-200); ctx.lineTo(W-100, H-200); ctx.stroke();
 
-  // Load and draw logo
+  // Load and draw logo — try primary URL, fall back to secondary
   await new Promise((resolve) => {
-    const logo = new Image();
-    logo.crossOrigin = 'anonymous';
-    logo.onload = () => {
-      ctx.globalAlpha = 0.9;
-      const lSize = 110;
-      ctx.drawImage(logo, (W-lSize)/2, 120, lSize, lSize);
-      ctx.globalAlpha = 1;
-      resolve();
-    };
-    logo.onerror = resolve;
-    logo.src = 'https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png';
+    function tryLoad(src, fallback) {
+      const logo = new Image();
+      logo.crossOrigin = 'anonymous';
+      logo.onload = () => {
+        // Draw white circle background so logo is always visible on dark canvas
+        const lSize = 120;
+        const lX = (W - lSize) / 2;
+        const lY = 100;
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(lX + lSize/2, lY + lSize/2, lSize/2 + 10, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(255,255,255,0.1)';
+        ctx.fill();
+        ctx.restore();
+        ctx.globalAlpha = 1;
+        ctx.drawImage(logo, lX, lY, lSize, lSize);
+        ctx.globalAlpha = 1;
+        resolve();
+      };
+      logo.onerror = () => {
+        if (fallback) tryLoad(fallback, null);
+        else resolve();
+      };
+      logo.src = src;
+    }
+    tryLoad(
+      'https://aigrzovgqpuluaqvjyca.supabase.co/storage/v1/object/public/media/site/logo.png',
+      'https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png'
+    );
   });
 
   // Label
@@ -2628,23 +2672,14 @@ async function generateQuoteImage() {
   ctx.font = '700 28px Inter, Arial, sans-serif';
   ctx.textAlign = 'center';
   ctx.letterSpacing = '3px';
-  ctx.fillText('TODAY\'S WORD OF HOPE', W/2, 285);
+  ctx.fillText('TODAY\'S WORD OF HOPE', W/2, 265);
 
-  // Opening quote mark
-  ctx.fillStyle = '#F5A623';
-  ctx.font = '180px Georgia, serif';
-  ctx.globalAlpha = 0.25;
-  ctx.fillText('\u201C', 120, 460);
-  ctx.globalAlpha = 1;
-
-  // Quote text — word wrap
-  ctx.fillStyle = '#FFFFFF';
-  ctx.font = 'italic 600 52px Playfair Display, Georgia, serif';
-  ctx.textAlign = 'center';
+  // Quote text — word wrap (calculate position first)
+  ctx.font = 'italic 600 50px Playfair Display, Georgia, serif';
   const words = (q.quote || '').split(' ');
   const lines = [];
   let line = '';
-  const maxWidth = W - 200;
+  const maxWidth = W - 240;
   words.forEach(word => {
     const test = line ? line + ' ' + word : word;
     if (ctx.measureText(test).width > maxWidth && line) {
@@ -2652,24 +2687,47 @@ async function generateQuoteImage() {
     } else { line = test; }
   });
   if (line) lines.push(line);
-  const lineH = 72;
+  const lineH = 68;
   const totalH = lines.length * lineH;
-  const startY = (H - totalH) / 2 - 30;
+  const startY = (H - totalH) / 2 + 20;
+
+  // Opening quote mark — positioned top-left of text block
+  ctx.fillStyle = '#F5A623';
+  ctx.font = '160px Georgia, serif';
+  ctx.globalAlpha = 0.3;
+  ctx.textAlign = 'left';
+  ctx.fillText('\u201C', 80, startY + 20);
+  ctx.globalAlpha = 1;
+
+  // Quote text
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = 'italic 600 50px Playfair Display, Georgia, serif';
+  ctx.textAlign = 'center';
   lines.forEach((l, i) => {
     ctx.fillText(l, W/2, startY + i * lineH);
   });
 
+  // Closing quote mark — positioned bottom-right of text block
+  ctx.fillStyle = '#F5A623';
+  ctx.font = '160px Georgia, serif';
+  ctx.globalAlpha = 0.3;
+  ctx.textAlign = 'right';
+  ctx.fillText('\u201D', W - 80, startY + totalH + 60);
+  ctx.globalAlpha = 1;
+
   // Author
   if (q.author) {
     ctx.fillStyle = '#F5A623';
-    ctx.font = '600 36px Inter, Arial, sans-serif';
-    ctx.fillText('— ' + q.author, W/2, startY + totalH + 60);
+    ctx.font = '600 34px Inter, Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('— ' + q.author, W/2, startY + totalH + 100);
   }
 
   // Website
   ctx.fillStyle = 'rgba(255,255,255,0.3)';
-  ctx.font = '500 28px Inter, Arial, sans-serif';
-  ctx.fillText('elroihopebridgengo.com.ng', W/2, H - 120);
+  ctx.font = '500 26px Inter, Arial, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('elroihopebridgengo.com.ng', W/2, H - 100);
 
   // Show canvas and download button
   document.getElementById('dqCanvasWrap').style.display = 'block';
@@ -2751,6 +2809,78 @@ async function deleteDailyQuote(id) {
   if (!confirm('Delete this quote? The rotation will adjust automatically.')) return;
   await supabaseFetch(`daily_quotes?id=eq.${id}`, { method: 'DELETE', prefer: 'return=minimal' });
   await renderAdminQuotes();
+}
+
+// ── FALLBACK QUOTES EDITOR ────────────────────────────────────────
+function toggleFallbackEditor() {
+  const ed = document.getElementById('fallbackEditor');
+  const btn = document.getElementById('fallbackToggleBtn');
+  if (ed.style.display === 'none') {
+    ed.style.display = 'block';
+    btn.textContent = 'Hide Editor';
+    renderFallbackList();
+  } else {
+    ed.style.display = 'none';
+    btn.textContent = 'Edit Fallbacks';
+  }
+}
+
+function renderFallbackList() {
+  const list = document.getElementById('fallbackList');
+  list.innerHTML = FALLBACK_QUOTES.map((q, i) => `
+    <div class="fallback-row" data-index="${i}" style="display:flex;gap:0.5rem;margin-bottom:0.75rem;align-items:flex-start;">
+      <div style="flex:1;display:flex;flex-direction:column;gap:0.4rem;">
+        <textarea rows="2" class="fb-quote-input" placeholder="Quote text" style="width:100%;padding:8px 12px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.1);color:white;font-family:'Inter',sans-serif;font-size:0.82rem;border-radius:6px;outline:none;resize:vertical;">${escHtml(q.quote)}</textarea>
+        <input type="text" class="fb-author-input" placeholder="Author / Attribution" value="${escHtml(q.author||'')}" style="width:100%;padding:7px 12px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.1);color:white;font-family:'Inter',sans-serif;font-size:0.78rem;border-radius:6px;outline:none;">
+      </div>
+      <button onclick="removeFallbackRow(${i})" style="background:rgba(239,68,68,0.1);color:#F87171;border:1px solid rgba(239,68,68,0.2);padding:6px 10px;border-radius:6px;font-size:0.75rem;cursor:pointer;flex-shrink:0;margin-top:2px;">✕</button>
+    </div>`).join('');
+  document.querySelectorAll('.fb-quote-input, .fb-author-input').forEach(el => {
+    el.addEventListener('focus', function() { this.style.borderColor = 'var(--gold)'; });
+    el.addEventListener('blur', function() { this.style.borderColor = 'rgba(255,255,255,0.1)'; });
+  });
+}
+
+function addFallbackRow() {
+  FALLBACK_QUOTES.push({ quote: '', author: 'El-Roi HopeBridge' });
+  renderFallbackList();
+  // Scroll to the new row and focus it
+  const rows = document.querySelectorAll('.fallback-row');
+  if (rows.length) {
+    const last = rows[rows.length - 1];
+    last.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const ta = last.querySelector('textarea');
+    if (ta) setTimeout(() => ta.focus(), 300);
+  }
+}
+
+function removeFallbackRow(index) {
+  if (FALLBACK_QUOTES.length <= 1) { alert('You must keep at least one fallback quote.'); return; }
+  FALLBACK_QUOTES.splice(index, 1);
+  renderFallbackList();
+}
+
+function saveFallbackQuotes() {
+  const rows = document.querySelectorAll('.fallback-row');
+  const updated = [];
+  rows.forEach(row => {
+    const quote = row.querySelector('.fb-quote-input').value.trim();
+    const author = row.querySelector('.fb-author-input').value.trim();
+    if (quote) updated.push({ quote, author: author || 'El-Roi HopeBridge' });
+  });
+  if (!updated.length) { alert('Please enter at least one quote.'); return; }
+  FALLBACK_QUOTES.length = 0;
+  updated.forEach(q => FALLBACK_QUOTES.push(q));
+  const msg = document.getElementById('fallbackMsg');
+  msg.textContent = `✓ ${updated.length} fallback quote${updated.length !== 1 ? 's' : ''} saved for this session!`;
+  msg.style.display = 'block';
+  setTimeout(() => msg.style.display = 'none', 3000);
+  renderFallbackList();
+  renderAdminQuotes();
+}
+
+function escHtml(str) {
+  return (str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
 // Start daily quote on page load
