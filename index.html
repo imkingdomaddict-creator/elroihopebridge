@@ -405,7 +405,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 #daily-quote-modal.open{display:flex}
 .dq-card{background:var(--navy);border-radius:16px;padding:2.5rem 2rem;max-width:440px;width:100%;text-align:center;position:relative;border:1px solid rgba(245,166,35,0.25);box-shadow:0 20px 60px rgba(0,0,0,0.5);animation:dqFadeIn 0.4s ease}
 @keyframes dqFadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.dq-logo{width:52px;height:52px;object-fit:contain;margin:0 auto 1.25rem;mix-blend-mode:lighten;filter:brightness(1.1)}
+.dq-logo{width:84px;height:68px;object-fit:contain;margin:0 auto 1.25rem;background:#FFF8EC;border-radius:14px;padding:6px;display:block}
 .dq-label{font-size:0.68rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,166,35,0.6);margin-bottom:1rem}
 .dq-quote{font-family:'Playfair Display',serif;font-size:1.15rem;color:white;line-height:1.75;margin-bottom:0.75rem;font-style:italic}
 .dq-quote::before{content:'\201C';color:var(--gold);font-size:2rem;line-height:0;vertical-align:-0.5rem;margin-right:0.2rem}
@@ -912,7 +912,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
   <div id="admin-dashboard" style="display:none;">
     <div class="admin-wrap">
       <div class="admin-header">
-        <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Admin Dashboard <small style="font-size:0.6rem;font-weight:600;color:rgba(255,255,255,0.45);letter-spacing:0.08em;vertical-align:middle;">BUILD 8 · 1 NOV</small></h2>
+        <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Admin Dashboard <small style="font-size:0.6rem;font-weight:600;color:rgba(255,255,255,0.45);letter-spacing:0.08em;vertical-align:middle;">BUILD 10 · 9 NOV</small></h2>
         <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
           <button class="admin-cancel" onclick="showPage('home')">← View Site</button>
           <button class="admin-cancel" onclick="adminSignOut()">Sign Out</button>
@@ -1075,12 +1075,13 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
       <div class="admin-form">
         <h3>💬 Daily Quotes</h3>
         <p>Add quotes here. One is shown daily to every visitor as a popup. Rotates automatically — no repeat until all are shown.</p>
+        <input type="hidden" id="dqEditId">
         <label>Quote Text *</label>
         <textarea id="dqInput" rows="3" placeholder="e.g. You are not invisible. God sees you — and so do we."></textarea>
         <label>Author / Attribution (optional)</label>
         <input type="text" id="dqAuthorInput" placeholder="e.g. Adekunle Temitope, Founder — or leave blank">
         <div style="display:flex;gap:0.75rem;margin-top:1rem;flex-wrap:wrap;">
-          <button class="btn btn-gold" onclick="addDailyQuote()">Add Quote</button>
+          <button class="btn btn-gold" id="dqSubmitBtn" onclick="addDailyQuote()">Add Quote</button>
           <button class="admin-cancel" onclick="clearQuoteForm()">Clear</button>
         </div>
         <p id="dqMsg" style="display:none;color:var(--gold);font-size:0.82rem;margin-top:0.5rem;"></p>
@@ -1180,7 +1181,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
 <!-- DAILY QUOTE MODAL -->
 <div id="daily-quote-modal">
   <div class="dq-card">
-    <img src="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png" alt="El-Roi HopeBridge" class="dq-logo" id="dqLogoImg">
+    <img src="https://aigrzovgqpuluaqvjyca.supabase.co/storage/v1/object/public/media/site/logo.png" data-fb="https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png" onerror="if(this.dataset.fb){var f=this.dataset.fb;this.dataset.fb='';this.src=f;}else{this.style.visibility='hidden';}" alt="El-Roi HopeBridge" class="dq-logo" id="dqLogoImg">
     <div class="dq-label">Today's Word of Hope</div>
     <div class="dq-quote" id="dqText">Loading…</div>
     <div class="dq-author" id="dqAuthor"></div>
@@ -1279,7 +1280,7 @@ async function uploadMultiField(fid,sid){
 async function sbWrite(path,method,body){
   try{
     const res=await fetch(`${SUPABASE_URL}/rest/v1/${path}`,{method,headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=representation'},body:body?JSON.stringify(body):undefined});
-    if(!res.ok)return null;
+    if(!res.ok){window._lastWriteError=(await res.text().catch(()=>'')).slice(0,200);return null;}
     return await res.json();
   }catch(e){return null;}
 }
@@ -1838,9 +1839,28 @@ function adminSignOut() {
 async function renderAdminList() {
   const list = document.getElementById('adminArticleList');
   if (!list) return;
-  const arts = await getArticles();
+  const arts = await getAllArticlesRaw();
   if (arts.length === 0) { list.innerHTML = '<div class="admin-empty">No articles yet.</div>'; return; }
-  list.innerHTML = arts.map(a => `<div class="admin-article-item"><div class="admin-article-item-info"><h4>${a.title}</h4><span class="cat-pill">${a.category}</span><span>${a.date} · ${a.read}</span></div><div class="admin-actions"><button class="admin-edit-btn" onclick="editArticle(${a.id})"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Edit</button><button class="admin-delete-btn" onclick="deleteArticle(${a.id})"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg> Delete</button></div></div>`).join('');
+  const now = new Date();
+  list.innerHTML = arts.map(a => {
+    const isPending = a.is_scheduled && a.published_at && new Date(a.published_at) > now;
+    const scheduledLabel = isPending
+      ? `<span class="scheduled-badge">⏰ Scheduled · ${a.date}</span>`
+      : '';
+    const dateLabel = isPending ? '' : `<span>${a.date} · ${a.read}</span>`;
+    return `<div class="admin-article-item" style="${isPending ? 'border-left:3px solid var(--gold);' : ''}">
+      <div class="admin-article-item-info">
+        <h4>${a.title}${scheduledLabel}</h4>
+        <span class="cat-pill">${a.category}</span>
+        ${dateLabel}
+        ${isPending ? `<span style="font-size:0.72rem;color:rgba(255,255,255,0.3);">Hidden from public until publish date · ${a.read}</span>` : ''}
+      </div>
+      <div class="admin-actions">
+        <button class="admin-edit-btn" onclick="editArticle(${a.id})"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Edit</button>
+        <button class="admin-delete-btn" onclick="deleteArticle(${a.id})"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg> Delete</button>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 function showNewArticleForm() {
@@ -1877,7 +1897,7 @@ _— Adekunle Temitope, Founder, El-Roi HopeBridge_`;
 function hideArticleForm() { document.getElementById('articleForm').style.display = 'none'; }
 
 async function editArticle(id) {
-  const arts = await getArticles();
+  const arts = await getAllArticlesRaw();
   const a = arts.find(x => x.id === id);
   if (!a) return;
   const plainBody = a.body.replace(/<h2>(.*?)<\/h2>/g,'## $1').replace(/<blockquote>(.*?)<\/blockquote>/gs,'> $1').replace(/<strong>(.*?)<\/strong>/g,'**$1**').replace(/<em>(.*?)<\/em>/g,'_$1_').replace(/<p[^>]*>(.*?)<\/p>/gs,'$1').replace(/<br\s*\/?>/g,'\n').replace(/\n\n+/g,'\n\n').trim();
@@ -1889,6 +1909,21 @@ async function editArticle(id) {
   document.getElementById('aRead').value = a.read;
   document.getElementById('aBody').value = plainBody;
   document.getElementById('aImage').value = a.image || '';
+  // Restore scheduled publish date/time if set
+  if (a.published_at) {
+    try {
+      const d = new Date(a.published_at);
+      const pad = n => String(n).padStart(2,'0');
+      document.getElementById('aPublishDate').value = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+      document.getElementById('aPublishTime').value = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    } catch(e) {
+      document.getElementById('aPublishDate').value = '';
+      document.getElementById('aPublishTime').value = '';
+    }
+  } else {
+    document.getElementById('aPublishDate').value = '';
+    document.getElementById('aPublishTime').value = '';
+  }
   document.getElementById('formMsg').style.display = 'none';
   document.getElementById('articleForm').style.display = 'block';
   document.getElementById('articleForm').scrollIntoView({behavior:'smooth'});
@@ -1931,11 +1966,19 @@ async function saveArticle() {
   if (btn) { btn.textContent = 'Saving…'; btn.disabled = true; }
   try {
     if (editId) {
-      await supabaseFetch(`articles?id=eq.${editId}`, { method:'PATCH', prefer:'return=minimal', body: JSON.stringify({title, category, excerpt, read, body, image: image||null}) });
+      const patch = {title, category, excerpt, read, body, image: image||null};
+      if (publishDate) { patch.published_at = publishedAt; patch.is_scheduled = true; patch.date = now; }
+      const r = await sbWrite(`articles?id=eq.${editId}`, 'PATCH', patch);
+      if (!r || !r.length) { alert('The article was NOT updated. ' + (window._lastWriteError || 'The database blocked the change.')); if (btn) { btn.textContent='Publish Article'; btn.disabled=false; } return; }
     } else {
-      const arts = await getArticles();
-      const newId = Math.max(...arts.map(a => a.id), 0) + 1;
-      await supabaseFetch('articles', { method:'POST', prefer:'return=minimal', body: JSON.stringify({id:newId, title, category, date:now, read, excerpt, body, image:image||null, published_at:publishedAt, is_scheduled:isScheduled}) });
+      const all = await getAllArticlesRaw();
+      const newId = Math.max(...all.map(a => a.id), 0) + 1;
+      const r = await sbWrite('articles', 'POST', {id:newId, title, category, date:now, read, excerpt, body, image:image||null, published_at:publishedAt, is_scheduled:isScheduled});
+      if (!r || !r.length) {
+        const why = window._lastWriteError || '';
+        alert('The article was NOT saved. ' + (/published_at|is_scheduled/.test(why) ? 'The articles table is missing the scheduling columns. Run the articles SQL, then try again. ' : '') + why);
+        if (btn) { btn.textContent='Publish Article'; btn.disabled=false; } return;
+      }
     }
     await renderArticles();
     await renderAdminList();
@@ -2532,36 +2575,95 @@ window.addEventListener('popstate', () => {
 
 // ── DAILY QUOTE ───────────────────────────────────────────────────
 const FALLBACK_QUOTES = [
-  { quote: 'You are not invisible. God sees you — and so do we.', author: 'El-Roi HopeBridge' },
-  { quote: 'The path that confuses you today is still a path. Keep walking.', author: 'El-Roi HopeBridge' },
-  { quote: 'Potential is not loud. It is patient, steady, and waiting for one person to believe in it.', author: 'El-Roi HopeBridge' },
-  { quote: 'You were born into a family, but you are also becoming a person with a voice, a purpose, and a future.', author: 'El-Roi HopeBridge' },
-  { quote: 'Healing is not weakness. Asking for help is not defeat. Both are courage in disguise.', author: 'El-Roi HopeBridge' },
-  { quote: 'No child should have to shrink themselves to fit into a space that was never big enough for who they truly are.', author: 'El-Roi HopeBridge' },
-  { quote: 'Every child deserves to be seen, heard and empowered.', author: 'El-Roi HopeBridge' },
-  { quote: 'Your story is not over. The hardest chapters are often the ones that change everything.', author: 'El-Roi HopeBridge' },
-  { quote: 'A young person who knows their worth cannot easily be told they have none.', author: 'El-Roi HopeBridge' },
-  { quote: 'The dreams inside you are not random. They are clues about who you were made to become.', author: 'El-Roi HopeBridge' },
-  { quote: 'Respect does not require you to lose your identity.', author: 'El-Roi HopeBridge' },
-  { quote: 'Confusion about the future is not failure. It is the beginning of a very important question.', author: 'El-Roi HopeBridge' },
-  { quote: 'A quiet child is not always a content child. Sometimes, silence is the only protection they know.', author: 'El-Roi HopeBridge' },
-  { quote: 'El-Roi means the God who sees me — and He has never once looked away from you.', author: 'El-Roi HopeBridge' },
-];
+  `A hard day is not a hard life, and a closed door is not the end of your story.`,
+  `You do not have to be loud to be valuable. Your quiet strength counts too.`,
+  `Being unseen by people does not mean you are unseen by God.`,
+  `Your dreams do not become foolish just because someone else cannot see them yet.`,
+  `Asking for help is not weakness. It is wisdom walking in the right direction.`,
+  `You are more than your grades, your background, or the worst thing someone has said to you.`,
+  `Healing is not a straight line. Keep going, even on the slow days.`,
+  `A child who is listened to learns that their voice matters.`,
+  `Your story is not finished. This chapter does not get the last word.`,
+  `Courage is not the absence of fear. It is taking the next step while afraid.`,
+  `You can love your family and still become your own person.`,
+  `Small steps taken every day will take you further than big plans never started.`,
+  `Your past may explain where you started, but it does not decide where you end.`,
+  `Kindness costs nothing, yet it can change someone's whole day.`,
+  `It is okay to rest. Tired is not the same as failing.`,
+  `Speak kindly to yourself today. You are listening.`,
+  `Someone out there needs the story only you can tell.`,
+  `Not everyone who is quiet is okay. Ask, listen, and stay.`,
+  `Your worth was settled before you earned a single thing.`,
+  `Hope is not pretending the night is not dark. It is knowing the morning is coming.`,
+  `You were not made to carry everything alone. Let someone in.`,
+  `What you do with today is a gift to the person you are becoming.`,
+  `Education opens doors, but love and encouragement give a child the courage to walk through them.`,
+  `Every young person deserves one adult who believes in them out loud.`,
+  `Do not let a bad season name you.`,
+  `Your voice is allowed to shake and still be heard.`,
+  `Dream big, start small, and keep showing up.`,
+  `The people who truly care for you will make room for who you are becoming.`,
+  `Mistakes are proof you tried, not proof you are finished.`,
+  `You are allowed to ask questions about the life you are being handed.`,
+  `Be patient with your growth. Even a seed needs time in the dark before it breaks through.`,
+  `Gratitude turns what we have into enough.`,
+  `Strength is sometimes saying, "I am not okay," and staying for the answer.`,
+  `Your future is not built in one day, but it is shaped by what you choose today.`,
+  `Comparison steals joy. Walk your own road.`,
+  `Protect your peace. It is not selfish; it is necessary.`,
+  `A listening ear can be the first bridge to hope.`,
+  `You do not need permission to start becoming who you were made to be.`,
+  `Failure is a lesson in disguise. Learn it, then get back up.`,
+  `When no one claps for you, keep going. Heaven is watching and proud.`,
+  `The same God who saw Hagar in the wilderness sees you right now.`,
+  `Tell your story with honesty. Someone is waiting to hear that they are not alone.`,
+  `Your life has a purpose that is bigger than your pain.`,
+  `Every child deserves to be seen, heard, and guided toward a future.`,
+  [`Thou God seest me.`, `Genesis 16:13`],
+  [`I am fearfully and wonderfully made.`, `Psalm 139:14`],
+  [`Fear thou not; for I am with thee.`, `Isaiah 41:10`],
+  [`Be strong and of a good courage; be not afraid.`, `Joshua 1:9`],
+  [`Let no man despise thy youth.`, `1 Timothy 4:12`],
+  [`Train up a child in the way he should go: and when he is old, he will not depart from it.`, `Proverbs 22:6`]
+].map(x => Array.isArray(x) ? {quote:x[0], author:x[1]} : {quote:x, author:'El-Roi HopeBridge'});
 
 let _allQuotes = [];
 let _currentQuote = null;
 
+function watToday(){ return new Date(Date.now()+3600000).toISOString().slice(0,10); }
+async function pickTodaysQuote(quotes){
+  const today=watToday();
+  const rotate=()=>quotes[Math.floor(Date.now()/86400000)%quotes.length];
+  if(!quotes.some(q=>'shown_on' in q)) return rotate();            // column not added yet
+  const done=quotes.find(q=>q.shown_on===today); if(done) return done;
+  let pool=quotes.filter(q=>!q.shown_on);
+  if(!pool.length){ await sbWrite('daily_quotes?id=not.is.null','PATCH',{shown_on:null}); pool=quotes; }   // every quote used: new cycle
+  const pick=pool[0];
+  await sbWrite(`daily_quotes?id=eq.${pick.id}&shown_on=is.null`,'PATCH',{shown_on:today});
+  const chk=await supabaseFetch(`daily_quotes?id=eq.${pick.id}&select=shown_on`);
+  if(!chk||!chk[0]||chk[0].shown_on!==today) return rotate();     // could not record it, so do not loop on one quote
+  return pick;
+}
+async function toggleQuotePosted(i){
+  const q=(window._dqSaved||[])[i]; if(!q) return;
+  let val=null;
+  if(!q.shown_on){ const d=prompt('Date this quote was posted (YYYY-MM-DD)',watToday()); if(!d) return; if(!/^\d{4}-\d{2}-\d{2}$/.test(d)){alert('Please use the format YYYY-MM-DD');return;} val=d; }
+  const r=await sbWrite(`daily_quotes?id=eq.${q.id}`,'PATCH',{shown_on:val});
+  if(!r||!r.length){alert('Could not save. Run the quotes SQL (adds the shown_on column and update permission), then try again.');return;}
+  await renderAdminQuotes();
+}
+async function getAllArticlesRaw(){ return (await supabaseFetch('articles?order=id.asc')) || []; }
 async function initDailyQuote() {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = watToday();
   const seen = localStorage.getItem('dq_seen');
   if (seen === today) return;
   setTimeout(async () => {
     try {
       let quotes = await supabaseFetch('daily_quotes?order=created_at.asc') || [];
-      if (!quotes.length) quotes = FALLBACK_QUOTES;
+      let q;
+      if (!quotes.length) { quotes = FALLBACK_QUOTES; q = quotes[Math.floor(Date.now()/86400000) % quotes.length]; }
+      else q = await pickTodaysQuote(quotes);
       _allQuotes = quotes;
-      const dayIndex = Math.floor(Date.now() / 86400000);
-      const q = quotes[dayIndex % quotes.length];
       _currentQuote = q;
       document.getElementById('dqText').textContent = q.quote || '';
       document.getElementById('dqAuthor').textContent = q.author ? '— ' + q.author : '';
@@ -2582,137 +2684,103 @@ async function initDailyQuote() {
 
 function closeDailyQuote() {
   document.getElementById('daily-quote-modal').classList.remove('open');
-  localStorage.setItem('dq_seen', new Date().toISOString().slice(0, 10));
+  localStorage.setItem('dq_seen', watToday());
 }
 
+function loadLogoForCanvas(){
+  const urls=[`${SUPABASE_URL}/storage/v1/object/public/media/site/logo.png`,'https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png'];
+  return new Promise(resolve=>{let i=0;const next=()=>{if(i>=urls.length)return resolve(null);const im=new Image();im.crossOrigin='anonymous';im.onload=()=>resolve(im);im.onerror=next;im.src=urls[i++];};next();});
+}
+function logoBounds(img){
+  try{
+    const c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;
+    const x=c.getContext('2d');x.drawImage(img,0,0);
+    const d=x.getImageData(0,0,c.width,c.height).data;let x0=c.width,y0=c.height,x1=0,y1=0;
+    for(let y=0;y<c.height;y+=2)for(let xx=0;xx<c.width;xx+=2){if(d[(y*c.width+xx)*4+3]>20){if(xx<x0)x0=xx;if(xx>x1)x1=xx;if(y<y0)y0=y;if(y>y1)y1=y;}}
+    if(x1>x0&&y1>y0)return{sx:x0,sy:y0,sw:x1-x0,sh:y1-y0};
+  }catch(e){}
+  return{sx:0,sy:0,sw:img.naturalWidth,sh:img.naturalHeight};
+}
 async function generateQuoteImage() {
   const q = _currentQuote;
   if (!q) return;
   const btn = document.getElementById('dqGenerateBtn');
   btn.textContent = 'Generating…';
   btn.disabled = true;
+  try { await document.fonts.load('italic 600 52px "Playfair Display"'); await document.fonts.load('700 28px Inter'); } catch(e) {}
   const canvas = document.getElementById('dqCanvas');
   const ctx = canvas.getContext('2d');
   const W = 1080, H = 1080;
   canvas.width = W; canvas.height = H;
-
-  // Background gradient
   const grad = ctx.createLinearGradient(0, 0, W, H);
-  grad.addColorStop(0, '#1B2A4A');
-  grad.addColorStop(1, '#0F1923');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, W, H);
-
-  // Gold corner accents
-  ctx.strokeStyle = 'rgba(245,166,35,0.3)';
-  ctx.lineWidth = 3;
-  const m = 40, s = 80;
+  grad.addColorStop(0, '#1B2A4A'); grad.addColorStop(1, '#0F1923');
+  ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = 'rgba(245,166,35,0.3)'; ctx.lineWidth = 3;
+  const m = 40, sz = 80;
   [[m,m,1,0],[m,m,0,1],[W-m,m,-1,0],[W-m,m,0,1],[m,H-m,1,0],[m,H-m,0,-1],[W-m,H-m,-1,0],[W-m,H-m,0,-1]].forEach(([x,y,dx,dy]) => {
-    ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x+dx*s,y+dy*s); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x+dx*sz,y+dy*sz); ctx.stroke();
   });
-
-  // Gold horizontal lines
-  ctx.strokeStyle = 'rgba(245,166,35,0.15)';
-  ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(100, 200); ctx.lineTo(W-100, 200); ctx.stroke();
+  ctx.strokeStyle = 'rgba(245,166,35,0.15)'; ctx.lineWidth = 1;
   ctx.beginPath(); ctx.moveTo(100, H-200); ctx.lineTo(W-100, H-200); ctx.stroke();
 
-  // Load and draw logo — try primary URL, fall back to secondary
-  await new Promise((resolve) => {
-    function tryLoad(src, fallback) {
-      const logo = new Image();
-      logo.crossOrigin = 'anonymous';
-      logo.onload = () => {
-        // Draw white circle background so logo is always visible on dark canvas
-        const lSize = 120;
-        const lX = (W - lSize) / 2;
-        const lY = 100;
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(lX + lSize/2, lY + lSize/2, lSize/2 + 10, 0, Math.PI*2);
-        ctx.fillStyle = 'rgba(255,255,255,0.1)';
-        ctx.fill();
-        ctx.restore();
-        ctx.globalAlpha = 1;
-        ctx.drawImage(logo, lX, lY, lSize, lSize);
-        ctx.globalAlpha = 1;
-        resolve();
-      };
-      logo.onerror = () => {
-        if (fallback) tryLoad(fallback, null);
-        else resolve();
-      };
-      logo.src = src;
-    }
-    tryLoad(
-      'https://aigrzovgqpuluaqvjyca.supabase.co/storage/v1/object/public/media/site/logo.png',
-      'https://i.ibb.co/9H35YkTS/El-Roi-Hope-Bridge-Logo.png'
-    );
-  });
+  // Logo on a light badge so the dark parts of the logo stay visible
+  const logo = await loadLogoForCanvas();
+  const bw = 260, bh = 190, bx = (W-bw)/2, by = 70;
+  if (logo) {
+    const r = 30;
+    ctx.beginPath(); ctx.moveTo(bx+r,by); ctx.arcTo(bx+bw,by,bx+bw,by+bh,r); ctx.arcTo(bx+bw,by+bh,bx,by+bh,r); ctx.arcTo(bx,by+bh,bx,by,r); ctx.arcTo(bx,by,bx+bw,by,r); ctx.closePath();
+    ctx.fillStyle = '#FFF8EC'; ctx.fill();
+    ctx.strokeStyle = '#F5A623'; ctx.lineWidth = 3; ctx.stroke();
+    const b = logoBounds(logo), pad = 20;
+    const sc = Math.min((bw-2*pad)/b.sw, (bh-2*pad)/b.sh);
+    const dw = b.sw*sc, dh = b.sh*sc;
+    ctx.drawImage(logo, b.sx, b.sy, b.sw, b.sh, bx+(bw-dw)/2, by+(bh-dh)/2, dw, dh);
+  } else {
+    ctx.fillStyle = '#F5A623'; ctx.font = '700 44px Georgia, serif'; ctx.textAlign = 'center';
+    ctx.fillText('El-Roi HopeBridge', W/2, by+bh/2+14);
+  }
 
-  // Label
-  ctx.fillStyle = 'rgba(245,166,35,0.7)';
+  ctx.fillStyle = 'rgba(245,166,35,0.85)';
   ctx.font = '700 28px Inter, Arial, sans-serif';
   ctx.textAlign = 'center';
   ctx.letterSpacing = '3px';
-  ctx.fillText('TODAY\'S WORD OF HOPE', W/2, 265);
+  ctx.fillText("TODAY'S WORD OF HOPE", W/2, 335);
+  ctx.letterSpacing = '0px';
 
-  // Quote text — word wrap (calculate position first)
-  ctx.font = 'italic 600 50px Playfair Display, Georgia, serif';
-  const words = (q.quote || '').split(' ');
-  const lines = [];
-  let line = '';
-  const maxWidth = W - 240;
-  words.forEach(word => {
-    const test = line ? line + ' ' + word : word;
-    if (ctx.measureText(test).width > maxWidth && line) {
-      lines.push(line); line = word;
-    } else { line = test; }
-  });
-  if (line) lines.push(line);
-  const lineH = 68;
-  const totalH = lines.length * lineH;
-  const startY = (H - totalH) / 2 + 20;
+  // Wrap and size the quote so it always fits
+  const words = (q.quote || '').trim().split(/\s+/), maxW = W - 280;
+  let fs = 56, lines = [], lineH = 0;
+  const wrap = () => {
+    ctx.font = `italic 600 ${fs}px "Playfair Display", Georgia, serif`;
+    lines = []; let l = '';
+    words.forEach(w => { const t = l ? l+' '+w : w; if (ctx.measureText(t).width > maxW && l) { lines.push(l); l = w; } else l = t; });
+    if (l) lines.push(l);
+    lineH = Math.round(fs*1.32);
+  };
+  wrap(); while (lines.length*lineH > 300 && fs > 32) { fs -= 3; wrap(); }
+  const wMax = Math.max(...lines.map(l => ctx.measureText(l).width));
+  const markH = 41, gap = 26, hasA = !!q.author;
+  const blockH = markH + gap + lines.length*lineH + gap + markH + (hasA ? 70 : 0);
+  const top = 375 + (480 - blockH)/2;
 
-  // Opening quote mark — positioned top-left of text block
-  ctx.fillStyle = '#F5A623';
-  ctx.font = '160px Georgia, serif';
-  ctx.globalAlpha = 0.3;
-  ctx.textAlign = 'left';
-  ctx.fillText('\u201C', 80, startY + 20);
-  ctx.globalAlpha = 1;
-
+  // Opening quotation mark (top-left of the quote)
+  ctx.fillStyle = '#F5A623'; ctx.font = 'bold 140px Georgia, serif'; ctx.textAlign = 'left';
+  ctx.fillText('\u201C', (W-wMax)/2 - 8, top + 104);
   // Quote text
-  ctx.fillStyle = '#FFFFFF';
-  ctx.font = 'italic 600 50px Playfair Display, Georgia, serif';
-  ctx.textAlign = 'center';
-  lines.forEach((l, i) => {
-    ctx.fillText(l, W/2, startY + i * lineH);
-  });
-
-  // Closing quote mark — positioned bottom-right of text block
-  ctx.fillStyle = '#F5A623';
-  ctx.font = '160px Georgia, serif';
-  ctx.globalAlpha = 0.3;
-  ctx.textAlign = 'right';
-  ctx.fillText('\u201D', W - 80, startY + totalH + 60);
-  ctx.globalAlpha = 1;
-
-  // Author
-  if (q.author) {
-    ctx.fillStyle = '#F5A623';
-    ctx.font = '600 34px Inter, Arial, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('— ' + q.author, W/2, startY + totalH + 100);
+  ctx.fillStyle = '#FFFFFF'; ctx.font = `italic 600 ${fs}px "Playfair Display", Georgia, serif`; ctx.textAlign = 'center';
+  const t0 = top + markH + gap;
+  lines.forEach((l, i) => ctx.fillText(l, W/2, t0 + fs*0.85 + i*lineH));
+  // Closing quotation mark (bottom-right of the quote)
+  const ct = t0 + lines.length*lineH + gap - 6;
+  ctx.fillStyle = '#F5A623'; ctx.font = 'bold 140px Georgia, serif'; ctx.textAlign = 'right';
+  ctx.fillText('\u201D', (W+wMax)/2 + 8, ct + 104);
+  if (hasA) {
+    ctx.fillStyle = '#F5A623'; ctx.font = '600 36px Inter, Arial, sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('— ' + q.author, W/2, ct + markH + 58);
   }
+  ctx.fillStyle = 'rgba(255,255,255,0.35)'; ctx.font = '500 28px Inter, Arial, sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('elroihopebridgengo.com.ng', W/2, H - 120);
 
-  // Website
-  ctx.fillStyle = 'rgba(255,255,255,0.3)';
-  ctx.font = '500 26px Inter, Arial, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('elroihopebridgengo.com.ng', W/2, H - 100);
-
-  // Show canvas and download button
   document.getElementById('dqCanvasWrap').style.display = 'block';
   const dataUrl = canvas.toDataURL('image/png');
   document.getElementById('dqDownload').href = dataUrl;
@@ -2730,22 +2798,42 @@ document.getElementById('daily-quote-modal').addEventListener('click', function(
 async function addDailyQuote() {
   const quote = document.getElementById('dqInput').value.trim();
   const author = document.getElementById('dqAuthorInput').value.trim();
+  const editId = document.getElementById('dqEditId').value;
   if (!quote) { alert('Please enter a quote.'); return; }
-  await supabaseFetch('daily_quotes', {
-    method: 'POST', prefer: 'return=minimal',
-    body: JSON.stringify({ quote, author: author || 'El-Roi HopeBridge' })
-  });
+  const row = { quote, author: author || 'El-Roi HopeBridge' };
+  if (editId) {
+    const r = await sbWrite(`daily_quotes?id=eq.${editId}`, 'PATCH', row);
+    if (!r || r.length === 0) { alert('Edit blocked by database permissions. Run the quotes permissions SQL, then try again.'); return; }
+  } else {
+    await supabaseFetch('daily_quotes', { method: 'POST', prefer: 'return=minimal', body: JSON.stringify(row) });
+  }
   clearQuoteForm();
   await renderAdminQuotes();
   const msg = document.getElementById('dqMsg');
-  msg.textContent = '✓ Quote added!';
+  msg.textContent = editId ? '✓ Quote updated!' : '✓ Quote added!';
   msg.style.display = 'block';
   setTimeout(() => msg.style.display = 'none', 2000);
+}
+function editDailyQuote(i) {
+  const q = (window._dqSaved || [])[i]; if (!q) return;
+  document.getElementById('dqInput').value = q.quote || '';
+  document.getElementById('dqAuthorInput').value = q.author || '';
+  document.getElementById('dqEditId').value = q.id;
+  document.getElementById('dqSubmitBtn').textContent = 'Update Quote';
+  document.getElementById('dqInput').scrollIntoView({behavior:'smooth'});
+}
+async function importBuiltInQuotes() {
+  if (!confirm('Copy the ' + FALLBACK_QUOTES.length + ' built-in quotes into your editable list?')) return;
+  const r = await sbWrite('daily_quotes', 'POST', FALLBACK_QUOTES);
+  if (!r || r.length === 0) { alert('Could not copy the quotes. Check that the daily_quotes table allows inserts.'); return; }
+  await renderAdminQuotes();
 }
 
 function clearQuoteForm() {
   document.getElementById('dqInput').value = '';
   document.getElementById('dqAuthorInput').value = '';
+  document.getElementById('dqEditId').value = '';
+  document.getElementById('dqSubmitBtn').textContent = 'Add Quote';
 }
 
 async function renderAdminQuotes() {
@@ -2800,12 +2888,25 @@ async function renderAdminQuotes() {
     }
   }
 
+  const escq = t => String(t).replace(/</g,'&lt;');
+  const todayQ = saved.find(q => q.shown_on === watToday());
+  const upcoming = saved.filter(q => !q.shown_on);
+  const scheduleHTML = !saved.length ? '' :
+    (!('shown_on' in saved[0]) ? '<p style="color:#f5a623;font-size:0.8rem;line-height:1.6;">Posted quotes are not being locked yet. Run the quotes SQL once, then this list will track what has been posted.</p>' :
+    (todayQ ? `<div class="quote-schedule-item today"><div style="flex:1;"><div class="qs-date">TODAY<span class="qs-today-badge">POSTED</span></div><div class="qs-text">"${escq(todayQ.quote)}"</div></div></div>` : '') +
+    `<h4 style="color:var(--gold);font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;margin:1rem 0 0.5rem;">Coming up next</h4>` +
+    (upcoming.length ? upcoming.slice(0,7).map((q,i) => `<div class="quote-schedule-item"><div style="flex:1;"><div class="qs-date">${i===0 && !todayQ ? 'NEXT' : 'Then'}</div><div class="qs-text">"${escq(q.quote)}"</div></div></div>`).join('') : '<p style="color:rgba(255,255,255,0.45);font-size:0.8rem;">Every quote has been used. A new cycle starts automatically.</p>'));
+  window._dqSaved = saved;
+  const esc = t => String(t).replace(/</g, '&lt;');
+  const allListHTML = `<h4 style="color:var(--gold);font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;margin:1.25rem 0 0.5rem;">All quotes in rotation</h4>` +
+    (saved.length ? saved.map((q, i) => `<div class="quote-schedule-item"><div style="flex:1;"><div class="qs-text">"${esc(q.quote)}"</div><div class="qs-author">— ${esc(q.author || 'El-Roi HopeBridge')}</div><div style="font-size:0.7rem;margin-top:0.25rem;color:${q.shown_on ? '#7dd3a0' : 'rgba(255,255,255,0.4)'};">${q.shown_on ? '✓ Posted ' + q.shown_on + ' · will not repeat until every quote is used' : 'Not posted yet'}</div></div><div style="display:flex;gap:0.4rem;flex-shrink:0;"><button class="admin-edit-btn" onclick="editDailyQuote(${i})">Edit</button><button class="admin-edit-btn" onclick="toggleQuotePosted(${i})">${q.shown_on ? 'Allow again' : 'Mark posted'}</button><button class="admin-delete-btn" onclick="deleteDailyQuote('${q.id}')">Delete</button></div></div>`).join('')
+    : `<p style="color:rgba(255,255,255,0.45);font-size:0.8rem;line-height:1.6;">These ${allQ.length} quotes are built into the site and cannot be edited yet. Tap below to copy them into your list, then you can edit or delete any of them.</p><button class="btn btn-gold" style="padding:10px 18px;" onclick="importBuiltInQuotes()">Make Built-in Quotes Editable</button>`);
   el.innerHTML = `
     <p style="color:rgba(255,255,255,0.4);font-size:0.78rem;margin-bottom:0.75rem;">
-      ${allQ.length} quote(s) in rotation · Showing next 14 days
-      ${usingFallback ? ' · <span style="color:rgba(245,166,35,0.6);">Using built-in fallbacks — click ✏ Edit on any row to change it</span>' : ''}
+      ${allQ.length} quote(s) in rotation
+      ${usingFallback ? ' · <span style="color:rgba(245,166,35,0.6);">Built-in quotes cannot be saved until you copy them to your list below</span>' : ''}
     </p>
-    ${rows.join('')}`;
+    ${scheduleHTML}${allListHTML}`;
 }
 
 async function deleteDailyQuote(id) {
@@ -2838,17 +2939,40 @@ function cancelFallbackRow(index) {
   if (btn)  btn.style.display = 'inline-flex';
 }
 
-function saveFallbackRow(index) {
+async function saveFallbackRow(index) {
   const newQuote  = (document.getElementById('fbQInput-' + index).value || '').trim();
   const newAuthor = (document.getElementById('fbAInput-' + index).value || '').trim();
   if (!newQuote) { alert('Quote text cannot be empty.'); return; }
+
+  // Persist ALL fallback quotes to daily_quotes in Supabase so the edit survives a page reload.
+  // We write them all at once (same as importBuiltInQuotes), then patch the one that changed.
+  const saveBtn = document.getElementById('fbEditBtn-' + index);
+  const origLabel = saveBtn ? saveBtn.textContent : '';
+
+  // Update memory first so we write the latest version of every quote
   FALLBACK_QUOTES[index] = { quote: newQuote, author: newAuthor || 'El-Roi HopeBridge' };
-  // Update the visible text in-place without a full re-render (avoids scroll jump)
-  const textEl   = document.getElementById('fbText-' + index);
-  const authorEl = document.getElementById('fbAuthor-' + index);
-  if (textEl)   textEl.textContent   = '\u201C' + newQuote + '\u201D';
-  if (authorEl) authorEl.textContent = '— ' + (newAuthor || 'El-Roi HopeBridge');
-  cancelFallbackRow(index);
+
+  // Check if any quotes are already in the DB
+  const existing = await supabaseFetch('daily_quotes?order=created_at.asc') || [];
+
+  if (existing.length) {
+    // DB already has quotes — just update the matching row by position (or insert if fewer rows than fallbacks)
+    const target = existing[index];
+    if (target && target.id) {
+      const r = await sbWrite(`daily_quotes?id=eq.${target.id}`, 'PATCH', { quote: newQuote, author: newAuthor || 'El-Roi HopeBridge' });
+      if (!r || !r.length) { alert('Could not save to database. ' + (window._lastWriteError || '')); return; }
+    } else {
+      // Position doesn't exist yet — insert it
+      await sbWrite('daily_quotes', 'POST', { quote: newQuote, author: newAuthor || 'El-Roi HopeBridge' });
+    }
+  } else {
+    // No DB quotes yet — write all fallbacks to DB so the full set is preserved
+    const r = await sbWrite('daily_quotes', 'POST', FALLBACK_QUOTES);
+    if (!r || !r.length) { alert('Could not save to database. Check that the daily_quotes table allows inserts.\n\n' + (window._lastWriteError || '')); return; }
+  }
+
+  // Re-render so the schedule now shows the live DB rows (with edit/delete buttons)
+  await renderAdminQuotes();
 }
 
 function escHtml(str) {
