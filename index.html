@@ -545,15 +545,28 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
           <div style="color:rgba(255,255,255,0.45);font-size:0.78rem;line-height:1.6;">Sponsor a workshop, a seminar, or a career clarity session</div>
         </div>
       </div>
-      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-        <a href="https://wa.me/2348166127632?text=Hello%2C%20I%20would%20like%20to%20gift%20educational%20materials%20to%20El-Roi%20HopeBridge." target="_blank" class="btn btn-gold">
-          <svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Chat on WhatsApp
-        </a>
-        <a href="mailto:elroihopebridge@gmail.com?subject=I%20want%20to%20gift%20educational%20materials" class="btn btn-outline">
-          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Send an Email
-        </a>
+      <!-- GIFT FORM -->
+      <div style="max-width:560px;margin:0 auto;">
+        <div class="request-form" style="text-align:left;">
+          <input type="text" id="giftName" placeholder="Your full name *" style="background:rgba(255,255,255,0.07);border-color:rgba(245,166,35,0.25);color:white;">
+          <input type="text" id="giftContact" placeholder="Phone number or email *" style="background:rgba(255,255,255,0.07);border-color:rgba(245,166,35,0.25);color:white;">
+          <input type="text" id="giftLocation" placeholder="Your city / state *" style="background:rgba(255,255,255,0.07);border-color:rgba(245,166,35,0.25);color:white;">
+          <select id="giftType" style="background:#1a2535;border:1.5px solid rgba(245,166,35,0.25);color:white;padding:12px 16px;border-radius:8px;font-family:'Inter',sans-serif;font-size:0.88rem;outline:none;width:100%;">
+            <option value="">What would you like to gift? *</option>
+            <option>Books &amp; Textbooks</option>
+            <option>Stationery &amp; Supplies</option>
+            <option>School Bags &amp; Accessories</option>
+            <option>Workshop / Seminar Sponsorship</option>
+            <option>Multiple Items</option>
+            <option>Other</option>
+          </select>
+          <textarea id="giftDescription" rows="3" placeholder="Briefly describe what you have and the quantity (e.g. 10 JSS2 Mathematics textbooks)" style="background:rgba(255,255,255,0.07);border-color:rgba(245,166,35,0.25);color:white;"></textarea>
+          <button class="btn btn-gold" onclick="submitGiftForm()" style="width:100%;justify-content:center;">Submit Gift Offer</button>
+          <div id="giftSuccess" style="display:none;background:rgba(245,166,35,0.1);border-left:4px solid var(--gold);padding:1rem 1.5rem;border-radius:0 8px 8px 0;font-size:0.88rem;color:rgba(255,255,255,0.85);margin-top:0.5rem;">
+            ✓ <strong>Thank you so much!</strong> We have received your offer and will reach out to you shortly to arrange everything.
+          </div>
+        </div>
+        <p style="color:rgba(255,255,255,0.25);font-size:0.75rem;margin-top:1.25rem;">Prefer a conversation? <a href="https://wa.me/2348166127632?text=Hello%2C%20I%20would%20like%20to%20gift%20educational%20materials%20to%20El-Roi%20HopeBridge." target="_blank" style="color:var(--gold);">Chat with us on WhatsApp</a> or email <a href="mailto:elroihopebridge@gmail.com" style="color:var(--gold);">elroihopebridge@gmail.com</a></p>
       </div>
     </div>
   </section>
@@ -1051,6 +1064,13 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
         <div id="adminStoryList"><p style="color:rgba(255,255,255,0.3);font-size:0.8rem;">Loading...</p></div>
       </div>
 
+      <!-- GIFT OFFERS -->
+      <div class="admin-form">
+        <h3>📚 Educational Material Gift Offers</h3>
+        <p>People who have offered to gift educational materials. Reach out to each one to arrange collection or delivery.</p>
+        <div id="adminGiftList"><p style="color:rgba(255,255,255,0.3);font-size:0.8rem;">Loading...</p></div>
+      </div>
+
       <!-- TEAM MEMBERS -->
       <div class="admin-form">
         <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Team Members</h3>
@@ -1079,16 +1099,7 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
         <p id="impactMsg" style="display:none;color:var(--gold);font-size:0.82rem;margin-top:0.5rem;"></p>
       </div>
 
-      <!-- DONATION GOAL -->
-      <div class="admin-form">
-        <h3><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Donation Goal</h3>
-        <p>Set your fundraising goal. The progress bar updates on the homepage.</p>
-        <label>Goal Description</label><input type="text" id="goalDescInput" placeholder="e.g. Help us reach 500 young people this year">
-        <label>Target Amount (₦)</label><input type="number" id="goalTargetInput" placeholder="e.g. 500000">
-        <label>Amount Raised So Far (₦)</label><input type="number" id="goalRaisedInput" placeholder="e.g. 25000">
-        <button class="btn btn-gold" onclick="saveGoal()" style="margin-top:1rem;">Save Goal</button>
-        <p id="goalMsg" style="display:none;color:var(--gold);font-size:0.82rem;margin-top:0.5rem;"></p>
-      </div>
+
 
       <!-- DAILY QUOTES -->
       <div class="admin-form">
@@ -1133,20 +1144,27 @@ footer{background:#0F1923;padding:3rem 2rem;text-align:center;border-top:1px sol
   <div class="donate-card">
     <button class="donate-close" onclick="closeDonate()">✕</button>
     <h3>📚 Gift Educational Materials</h3>
-    <p class="sub">Put the right resource in a young person's hands. Books, stationery, learning tools — every gift directly serves the children we work with.</p>
-    <div class="donate-detail" style="text-align:left;">
-      <div class="dl">What We Need Most</div>
-      <div class="dv" style="font-size:0.9rem;line-height:1.7;margin-top:0.4rem;">Secondary school textbooks · Career and life guides · Notebooks and stationery · Bags and school supplies · Sponsorship of a workshop or seminar</div>
+    <p class="sub">Fill the form and we will reach out to arrange everything.</p>
+    <div style="text-align:left;width:100%;display:flex;flex-direction:column;gap:0.6rem;">
+      <input type="text" id="giftNameModal" placeholder="Your full name *" style="width:100%;padding:10px 14px;background:var(--light);border:1.5px solid #E5E7EB;border-radius:8px;font-family:'Inter',sans-serif;font-size:0.85rem;color:var(--charcoal);outline:none;">
+      <input type="text" id="giftContactModal" placeholder="Phone number or email *" style="width:100%;padding:10px 14px;background:var(--light);border:1.5px solid #E5E7EB;border-radius:8px;font-family:'Inter',sans-serif;font-size:0.85rem;color:var(--charcoal);outline:none;">
+      <input type="text" id="giftLocationModal" placeholder="Your city / state *" style="width:100%;padding:10px 14px;background:var(--light);border:1.5px solid #E5E7EB;border-radius:8px;font-family:'Inter',sans-serif;font-size:0.85rem;color:var(--charcoal);outline:none;">
+      <select id="giftTypeModal" style="width:100%;padding:10px 14px;background:var(--light);border:1.5px solid #E5E7EB;border-radius:8px;font-family:'Inter',sans-serif;font-size:0.85rem;color:var(--charcoal);outline:none;">
+        <option value="">What would you like to gift? *</option>
+        <option>Books &amp; Textbooks</option>
+        <option>Stationery &amp; Supplies</option>
+        <option>School Bags &amp; Accessories</option>
+        <option>Workshop / Seminar Sponsorship</option>
+        <option>Multiple Items</option>
+        <option>Other</option>
+      </select>
+      <textarea id="giftDescModal" rows="2" placeholder="Briefly describe what you have and the quantity" style="width:100%;padding:10px 14px;background:var(--light);border:1.5px solid #E5E7EB;border-radius:8px;font-family:'Inter',sans-serif;font-size:0.85rem;color:var(--charcoal);outline:none;resize:vertical;"></textarea>
+      <button class="btn btn-gold" onclick="submitGiftModal()" style="width:100%;justify-content:center;">Submit Gift Offer</button>
+      <div id="giftSuccessModal" style="display:none;background:#FEF3DC;border-left:4px solid var(--gold);padding:0.75rem 1rem;border-radius:0 8px 8px 0;font-size:0.82rem;color:var(--charcoal);">
+        ✓ <strong>Thank you!</strong> We will reach out to you shortly to arrange everything.
+      </div>
     </div>
-    <a href="https://wa.me/2348166127632?text=Hello%2C%20I%20would%20like%20to%20support%20El-Roi%20HopeBridge." target="_blank" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:0.25rem;text-decoration:none;">
-      <svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      Chat with Us on WhatsApp
-    </a>
-    <a href="mailto:elroihopebridge@gmail.com?subject=I%20would%20like%20to%20support%20El-Roi%20HopeBridge" class="btn" style="width:100%;justify-content:center;margin-top:0.75rem;background:var(--light);color:var(--navy);font-weight:700;text-decoration:none;">
-      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      Send Us an Email
-    </a>
-    <p style="font-size:0.72rem;color:var(--grey);margin-top:1.25rem;line-height:1.6;">We will handle all support privately and transparently. A formal donation system will be available once our CAC registration is complete.</p>
+    <p style="font-size:0.72rem;color:var(--grey);margin-top:1rem;">Prefer a conversation? <a href="https://wa.me/2348166127632?text=Hello%2C%20I%20would%20like%20to%20gift%20educational%20materials." target="_blank" style="color:var(--gold);">WhatsApp us</a></p>
   </div>
 </div>
 
@@ -1845,6 +1863,7 @@ async function showDashboard() {
   await renderAdminGallery();
   await loadAdminMentorship();
   await loadAdminStories();
+  await loadAdminGifts();
   await renderAdminQuotes();
 }
 
@@ -3000,6 +3019,72 @@ async function saveFallbackRow(index) {
 
 function escHtml(str) {
   return (str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+// ── GIFT EDUCATIONAL MATERIALS ───────────────────────────────────
+async function submitGiftForm() {
+  const name = document.getElementById('giftName').value.trim();
+  const contact = document.getElementById('giftContact').value.trim();
+  const location = document.getElementById('giftLocation').value.trim();
+  const type = document.getElementById('giftType').value;
+  const description = document.getElementById('giftDescription').value.trim();
+  if (!name || !contact || !location || !type) { alert('Please fill in your name, contact, location and what you would like to gift.'); return; }
+  const btn = document.querySelector('#giftName')?.closest('.request-form')?.querySelector('.btn-gold');
+  if (btn) { btn.textContent = 'Submitting…'; btn.disabled = true; }
+  await supabaseFetch('gift_offers', { method:'POST', prefer:'return=minimal', body: JSON.stringify({name, contact, location, gift_type:type, description:description||null}) });
+  const fd = new FormData();
+  fd.append('name', name); fd.append('contact', contact);
+  fd.append('location', location); fd.append('gift_type', type);
+  fd.append('description', description||'Not provided');
+  fd.append('_subject', `New Gift Offer — ${name} (${type})`);
+  fetch('https://formspree.io/f/xgaaowkd', { method:'POST', headers:{'Accept':'application/json'}, body:fd }).catch(()=>{});
+  if (btn) { btn.textContent = 'Submit Gift Offer'; btn.disabled = false; }
+  ['giftName','giftContact','giftLocation','giftDescription'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('giftType').value = '';
+  document.getElementById('giftSuccess').style.display = 'block';
+  setTimeout(() => document.getElementById('giftSuccess').style.display = 'none', 6000);
+}
+
+async function submitGiftModal() {
+  const name = document.getElementById('giftNameModal').value.trim();
+  const contact = document.getElementById('giftContactModal').value.trim();
+  const location = document.getElementById('giftLocationModal').value.trim();
+  const type = document.getElementById('giftTypeModal').value;
+  const description = document.getElementById('giftDescModal').value.trim();
+  if (!name || !contact || !location || !type) { alert('Please fill in your name, contact, location and what you would like to gift.'); return; }
+  const btn = document.querySelector('#giftNameModal')?.closest('div')?.querySelector('.btn-gold');
+  if (btn) { btn.textContent = 'Submitting…'; btn.disabled = true; }
+  await supabaseFetch('gift_offers', { method:'POST', prefer:'return=minimal', body: JSON.stringify({name, contact, location, gift_type:type, description:description||null}) });
+  const fd = new FormData();
+  fd.append('name', name); fd.append('contact', contact);
+  fd.append('location', location); fd.append('gift_type', type);
+  fd.append('description', description||'Not provided');
+  fd.append('_subject', `New Gift Offer — ${name} (${type})`);
+  fetch('https://formspree.io/f/xgaaowkd', { method:'POST', headers:{'Accept':'application/json'}, body:fd }).catch(()=>{});
+  if (btn) { btn.textContent = 'Submit Gift Offer'; btn.disabled = false; }
+  ['giftNameModal','giftContactModal','giftLocationModal','giftDescModal'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('giftTypeModal').value = '';
+  document.getElementById('giftSuccessModal').style.display = 'block';
+}
+
+async function loadAdminGifts() {
+  const el = document.getElementById('adminGiftList');
+  if (!el) return;
+  const data = await supabaseFetch('gift_offers?order=created_at.desc') || [];
+  if (data.length === 0) { el.innerHTML = '<p style="color:rgba(255,255,255,0.3);font-size:0.8rem;">No gift offers yet.</p>'; return; }
+  el.innerHTML = data.map(g => `
+    <div class="submission-card">
+      <div class="s-name">${g.name} <span style="background:rgba(245,166,35,0.15);color:var(--gold);font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:0.4rem;">${g.gift_type||''}</span></div>
+      <div class="s-meta">${g.contact} · ${g.location} · ${new Date(g.created_at).toLocaleDateString('en-NG')}</div>
+      ${g.description ? `<div class="s-text">${g.description}</div>` : ''}
+      <button class="admin-delete-btn" style="margin-top:0.5rem;font-size:0.75rem;" onclick="deleteGiftOffer('${g.id}')">🗑 Delete</button>
+    </div>`).join('');
+}
+
+async function deleteGiftOffer(id) {
+  if (!confirm('Delete this gift offer?')) return;
+  await supabaseFetch(`gift_offers?id=eq.${id}`, { method:'DELETE', prefer:'return=minimal' });
+  await loadAdminGifts();
 }
 
 // Start daily quote on page load
