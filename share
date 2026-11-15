@@ -1,124 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- ═══════════════════════════════════════════════════════════════
-     EL-ROI HOPEBRIDGE — ARTICLE SHARE PROXY
-     This file lives alongside index.html on GitHub.
-     Usage:  https://www.elroihopebridgengo.com.ng/share.html?id=6
-     WhatsApp/Facebook/Telegram crawl this URL, read the correct
-     Open Graph tags, then the visitor is redirected to the article.
-═══════════════════════════════════════════════════════════════ -->
-
+<meta charset="utf-8">
+<title>El Roi Hope Bridge NGO</title>
+<meta property="og:title" content="El Roi Hope Bridge NGO">
+<meta property="og:description" content="Read this article on El Roi Hope Bridge NGO">
+<meta property="og:image" content="https://www.elroihopebridgengo.com.ng/logo.png">
 <script>
-// ── CONFIG ───────────────────────────────────────────────────────
-const SUPABASE_URL = 'https://aigrzovgqpuluaqvjyca.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFpZ3J6b3ZncXB1bHVhcXZqeWNhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1MzUyNDYsImV4cCI6MjEwNjExMTI0Nn0.SECChUdspkZkae--RbL0wcO_E33FOhaq9KQpAOfGyY8';
-const SITE_URL    = 'https://www.elroihopebridgengo.com.ng';
-const DEFAULT_IMG = 'https://aigrzovgqpuluaqvjyca.supabase.co/storage/v1/object/public/media/site/logo.png';
-
-const params = new URLSearchParams(window.location.search);
-const articleId = parseInt(params.get('id'));
-
-async function init() {
-  if (!articleId) {
-    // No ID — redirect to homepage
-    window.location.replace(SITE_URL);
-    return;
-  }
-
-  try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/articles?id=eq.${articleId}&select=id,title,excerpt,image,category`,
-      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
-    );
-    const data = await res.json();
-    const article = data && data[0];
-
-    if (!article) {
-      window.location.replace(SITE_URL);
-      return;
-    }
-
-    // Set all Open Graph tags dynamically before redirect
-    const title   = article.title   || 'El-Roi HopeBridge';
-    const desc    = article.excerpt  || 'A faith-based Nigerian NGO restoring hope and direction to young people aged 15–20.';
-    const image   = article.image    || DEFAULT_IMG;
-    const pageUrl = `${SITE_URL}/#article-${article.id}`;
-
-    document.title = `${title} — El-Roi HopeBridge`;
-
-    setTag('og:title',           title);
-    setTag('og:description',     desc);
-    setTag('og:image',           image);
-    setTag('og:url',             pageUrl);
-    setTag('og:type',            'article');
-    setTag('og:site_name',       'El-Roi HopeBridge');
-    setTag('twitter:title',      title);
-    setTag('twitter:description',desc);
-    setTag('twitter:image',      image);
-    setTag('twitter:card',       'summary_large_image');
-
-    // Update the loading message
-    document.getElementById('msg').textContent = 'Opening article…';
-
-    // Redirect visitor to the actual article after a short pause
-    // (the pause lets crawlers read the tags before the page changes)
-    setTimeout(() => {
-      window.location.replace(pageUrl);
-    }, 100);
-
-  } catch(e) {
-    window.location.replace(SITE_URL);
-  }
-}
-
-function setTag(name, value) {
-  // Handle both property= (OG) and name= (Twitter) meta tags
-  let el = document.querySelector(`meta[property="${name}"]`)
-        || document.querySelector(`meta[name="${name}"]`);
-  if (!el) {
-    el = document.createElement('meta');
-    if (name.startsWith('twitter:')) el.setAttribute('name', name);
-    else el.setAttribute('property', name);
-    document.head.appendChild(el);
-  }
-  el.setAttribute('content', value);
-}
-
-init();
+const id = new URLSearchParams(location.search).get('id');
+if(id){ location.replace('/#article-' + id); }
+else { location.replace('/'); }
 </script>
-
-<!-- Static fallback tags — these are what crawlers see instantly
-     before JavaScript runs. They update dynamically above. -->
-<meta property="og:type"        content="article">
-<meta property="og:site_name"   content="El-Roi HopeBridge">
-<meta property="og:title"       content="El-Roi HopeBridge — Every Child Deserves to Be Seen">
-<meta property="og:description" content="A faith-based Nigerian NGO restoring hope and direction to young people aged 15–20 through career clarity, mental health support, and education access.">
-<meta property="og:image"       content="https://aigrzovgqpuluaqvjyca.supabase.co/storage/v1/object/public/media/site/logo.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height"content="630">
-<meta property="og:url"         content="https://www.elroihopebridgengo.com.ng">
-<meta name="twitter:card"       content="summary_large_image">
-<meta name="twitter:title"      content="El-Roi HopeBridge — Every Child Deserves to Be Seen">
-<meta name="twitter:description"content="A faith-based Nigerian NGO restoring hope and direction to young people aged 15–20.">
-<meta name="twitter:image"      content="https://aigrzovgqpuluaqvjyca.supabase.co/storage/v1/object/public/media/site/logo.png">
-
-<style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Inter',sans-serif;background:#1B2A4A;min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1.5rem;padding:2rem;}
-  .logo{width:80px;height:80px;object-fit:contain;opacity:0.9}
-  .spinner{width:36px;height:36px;border:3px solid rgba(245,166,35,0.2);border-top-color:#F5A623;border-radius:50%;animation:spin 0.8s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  p{color:rgba(255,255,255,0.5);font-size:0.85rem}
-</style>
 </head>
-<body>
-  <img src="https://aigrzovgqpuluaqvjyca.supabase.co/storage/v1/object/public/media/site/logo.png"
-       onerror="this.style.display='none'" class="logo" alt="El-Roi HopeBridge">
-  <div class="spinner"></div>
-  <p id="msg">Loading article…</p>
-</body>
+<body><p>Opening article...</p></body>
 </html>
